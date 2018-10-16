@@ -819,6 +819,10 @@ I can only change my own profile data
 I can only cancel my own pending orders
 ```
 
+## Extensions
+
+Once all other work is 100% complete, you may add additional features to your code which are NOT already outlined in the [extensions](extensions.md) document. (those extensions are for your solo project in week 6)
+
 
 ## Rubric, Evaluations, and final Assessment
 
@@ -831,61 +835,54 @@ Each team will meet with an instructor at least two times before the project is 
 Each team will have a rubric uploaded to [https://github.com/turingschool/ruby-submissions](https://github.com/turingschool/ruby-submissions)
 
 
-### 1. Feature Completeness
+### Feature Completeness
 
-* Exceeds Expectations: All features are correctly implemented along with one or more extensions
-* Meets Expectations: All features defined in the assignment are correctly implemented and project is deployed
-* Below Expectations: There are one or two features missing or incorrectly implemented and/or project is not fully deployed
+4 - All user stories are complete and additional extension work was attempted.
+3 - All user stories are complete.
+2 - 75% of user stories are complete, but not all of them are fully implemented.
+1 - Fewer than 75% of the user stories are complete.
 
-### 2. Views
+### MVC Responsibilities
 
-* Exceeds Expectations: Views show logical refactoring into layout(s), partials and helpers, with no logic present
-* Meets Expectations: Views make use of layout(s), partials and helpers
-* Below Expectations: Views don't make use of partials or show weak understanding of rendering templates
+4 - Views only display data and do not make additional calls to the database; they may include branch logic. Controllers request all data from Models except `.all` or `.find` calls and only do `.create` and `.delete` methods for writing data. Models read/write all other data using branch logic or smaller methods.
+3 - Views make some calls to the database for `.each` calls and branch logic. Controllers push almost all work to the Models for reading/writing. Models sufficiently process and retrieve data.
+2 - Views contain logic that make significant additional calls to the database including Model class methods. Controllers do a signficant amount of processing of data that should exist at a model level. Models process data in a way that is ineffcient, or contains work that determins presentation logic (how data might get viewed).
+1 - Views, Controllers, and Models do not have a clear sense of resonsibilities.
 
-### 3. Controllers
+### Routing and Namespacing
 
-* Exceeds Expectations: Controller code shows significant effort towards refactoring and pushing logic down the stack
-* Meets Expectations: Controller code is generally well organized with three or fewer methods that need refactoring
-* Below Expectations: There are many controller methods that should have been refactored
+4 - Routing limits exactly which routes should be exposed for the app and nothing more.
+3 - Routing and namespacing are used properly for the scope of the app.
+2 - Running `rake routes` shows some endpoints which do not have code implemented.
+1 - Routing is not complete.
 
-### 4. Models
+### Testing
 
-* Exceeds Expectations: Models show excellent organization, refactoring, and appropriate use of Rails features
-* Meets Expectations: Models show an effort to push logic down the stack, but need more internal refactoring
-* Below Expectations: Models are somewhat messy and/or make poor use of Rails features
+4 - Very clear test-driven development. Test files are extremely well organized and nested and utilize `before(:each)` blocks for sharing test setups. 100% test coverage for features, and 100% of all model methods is tested.
+3 - 98% or better test coverage for features, and all model methods are 100% tested.
+2 - Many portions of code are missing tests.
+1 - Testing is extremely poor, or not done.
 
-### 5. ActiveRecord
+### User Experience and Styling/Layout
 
-* Exceeds Expectations: Best choice ActiveRecord methods are used to solve each problem
-* Meets Expectations: ActiveRecord is utilized wherever it can be. There is no Ruby where there should be ActiveRecord
-* Below Expectations: Ruby is used to programatically solve problems where ActiveRecord could be used
+4 - Extremely well styled and purposeful layout. Excellent color scheme and font usage. Easy to use and follow the application workflow. Utilizes additional tooling like SCSS.
+3 - Added a purposeful styling pattern and HTML layout using `/app/views/application.html.erb` and `/app/assets/stylesheets/application.css`. User workflow is easy to use with links to reach all areas of the site.
+2 - Styling is poor, or incomplete. Layout does not utilize good HTML patterns. User workflow has significant problems and URIs have to managed manually.
+1 - Little or no styling or layout. User workflow is significantly problematic.
 
-### 6. Testing
+### Authentication, Authorization
 
-* Exceeds Expectations: Project has a running test suite that exercises the application at multiple levels and utilizes excellent setup and teardown to maximum productivity and minimize code
-* Meets Expectations: Project has a running test suite that covers all functionality and tests at multiple levels
-* Below Expectations: Project has sporadic use of tests at multiple levels
+4 - All areas of permitted use within the app are above and beyond what we have taught.
+3 - Authentication and Authorization are implemented with clear responsibilities of each user type.
+2 - Authentication or Authorization are not implemented well (perhaps some users could impact data that they should not be permitted to access or change).
+1 - Authentication or Authorization was largely incomplete.
 
-### 7. Usability
+### Documentation and Workflow
 
-* Exceeds Expectations: Project is highly usable and ready to deploy to customers
-* Meets Expectations: Project is highly usable, but needs more polish before it'd be customer-ready
-* Below Expectations: Project needs more attention to the User Experience, some views need to use a URL to visit them
-
-### 8. Styling and Layout
-
-* Exceeds Expectations: Project utilizes HTML and CSS to its fullest
-* Meets Expectations: Project utilizes HTML and CSS but has some area for improvement
-* Below Expectations: Project utilizes little or no HTML or CSS
-
-### 9. Workflow
-
-* Exceeds Expectations: Excellent use of branches, pull requests, peer and instructor code review, and a project management tool.
-* Meets Expectations: Good use of branches, pull requests, peer and instructor code review, and a project management tool.
-* Below Expectations: Sporadic use of branches, pull requests, and/or project management tool.
- 
-### 10. Documentation
+4 - Team has build a robust README including screenshots of the app, clear explanation of what the app is used for. The team has additionally used a project tool like waffle.io that clearly shows an excellent workflow to be highly productive such as automating promotion/closing of stories are they are developed.
+3 - Team has a README that describes the application to a satisfactory level. Team has also utilized a project management tool to track their work.
+2 - README is poor quality. Team has not utilized an effective project management tool to a productive level.
+1 - No README file exists. Team has not implemented any project management tool of any kind.
 
 * Exceeds Expectations: Excellent README which gives users an exemplary guide to the what your application is, how it's used, including screenshots, installation instructions, links to each project member's github, etc.. Supplied DTR is fully complete and professional
 * Meets Expectations: A custom README is present and gives users an guide to what your application is about; a DTR is included in the project's root folder as well per Turing's DTR template
