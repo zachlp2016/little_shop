@@ -837,51 +837,51 @@ Each team will have a rubric uploaded to [https://github.com/turingschool/ruby-s
 
 ### Feature Completeness
 
-4 - All user stories are complete and additional extension work was attempted.
-3 - All user stories are complete.
-2 - 75% of user stories are complete, but not all of them are fully implemented.
+4 - All user stories are complete and additional extension work was attempted.  
+3 - All user stories are complete.  
+2 - 75% of user stories are complete, but not all of them are fully implemented.  
 1 - Fewer than 75% of the user stories are complete.
 
 ### MVC Responsibilities
 
-4 - Views only display data and do not make additional calls to the database; they may include branch logic. Controllers request all data from Models except `.all` or `.find` calls and only do `.create` and `.delete` methods for writing data. Models read/write all other data using branch logic or smaller methods.
-3 - Views make some calls to the database for `.each` calls and branch logic. Controllers push almost all work to the Models for reading/writing. Models sufficiently process and retrieve data.
-2 - Views contain logic that make significant additional calls to the database including Model class methods. Controllers do a signficant amount of processing of data that should exist at a model level. Models process data in a way that is ineffcient, or contains work that determins presentation logic (how data might get viewed).
+4 - Views only display data and do not make additional calls to the database; they may include branch logic. Controllers request all data from Models except `.all` or `.find` calls and only do `.create` and `.delete` methods for writing data. Models read/write all other data using branch logic or smaller methods.  
+3 - Views make some calls to the database for `.each` calls and branch logic. Controllers push almost all work to the Models for reading/writing. Models sufficiently process and retrieve data.  
+2 - Views contain logic that make significant additional calls to the database including Model class methods. Controllers do a signficant amount of processing of data that should exist at a model level. Models process data in a way that is ineffcient, or contains work that determins presentation logic (how data might get viewed).  
 1 - Views, Controllers, and Models do not have a clear sense of resonsibilities.
 
 ### Routing and Namespacing
 
-4 - Routing limits exactly which routes should be exposed for the app and nothing more.
-3 - Routing and namespacing are used properly for the scope of the app.
-2 - Running `rake routes` shows some endpoints which do not have code implemented.
+4 - Routing limits exactly which routes should be exposed for the app and nothing more.  
+3 - Routing and namespacing are used properly for the scope of the app.  
+2 - Running `rake routes` shows some endpoints which do not have code implemented.  
 1 - Routing is not complete.
 
 ### Testing
 
-4 - Very clear test-driven development. Test files are extremely well organized and nested and utilize `before(:each)` blocks for sharing test setups. 100% test coverage for features, and 100% of all model methods is tested.
-3 - 98% or better test coverage for features, and all model methods are 100% tested.
-2 - Many portions of code are missing tests.
+4 - Very clear test-driven development. Test files are extremely well organized and nested and utilize `before(:each)` blocks for sharing test setups. 100% test coverage for features, and 100% of all model methods is tested.  
+3 - 98% or better test coverage for features, and all model methods are 100% tested.  
+2 - Many portions of code are missing tests.  
 1 - Testing is extremely poor, or not done.
 
 ### User Experience and Styling/Layout
 
-4 - Extremely well styled and purposeful layout. Excellent color scheme and font usage. Easy to use and follow the application workflow. Utilizes additional tooling like SCSS.
-3 - Added a purposeful styling pattern and HTML layout using `/app/views/application.html.erb` and `/app/assets/stylesheets/application.css`. User workflow is easy to use with links to reach all areas of the site.
-2 - Styling is poor, or incomplete. Layout does not utilize good HTML patterns. User workflow has significant problems and URIs have to managed manually.
+4 - Extremely well styled and purposeful layout. Excellent color scheme and font usage. Easy to use and follow the application workflow. Utilizes additional tooling like SCSS.  
+3 - Added a purposeful styling pattern and HTML layout using `/app/views/application.html.erb` and `/app/assets/stylesheets/application.css`. User workflow is easy to use with links to reach all areas of the site.  
+2 - Styling is poor, or incomplete. Layout does not utilize good HTML patterns. User workflow has significant problems and URIs have to managed manually.  
 1 - Little or no styling or layout. User workflow is significantly problematic.
 
 ### Authentication, Authorization
 
-4 - All areas of permitted use within the app are above and beyond what we have taught.
-3 - Authentication and Authorization are implemented with clear responsibilities of each user type.
-2 - Authentication or Authorization are not implemented well (perhaps some users could impact data that they should not be permitted to access or change).
+4 - All areas of permitted use within the app are above and beyond what we have taught.  
+3 - Authentication and Authorization are implemented with clear responsibilities of each user type.  
+2 - Authentication or Authorization are not implemented well (perhaps some users could impact data that they should not be permitted to access or change).  
 1 - Authentication or Authorization was largely incomplete.
 
 ### Documentation and Workflow
 
-4 - Team has build a robust README including screenshots of the app, clear explanation of what the app is used for. The team has additionally used a project tool like waffle.io that clearly shows an excellent workflow to be highly productive such as automating promotion/closing of stories are they are developed.
-3 - Team has a README that describes the application to a satisfactory level. Team has also utilized a project management tool to track their work.
-2 - README is poor quality. Team has not utilized an effective project management tool to a productive level.
+4 - Team has build a robust README including screenshots of the app, clear explanation of what the app is used for. The team has additionally used a project tool like waffle.io that clearly shows an excellent workflow to be highly productive such as automating promotion/closing of stories are they are developed.  
+3 - Team has a README that describes the application to a satisfactory level. Team has also utilized a project management tool to track their work.  
+2 - README is poor quality. Team has not utilized an effective project management tool to a productive level.  
 1 - No README file exists. Team has not implemented any project management tool of any kind.
 
 * Exceeds Expectations: Excellent README which gives users an exemplary guide to the what your application is, how it's used, including screenshots, installation instructions, links to each project member's github, etc.. Supplied DTR is fully complete and professional
