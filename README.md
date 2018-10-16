@@ -883,7 +883,3 @@ Each team will have a rubric uploaded to [https://github.com/turingschool/ruby-s
 3 - Team has a README that describes the application to a satisfactory level. Team has also utilized a project management tool to track their work.  
 2 - README is poor quality. Team has not utilized an effective project management tool to a productive level.  
 1 - No README file exists. Team has not implemented any project management tool of any kind.
-
-* Exceeds Expectations: Excellent README which gives users an exemplary guide to the what your application is, how it's used, including screenshots, installation instructions, links to each project member's github, etc.. Supplied DTR is fully complete and professional
-* Meets Expectations: A custom README is present and gives users an guide to what your application is about; a DTR is included in the project's root folder as well per Turing's DTR template
-* Below Expectations: This project is lacking a README or DTR
