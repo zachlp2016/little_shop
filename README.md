@@ -879,7 +879,7 @@ Each team will have a rubric uploaded to [https://github.com/turingschool/ruby-s
 
 ### Documentation and Workflow
 
-4 - Team has built a robust README including screenshots of the app, clear explanation of what the app is used for. The team has additionally used a project tool like waffle.io that clearly shows an excellent workflow to be highly productive such as automating promotion/closing of stories as they are developed. PRs also include discussions between reviewers about the code.
+4 - Team has built a robust README including screenshots of the app, clear explanation of what the app is used for. The team has additionally used a project tool like waffle.io that clearly shows an excellent workflow to be highly productive such as automating promotion/closing of stories as they are developed. PRs also include discussions between reviewers about the code.  
 3 - Team has a README that describes the application to a satisfactory level. Team has also utilized a project management tool to track their work.  
 2 - README is poor quality. Team has not utilized an effective project management tool to a productive level.  
 1 - No README file exists. Team has not implemented any project management tool of any kind.
