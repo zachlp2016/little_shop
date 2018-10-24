@@ -279,15 +279,6 @@ And I see a flash message that tells me I am already logged in
 18. [ ] done
 
 As a registered user, merchant, or admin
-When I visit the login path
-I am redirected to my profile page
-And I see a flash message that tells me I am already logged in
-```
-
-```
-19. [ ] done
-
-As a registered user, merchant, or admin
 When I visit the logout path
 I am redirected to the welcome / home page of the application
 And I see a flash message that indicates I am logged out
@@ -298,7 +289,7 @@ Any items I had in my shopping cart are deleted
 ### "Merchant" CRUD
 
 ```
-20. [ ] done
+19. [ ] done
 
 As a merchant user
 When I visit my dashboard ("/dashboard)
@@ -307,7 +298,7 @@ Then I also see a link to my merchant orders ("/dashboard/orders")
 ```
 
 ```
-21. [ ] done
+20. [ ] done
 
 As an admin user
 When I visit the merchants index page ("/merchants")
@@ -318,7 +309,7 @@ I see an "enable" button next to any merchants whose accounts are disabled
 ```
 
 ```
-22. [ ] done
+21. [ ] done
 
 As an admin user
 When I visit the merchant index page
@@ -330,7 +321,7 @@ This merchant cannot log in
 ```
 
 ```
-23. [ ] done
+22. [ ] done
 
 As an admin user
 When I visit the merchant index page
@@ -342,7 +333,7 @@ This merchant can now log in
 ```
 
 ```
-24. [ ] done
+23. [ ] done
 
 As an admin user
 When I visit the merchant index page
@@ -355,7 +346,7 @@ And I see a link to edit their profile data
 ```
 
 ```
-25. [ ] done
+24. [ ] done
 
 As an admin user
 When I visit a merchant's dashboard page ("/merchants/6")
@@ -365,7 +356,7 @@ Except I am returned to the show page path of "/merchants/6" when I am finished
 ```
 
 ```
-26. [ ] done
+25. [ ] done
 
 As an admin user
 When I visit a merchant's dashboard page
@@ -377,7 +368,7 @@ And I only see the orders containing items from this merchant
 ### "MerchantUsers" CRUD
 
 ```
-27. [ ] done
+26. [ ] done
 
 As an admin user
 When I visit a user's profile page ("/users/5")
@@ -389,7 +380,7 @@ The next time this user logs in they are now a merchant
 ```
 
 ```
-28. [ ] done
+27. [ ] done
 
 As an admin user
 When I visit a merchant's profile page ("/merchants/6")
@@ -401,7 +392,7 @@ The next time this user logs in they are now a merchant
 ```
 
 ```
-29. [ ] done
+28. [ ] done
 
 As an admin user
 If I visit a profile page for a user, but that user is a merchant
@@ -412,7 +403,7 @@ then I am redirected to "/merchants/7" and see their merchant dashboard page
 ```
 
 ```
-30. [ ] done
+29. [ ] done
 
 As an admin user
 If I visit a profile page for a merchant, but that merchant is a regular user
@@ -425,7 +416,7 @@ then I am redirected to "/users/8" and see their user profile page
 ### "Items" CRUD
 
 ```
-31. [ ] done
+30. [ ] done
 
 As a merchant
 When I visit my dashboard page ("/dashboard")
@@ -435,7 +426,7 @@ My URI route should be "/dashboard/items"
 ```
 
 ```
-32. [ ] done
+31. [ ] done
 
 As a merchant
 When I visit my items page
@@ -452,7 +443,7 @@ If the item is disabled, I see a button or link to enable the item
 ```
 
 ```
-33. [ ] done
+32. [ ] done
 
 As a merchant
 When I visit my items page
@@ -463,7 +454,7 @@ I see the item is now disabled
 ```
 
 ```
-34. [ ] done
+33. [ ] done
 
 As a merchant
 When I visit my items page
@@ -474,7 +465,7 @@ I see the item is now enabled
 ```
 
 ```
-35. [ ] done
+34. [ ] done
 
 As a merchant
 When I visit my items page
@@ -494,7 +485,7 @@ If I left the image field blank, I see a placeholder image for the thumbnail
 ```
 
 ```
-36. [ ] done
+35. [ ] done
 
 As a merchant
 When I try to add a new item
@@ -505,7 +496,7 @@ All fields are re-populated with my previous data
 ```
 
 ```
-37. [ ] done
+36. [ ] done
 
 As a merchant
 When I visit my items page
@@ -525,7 +516,7 @@ If I left the image field blank, I see a placeholder image for the thumbnail
 ```
 
 ```
-38. [ ] done
+37. [ ] done
 
 As a merchant
 When I try to edit an existing item
@@ -536,7 +527,7 @@ All fields are re-populated with my previous data
 ```
 
 ```
-39. [ ] done
+38. [ ] done
 
 As an admin user
 When I visit a merchant's profile page
@@ -549,7 +540,7 @@ All content rules still apply (eg, item name cannot be blank, etc)
 ```
 
 ```
-40. [ ] done
+39. [ ] done
 
 As any kind of user on the system
 I can visit the items catalog ("/items")
@@ -564,7 +555,7 @@ Each item's name and thumbnail image are links to that item's show page
 ```
 
 ```
-41. [ ] done
+40. [ ] done
 
 As any kind of user on the system
 When I visit an item's show page from the items catalog
@@ -583,7 +574,7 @@ I also see a link to add this item to my cart
 ### "Cart" CRUD
 
 ```
-42. [ ] done
+41. [ ] done
 
 As any kind of user on the system
 When I visit an item's show page from the items catalog
@@ -593,7 +584,7 @@ The navigation bar increments my cart counter
 ```
 
 ```
-43. [ ] done
+42. [ ] done
 
 As any kind of user on the system
 When I visit my cart ("/cart")
@@ -610,7 +601,7 @@ I also see a grand total of what everything in my cart will cost
 ```
 
 ```
-44. [ ] done
+43. [ ] done
 
 As any kind of user on the system
 When I visit my cart ("/cart")
@@ -621,7 +612,7 @@ The navigation bar shows 0 items in my cart
 ```
 
 ```
-45. [ ] done
+44. [ ] done
 
 As any kind of user on the system
 When I visit my cart
@@ -635,7 +626,7 @@ I see a button or link to decrement the count of items I want to purchase
 ```
 
 ```
-46. [ ] done
+45. [ ] done
 
 As a visitor
 When I visit my cart
@@ -645,7 +636,7 @@ The words "log in" is a link to the login page
 ```
 
 ```
-47. [ ] done
+46. [ ] done
 
 As a registered user, merchant, or admin
 When I visit my cart
@@ -655,7 +646,7 @@ I see a button or link indicating that I can check out
 ### "Order" CRUD
 
 ```
-48. [ ] done
+47. [ ] done
 
 As a registered user, merchant, or admin
 When I visit my cart
@@ -665,7 +656,7 @@ I am taken to my orders page ("/profile/orders")
 ```
 
 ```
-49. [ ] done
+48. [ ] done
 
 As a registered user, merchant, or admin
 When I visit my orders page
@@ -682,7 +673,7 @@ And I see that order has an updated status of "cancelled"
 ```
 
 ```
-50. [ ] done
+49. [ ] done
 
 As a merchant
 When I visit my dashboard
@@ -696,7 +687,7 @@ Each order will show the following information:
 ```
 
 ```
-51. [ ] done
+50. [ ] done
 
 As a merchant
 When I visit my merchant orders page
@@ -705,7 +696,7 @@ I am taken to that order's show page ("/orders/12")
 ```
 
 ```
-52. [ ] done
+51. [ ] done
 
 As a merchant
 When I visit an order show page
@@ -731,14 +722,14 @@ Instead I see a big red notice next to the item indicating I cannot fulfill this
 ```
 
 ```
-53. [ ] done
+52. [ ] done
 
 When all items in an order have been "fulfilled" by their merchants
 The order status changes from "pending" to "complete"
 ```
 
 ```
-54. [ ]  done
+53. [ ]  done
 
 As an admin
 When I visit the orders index page ("/orders")
@@ -753,7 +744,7 @@ Admins cannot reset an order back to pending or completed states
 ### Statistics
 
 ```
-55. [ ] done
+54. [ ] done
 
 As a merchant
 When I visit my dashboard, I see an area with statistics:
@@ -767,7 +758,7 @@ When I visit my dashboard, I see an area with statistics:
 ```
 
 ```
-56. [ ] done
+55. [ ] done
 
 As an admin user
 When I visit my dashboard, I see an area with statistics:
@@ -779,7 +770,7 @@ When I visit my dashboard, I see an area with statistics:
 ```
 
 ```
-57. [ ] done
+56. [ ] done
 
 As a registered user, merchant, or admin
 When I visit the items index page ("/items")
@@ -794,7 +785,7 @@ I see an area with statistics:
 ### Security
 
 ```
-58. [ ] done
+57. [ ] done
 
 As an admin user
 I should have basic CRUD functionality for all content
@@ -802,7 +793,7 @@ Except deleting content
 ```
 
 ```
-59. [ ] done
+58. [ ] done
 
 As a merchant user
 I can only view my own merchant dashboard
@@ -811,7 +802,7 @@ I can only add/edit/update and enable/disable my own items
 ```
 
 ```
-60. [ ] done
+59. [ ] done
 
 As a registered user (who is not an admin, but may be a merchant)
 I can only view my own dashboard
