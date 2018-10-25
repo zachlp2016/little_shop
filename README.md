@@ -5,7 +5,7 @@ BE Mod 2 Week 4/5 Group Project
 
 ## Background and Description
 
-"Little Shop of Orders" is a ficticious e-commerge platform where users can register to place items into a shopping cart and 'check out'. Merchant users can mark items as 'fulfilled', and Admins can mark orders as 'complete'. Each user role will have access to some or all CRUD functionality for application models.
+"Little Shop of Orders" is a fictitious e-commerce platform where users can register to place items into a shopping cart and 'check out'. Merchant users can mark items as 'fulfilled', and Admins can mark orders as 'complete'. Each user role will have access to some or all CRUD functionality for application models.
 
 Students will be put into 3 or 4 person groups to complete the project.
 
@@ -28,9 +28,18 @@ Students will be put into 3 or 4 person groups to complete the project.
 - must use good GitHub branching, team code reviews via GitHub comments, and use of a project planning tool like waffle.io
 - must include a thorough README to describe their project
 
+## Permitted
+
+- use FactoryBot to speed up your test development
+- use "rails generators" to speed up your app development
+
 ## Not Permitted
 
 - do not use JavaScript for pagination or sorting controls
+
+## Permission
+
+- if there is a specific gem you'd like to use in the project, please get permission from your instructors first
 
 ---
 
@@ -375,7 +384,7 @@ When I visit a user's profile page ("/users/5")
 I see a link to "upgrade" the user's account to become a merchant
 When I click on that link
 I am redirected to ("/merchants/5") because the user is now a merchant
-And I see a flash message indicating the user has been upgradeded
+And I see a flash message indicating the user has been upgraded
 The next time this user logs in they are now a merchant
 ```
 
@@ -387,8 +396,8 @@ When I visit a merchant's profile page ("/merchants/6")
 I see a link to "downgrade" the user's account to become a regular user
 When I click on that link
 I am redirected to ("/users/6") because the merchant is now a regular user
-And I see a flash message indicating the user has been upgradeded
-The next time this user logs in they are now a merchant
+And I see a flash message indicating the user has been downgraded
+The next time this user logs in they are no longer a merchant
 ```
 
 ```
@@ -630,7 +639,7 @@ I see a button or link to decrement the count of items I want to purchase
 
 As a visitor
 When I visit my cart
-I see information telling me I must reigster or log in to finish the checkout process
+I see information telling me I must register or log in to finish the checkout process
 The word "register" is a link to the registration page
 The words "log in" is a link to the login page
 ```
@@ -819,8 +828,8 @@ Once all other work is 100% complete, you may add additional features to your co
 
 Each team will meet with an instructor at least two times before the project is due.
 
-- At first team progress check-in, about 33% of the work is expected to be completed satisfactorally
-- At second team progress check-in, about 66% of the work is expected to be completed satisfactorally
+- At first team progress check-in, about 33% of the work is expected to be completed satisfactorily
+- At second team progress check-in, about 66% of the work is expected to be completed satisfactorily
 - Final submission will expect 100% completion
 
 Each team will have a rubric uploaded to [https://github.com/turingschool/ruby-submissions](https://github.com/turingschool/ruby-submissions)
