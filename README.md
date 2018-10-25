@@ -158,7 +158,6 @@ As a registered user, merchant, or admin
 When I visit my own profile page
 Then I see all of my profile data on the page except my password
 And I see a link to edit my profile data
-I also see statistics about my user account
 If my account has ordered items
 Then I also see a link to my orders page ("/orders")
 ```
