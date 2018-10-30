@@ -32,7 +32,8 @@ Each rubric metric below is graded on a 4-point scale:
 
 ## MVC Responsibilities
 1.
-  - Views, Controllers, and Models do not have a clear sense of responsibilities.  Examples: Views are making calls to the model or making database calls.  Controllers are handling calculations, making multiple database calls, or handling presentation logic.
+  - Views, Controllers, and Models do not have a clear sense of responsibilities.
+  - Examples: Views are making calls to the model or making database calls.  Controllers are handling calculations, making multiple database calls, or handling presentation logic.
 2.
   - Views contain logic that make significant additional calls to the database including Model class methods.
   - Controllers do a significant amount of processing of data that should exist at a model level.
@@ -49,13 +50,13 @@ Each rubric metric below is graded on a 4-point scale:
 
 ## Routing and Namespacing
 
-- 1.
+1.
   - Routing is incomplete. (ie.  Missing necessary routes for functionality)
-- 2.
+2.
   - Running `rake routes` shows some endpoints which do not have code implemented.
-- 3.
+3.
   - Routing and namespacing are used properly for the scope of the app.
-- 4.
+4.
   - Routing limits exactly which routes should be exposed for the app and nothing more.
 
 
