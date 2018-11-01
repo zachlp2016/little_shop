@@ -108,7 +108,7 @@ The order show page should show the correct shipping address.
 
 ---
 
-## More Merchant stats (counts as 1 extention point)
+## More Merchant stats, Part 1 (counts as 1 extention point)
 
 This extension requires the "many merchants sell the same item" extention
 
@@ -121,6 +121,26 @@ When a merchant visits their merchant items page:
 - if this merchant's price is the lowest (or tied to be the lowest), the price should be colored green
 - if this merchant's price is close to the average price, the price should colored orange
 - if this merchan'ts price is higher than the average price, the price should be colored red
+
+#### Mod 2 Learning Goals reflected:
+
+- Advanced ActiveRecord
+- Software Testing
+- HTML/CSS layout and styling
+
+---
+
+## More Merchant stats, Part 2 (counts as 1 extention point)
+
+Build a Merchant leaderboard available on "/merchants" that all users can see:
+
+- Top 10 Merchants who sold the most items in the past month
+- Top 10 Merchants who fulfilled non-cancelled orders in the past month
+
+When logged in as a user:
+
+- Also see top 5 merchants who have fulfilled items the fastest to my state
+- Also see top 5 merchants who have fulfilled items the fastest to my city
 
 #### Mod 2 Learning Goals reflected:
 
