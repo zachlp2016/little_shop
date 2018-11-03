@@ -1,3 +1,6 @@
+# the extensions below have been modified for the 1810 cohort -- if you are in the 1808 cohort, check the revision history of this document to find a revision BEFORE this sentence was added.
+
+
 # Little Shop Extensions
 
 These "extension" stories are for the final week solo project for Backend Module 2 students.
@@ -9,6 +12,8 @@ Students will need to include a minimum of 3 points of additional extension work
 ---
 
 ## Turing student uses a different project's team code base (counts as 1 extension point)
+
+(working on this story presumes another team has completed 100% of the user stories for the project; instructors may provide a codebase to work on instead but will count toward this 1 point of effort)
 
 You will not use your group's project code to implement other extension work.
 
@@ -54,7 +59,13 @@ Ratings will include a title, a description, and a rating from 1 to 5.
 
 All paths for users and items should change from `/users/5` or `/items/17` to use "slugs" such as `/user/iandouglas` or `/items/awesome-widget-2000`
 
+The slug will need to be saved in the `users` able and `items` table, respectively.
 Admins have the ability to update a 'slug' for a user or item, and these `update` methods should exist under admin-only namespaced routes.
+
+Since user's first and last names are not unique, use their email address instead.
+
+Do not use any third-party gems for this work.
+
 
 #### Mod 2 Learning Goals reflected:
 
@@ -86,7 +97,7 @@ When a user visits the item index page the prices they see will indicate how man
 
 ---
 
-## Users have multiple addresses (counts as 1 extension point)
+## Users have multiple addresses (counts as 2 extension points)
 
 Users will have more than one address associated with their profile. Each address will have a nickname like "home" or "work". Users will need the ability to create/update and enable/disable the addresses.
 
@@ -99,6 +110,8 @@ If the user has no enabled addresses (they are all disabled) then the user canno
 While an order is still "pending" (no items have been fulfilled, or the order is not "complete" or "canceled"), the user can alter the order to select a different shipping address.
 
 The order show page should show the correct shipping address.
+
+Statistics related to city/state should still work as before.
 
 #### Mod 2 Learning Goals reflected:
 
@@ -134,8 +147,10 @@ When a merchant visits their merchant items page:
 
 Build a Merchant leaderboard available on "/merchants" that all users can see:
 
-- Top 10 Merchants who sold the most items in the past month
-- Top 10 Merchants who fulfilled non-cancelled orders in the past month
+- Top 10 Merchants who sold the most items this month
+- Top 10 Merchants who sold the most items last month
+- Top 10 Merchants who fulfilled non-cancelled orders this month
+- Top 10 Merchants who fulfilled non-cancelled orders last month
 
 When logged in as a user:
 
@@ -188,13 +203,28 @@ Merchants can implement bulk discount rates on their inventory. When a user sets
 
 ---
 
-## More Statistics (counts as 1 extension point)
+## Downloadable Merchant User Lists (counts as 1 extension point)
 
 Merchants can generate a list of email addresses for all existing users who are not disabled who have ordered items from this merchant in the past.
 
 Merchants can generate a list of all new users who have never ordered from them before.
 
-These lists should be downloadable CSV files -- **OR** -- implement charting JavaScript like D3, C3 or Google Charts, or find a Ruby gem that can assist.
+(These user lists should be downloadable CSV files)
+
+#### Mod 2 Learning Goals reflected:
+
+- Database relationships and migrations
+- ActiveRecord
+- Software Testing
+- HTML/CSS layout and styling
+
+
+## Merchant Statistics as charts (counts as 1 extension point)
+
+Convert any statistics screen possible using charting JavaScript libraries like D3, C3 or Google Charts, or find a Ruby gem that can assist. Specifically:
+- Merchant stats, pie chart about percentage of total inventory sold
+- include a chart broken down by month for sales
+- on `/merchants`, include a statistical pie chart showing the total sales on the whole site, and each merchant with fulfilled items on completed orders is shown in the pie chart
 
 #### Mod 2 Learning Goals reflected:
 
@@ -208,7 +238,7 @@ These lists should be downloadable CSV files -- **OR** -- implement charting Jav
 ## Merchant To-Do List (counts as 1 extension point)
 
 Merchants who visit their dashboard should see a list of "to-do" tasks such as:
-- fixing items which are using a palceholder image
+- fixing items which are using a placeholder image
   - each of these items will appear on the dashboard page with a link going directly to that item's edit page where they can set a new image URL
 - a count of how many orders are unfulfilled and the revenue impact ("You have 5 unfulfilled orders worth $752.86")
 
