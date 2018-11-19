@@ -1,4 +1,6 @@
-## User Stories
+## User Stories -- Long Edition
+
+These user stories are more complete and are useful for a full two-week project.
 
 These user stories may be worked on in any order that makes sense to your team. The most optimal order may not be a top-to-bottom approach.
 
