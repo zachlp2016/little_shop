@@ -1,15 +1,58 @@
-## User Stories -- Long Edition
+# Little Shop of Orders, v2
+BE Mod 2 Week 4/5 Group Project
+## Background and Description
+"Little Shop of Orders" is a fictitious e-commerce platform where users can register to place items into a shopping cart and 'check out'. Merchant users can mark items as 'fulfilled', and Admins can mark orders as 'complete'. Each user role will have access to some or all CRUD functionality for application models.
+Students will be put into 3 or 4 person groups to complete the project.
+## Learning Goals
+- Advanced Rails routing (nested resources and namespacing)
+- Advanced ActiveRecord for calculating statistics
+- Average HTML/CSS layout and design for UX/UI
+- Session management and use of POROs for shopping cart
+- Authentication, Authorization, separation of user roles and permissions
+## Requirements
+- must use Rails 5.1.x
+- must use PostgreSQL
+- must use 'bcrypt' for authentication
+- all controller and model code must be tested via feature tests and model tests, respectively
+- must use good GitHub branching, team code reviews via GitHub comments, and use of a project planning tool like waffle.io
+- must include a thorough README to describe their project
+## Permitted
+- use FactoryBot to speed up your test development
+- use "rails generators" to speed up your app development
+## Not Permitted
+- do not use JavaScript for pagination or sorting controls
+## Permission
+- if there is a specific gem you'd like to use in the project, please get permission from your instructors first
+## User Roles
+1. Visitor - this type of user is anonymously browsing our site and is not logged in
+2. Registered User - this user is registered and logged in to the application while performing their work; can place items in a cart and create an order
+3. Merchant User - a registered user who is also has access to merchant data and operations; user is logged in to perform their work
+4. Admin User - a registered user (but cannot also be a merchant) who has "superuser" access to all areas of the application; user is logged in to perform their work
+## Order Status
+1. 'pending' means a user has placed items in a cart and "checked out", but no merchant had fulfilled any items yet
+2. 'processing' means one or more merchants have fulfilled items from the order
+3. 'complete' means all merchants have fulfilled their items for the order
+4. 'cancelled' only 'pending' and 'processing' orders can be cancelled
+## Not Everything can be FULLY Deleted
+In the user stories, we talk about "CRUD" functionality. However, it's rare in a real production system to ever truly delete content,
+and instead we typically just 'enable' or 'disable' content. Users, items and orders can be 'enabled' or 'disabled' which blocks
+functionality (users whose accounts are disabled should not be allowed to log in, items which are disabled cannot be ordered, orders
+which are disabled cannot be processed, and so on).
+Disabled content should also be restricted from showing up in the statistics pages. For example if a user is disabled they should not
+appear in a list of "users with most orders"; if an order is disabled it should not be considered as part of "top sales" and so on.
+Be careful to watch out for which stories allow full deletion of content, and restrictions on when they apply.
 
-These user stories are more complete and are useful for a full two-week project.
+---
 
-These user stories may be worked on in any order that makes sense to your team. The most optimal order may not be a top-to-bottom approach.
-
-
-### Nothing is Deleted
-
-In the user stories below, we talk about "CRUD" functionality. However, it's rare in a real production system to ever truly delete content, and instead we typically just 'enable' or 'disable' content. Users, items and orders can be 'enabled' or 'disabled' which blocks functionality (users whose accounts are disabled should not be allowed to log in, items which are disabled cannot be ordered, orders which are disabled cannot be processed, and so on)
-
-Disabled content should also be restricted from showing up in the statistics pages. For example if a user is disabled they should not appear in a list of "users with most orders"; if an order is disabled it should not be considered as part of "top sales" and so on.
+## Navigation
+This series of stories will set up a navigation bar at the top of the screen
+and present links and information to users of your site.
+There is no requirement that the nav bar be "locked" to the top of the screen.
+### Completion of these stories will encompass the following ideas:
+- the navigation is built into app/views/layouts/application.html.erb or loaded into that file as a partial
+- you write a single set of tests that simply click on a link and expect that your current path is what you expect to see
+- your nav tests don't need to check any content on the pages, just that current_path is what you expect
+You will need to set up some basic routing and empty controller actions and empty action view files.
 
 ```
 [ ] done
@@ -97,6 +140,14 @@ Users should see a 404 error under the following conditions:
 If you think of any additional pages to block, please do so.
 ```
 
+---
+
+## Items
+This is the main "catalog" page of the entire site where users will start their
+e-commerce experience. Visitors to the site, and regular users, will be able to
+view an index page of all items available for purchase and some basic statistics.
+Each item will also have a "show" page where more information is shown.
+
 ```
 [ ] done
 
@@ -147,6 +198,16 @@ I see all information for this item, including:
 - an average amount of time it takes this merchant to fulfill this item
 If I am a visitor or regular user, I also see a link to add this item to my cart
 ```
+
+---
+
+## Shopping Cart and Checkout
+This is what this app is all about: how a user can put things in a shopping cart
+and check out, creating an order in the process.
+### Visitors and Regular Users only
+Merchants and Admin users cannot order items. This will cause a conflict in the
+project if an admin upgrades a user to a merchant and that user had previous orders
+of their own. We're not going to worry about this conflict.
 
 ```
 [ ] done
@@ -261,6 +322,19 @@ I see a flash message telling me my order was created
 I see my new order listed on my profile page
 ```
 
+---
+
+## Merchant Order Fulfillment
+Merchants must "fulfill" each ordered item for users. They will visit an order
+show page which will allow them to mark each item as fulfilled. Once every
+merchant marks their items for an order as "fulfilled" then the whole order
+switches its status to "completed". Merchants cannot fulfill items in an order
+if they do not have enough inventory in stock. If a user cancels an order after
+a merchant has fulfilled an item, the quantity of that item is returned to the
+merchant.
+### Admin functionality
+Admins can fulfill items in an order on behalf of a merchant.
+
 ```
 [ ] done
 
@@ -311,6 +385,11 @@ If the user's desired quantity is greater than my current inventory quantity for
 Then I do not see a "fulfill" button or link
 Instead I see a big red notice next to the item indicating I cannot fulfill this item
 ```
+
+---
+
+## User Registration
+This series of stories will allow a user to register on the site.
 
 ```
 [ ] done
@@ -366,6 +445,18 @@ My details are not saved and I am not logged in
 The form is filled in with all previous data except the email field and password fields
 I see a flash message telling me the email address is already in use
 ```
+
+---
+
+## User Profile Page
+When a user who is not a merchant nor an admin logs into the system, they are
+taken to a profile page under a route of "/profile".
+### Admins can act on behalf of users
+Admin users can access a namespaced route of "/admin/users" to see an index page
+of all non-merchant/non-admin users, and from there see each user. This will
+allow the admin to perform every action on a user's account that the user
+themselves can perform. Admin users can also "upgrade" a user account to become
+a merchant account.
 
 ```
 [ ] done
@@ -497,6 +588,20 @@ eg, if I visit "/admin/users/7" but that user is a merchant
 then I am redirected to "/admin/merchants/7" and see their merchant dashboard page
 ```
 
+---
+
+## User Order Show Page
+The show page for an order will be shared between users, merchants and admins.
+### User Control
+- Users can cancel an order if at least one item in the order is NOT yet fulfilled
+- When an order is cancelled, any fulfilled items have their inventory returned to their respective merchants
+### Merchant Control
+- Merchants only see items in the order that are sold by that merchant
+- Items from other merchants are hidden
+### Admin Control
+- Admins can cancel an order on behalf of a user
+- Admins can fulfill items on order on behalf of a merchant
+
 ```
 [ ] done
 
@@ -578,6 +683,14 @@ When all items in an order have been "fulfilled" by their merchants
 The order status changes from "pending" to "complete"
 ```
 
+---
+
+## Admin's User Index Page
+The index page indicated in these stories should be namespaced under a route "/admin/users".
+This route should only be accessible to admin users of your application.
+Any functionality mentioned in this epic should be performed by admin users only, and
+respective routes should all be namespaced under "/admin"
+
 ```
 [ ] done
 
@@ -623,6 +736,11 @@ And I see a flash message that the user's account is now enabled
 And I see that the user's account is now enabled
 This user can now log in
 ```
+
+---
+
+## Login / Logout
+Our application wouldn't be much use if users could not log in to use it.
 
 ```
 [ ] done
@@ -680,6 +798,19 @@ I am redirected to the welcome / home page of the application
 And I see a flash message that indicates I am logged out
 Any items I had in my shopping cart are deleted
 ```
+
+---
+
+## Merchant Dashboard
+This is the landing page when a merchant logs in. Here, they will see their contact information
+(but cannot change it), some statistics, and a list of pending orders that require the merchant's
+attention.
+### Admins can act on behalf of merchants
+Admin users will see more information on the "/merchants" route that all users
+see. For example, on this page, an admin user can navigate to each merchant's
+dashboard under a route like "/admin/merchants/7". This will allow the admin to
+perform every action that the merchant themselves can perform. Admin users can
+also "downgrade" a merchant account to become a user account.
 
 ```
 [ ] done
@@ -783,6 +914,13 @@ eg, if I visit "/admin/merchants/7" but that merchant is a regular user
 then I am redirected to "/admin/users/7" and see their user profile page
 ```
 
+---
+
+## Merchant Index Page
+All users can see a merchant index page at "/merchants" which will list some
+basic information about each merchant. When admins visit this page, however,
+more functionality is found.
+
 ```
 [ ] done
 
@@ -856,6 +994,20 @@ And I see a flash message that the merchant's account is now enabled
 And I see that the merchant's account is now enabled
 This merchant can now log in
 ```
+
+---
+
+## Merchant Items
+Merchants need CRUD functionality for items in the database. These stories
+will work through the management of items. These routes should be namespaced
+like "/dashboard/items" and "/dashboard/items/6" and so on. Merchants can
+disable items so they are no longer for sale but stay in the database so
+orders are still handled properly. Merchants can fully delete items if nobody
+has ever ordered it.
+### Admin functionality
+Admin users share all management functionality, but the routes will be much
+longer, like "/admin/merchants/8/items" and "/admin/merchants/8/items/6" and
+so on.
 
 ```
 [ ] done
@@ -1009,6 +1161,7 @@ And have access to all functionality the merchant does, including
 - enabling/disabling/deleting items
 All content rules still apply (eg, item name cannot be blank, etc)
 ```
+
 
 
 ## Extensions
