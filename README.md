@@ -53,10 +53,9 @@ Students will be put into 3 or 4 person groups to complete the project.
 
 ## User Stories
 
-Depending on the inning and holiday schedule, your instructors will assign one of the following story sets to you:
+Your team will not be able to work on these stories in numeric order. Work together to determine the best starting place and work from there.
 
-- [The long version](stories_long.md)
-- [The short version](stories_short.md)
+- [Little Shop v2 stories](stories.md)
 
 
 ## Rubric, Evaluations, and final Assessment
