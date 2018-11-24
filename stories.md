@@ -2,7 +2,7 @@
 BE Mod 2 Week 4/5 Group Project
 ## Background and Description
 "Little Shop of Orders" is a fictitious e-commerce platform where users can register to place items into a shopping cart and 'check out'. Merchant users can mark items as 'fulfilled', and Admins can mark orders as 'complete'. Each user role will have access to some or all CRUD functionality for application models.
-Students will be put into 3 or 4 person groups to complete the project.
+Students will be put into 3 or 4 person groups to complete the project.\n
 ## Learning Goals
 - Advanced Rails routing (nested resources and namespacing)
 - Advanced ActiveRecord for calculating statistics
@@ -34,19 +34,27 @@ Students will be put into 3 or 4 person groups to complete the project.
 3. 'complete' means all merchants have fulfilled their items for the order
 4. 'cancelled' only 'pending' and 'processing' orders can be cancelled
 ## Not Everything can be FULLY Deleted
-In the user stories, we talk about "CRUD" functionality. However, it's rare in a real production system to ever truly delete content,
-and instead we typically just 'enable' or 'disable' content. Users, items and orders can be 'enabled' or 'disabled' which blocks
-functionality (users whose accounts are disabled should not be allowed to log in, items which are disabled cannot be ordered, orders
-which are disabled cannot be processed, and so on).
-Disabled content should also be restricted from showing up in the statistics pages. For example if a user is disabled they should not
-appear in a list of "users with most orders"; if an order is disabled it should not be considered as part of "top sales" and so on.
+In the user stories, we talk about "CRUD" functionality. However, it's rare in a real production system to ever truly delete content, and instead we typically just 'enable' or 'disable' content. Users, items and orders can be 'enabled' or 'disabled' which blocks functionality (users whose accounts are disabled should not be allowed to log in, items which are disabled cannot be ordered, orders which are disabled cannot be processed, and so on).
+Disabled content should also be restricted from showing up in the statistics pages. For example if a user is disabled they should not appear in a list of "users with most orders"; if an order is disabled it should not be considered as part of "top sales" and so on.
 Be careful to watch out for which stories allow full deletion of content, and restrictions on when they apply.
+
+```
+[ ] done
+
+User Story 1
+Deploy your application to Heroku
+
+As a visitor or user of the site
+I will perform all user stories
+By visiting the application on Heroku.
+Localhost is fine for development, but
+the application must be hosted on Heroku.
+```
 
 ---
 
 ## Navigation
-This series of stories will set up a navigation bar at the top of the screen
-and present links and information to users of your site.
+This series of stories will set up a navigation bar at the top of the screen and present links and information to users of your site.
 There is no requirement that the nav bar be "locked" to the top of the screen.
 ### Completion of these stories will encompass the following ideas:
 - the navigation is built into app/views/layouts/application.html.erb or loaded into that file as a partial
@@ -57,7 +65,7 @@ You will need to set up some basic routing and empty controller actions and empt
 ```
 [ ] done
 
-User Story 1
+User Story 2
 Visitor Navigation
 
 As a visitor
@@ -75,7 +83,7 @@ Next to the shopping cart link I see a count of the items in my cart
 ```
 [ ] done
 
-User Story 2
+User Story 3
 User Navigation
 
 As a registered user
@@ -92,7 +100,7 @@ I also see text that says "Logged in as Ian Douglas" (or whatever my name is)
 ```
 [ ] done
 
-User Story 3
+User Story 4
 Merchant Navigation
 
 As a merchant user
@@ -107,7 +115,7 @@ Minus the following links/info:
 ```
 [ ] done
 
-User Story 4
+User Story 5
 Admin Navigation
 
 As an admin user
@@ -122,7 +130,7 @@ Minus the following links/info:
 ```
 [ ] done
 
-User Story 5
+User Story 6
 Users cannot navigate to certain paths
 
 Users should see a 404 error under the following conditions:
@@ -142,259 +150,13 @@ If you think of any additional pages to block, please do so.
 
 ---
 
-## Items
-This is the main "catalog" page of the entire site where users will start their
-e-commerce experience. Visitors to the site, and regular users, will be able to
-view an index page of all items available for purchase and some basic statistics.
-Each item will also have a "show" page where more information is shown.
-
-```
-[ ] done
-
-User Story 6
-Items Index Page
-
-As any kind of user on the system
-I can visit the items catalog ("/items")
-I see all items in the system except disabled items
-Each item will display the following information:
-- the name of the item
-- a small thumbnail image for the item
-- the merchant name who sells the item
-- how many of the item the merchant has in stock
-- the merchant's current price for the item
-Each item's name and thumbnail image are links to that item's show page
-```
-
-```
-[ ] done
-
-User Story 7
-Items Index Page Statistics
-
-As any kind of user on the system
-When I visit the items index page ("/items")
-I see an area with statistics:
-- the top 5 most popular items
-- the bottom 5 least popular items
-```
-
-```
-[ ] done
-
-User Story 8
-Item Show Page
-
-As any kind of user on the system
-When I visit an item's show page from the items catalog
-My URI route is something like "/items/18"
-I see all information for this item, including:
-- the name of the item
-- the description of the item
-- a larger image of the item
-- the merchant name who sells the item
-- how many of the item the merchant has in stock
-- the merchant's current price for the item
-- an average amount of time it takes this merchant to fulfill this item
-If I am a visitor or regular user, I also see a link to add this item to my cart
-```
-
----
-
-## Shopping Cart and Checkout
-This is what this app is all about: how a user can put things in a shopping cart
-and check out, creating an order in the process.
-### Visitors and Regular Users only
-Merchants and Admin users cannot order items. This will cause a conflict in the
-project if an admin upgrades a user to a merchant and that user had previous orders
-of their own. We're not going to worry about this conflict.
-
-```
-[ ] done
-
-User Story 9
-User adds an item to the cart
-
-As a visitor or registered user
-When I visit an item's show page from the items catalog
-I see a link or button to add this item to my cart
-And I click its link or button
-I am returned to the item index page
-I see a flash message indicating the item has been added to my cart
-The navigation bar increments my cart counter
-```
-
-```
-[ ] done
-
-User Story 10
-User views their cart show page with items in the cart
-
-As a visitor or registered user
-When I have added items to my cart
-And I visit my cart ("/cart")
-I see all items I've added to my cart
-And I see a link to empty my cart
-Each item in my cart shows the following information:
-- the name of the item
-- a very small thumbnail image of the item
-- the merchant I'm buying this item from
-- the price of the item
-- my desired quantity of the item
-- a subtotal (price multiplied by quantity)
-I also see a grand total of what everything in my cart will cost
-```
-
-```
-[ ] done
-
-User Story 11
-User views their cart show page but it's empty
-
-As a visitor or registered user
-When I add NO items to my cart yet
-And I visit my cart ("/cart")
-I see a message that my cart is empty
-I do NOT see the link to empty my cart
-```
-
-```
-[ ] done
-
-User Story 12
-User can empty a cart that has items
-
-As a visitor or registered user
-When I have items in my cart
-And I visit my cart ("/cart")
-And I click the link to empty my cart
-Then I am returned to my cart
-All items have been completely removed from my cart
-The navigation bar shows 0 items in my cart
-```
-
-```
-[ ] done
-
-User Story 13
-User can manipulate quantities in their cart
-
-As a visitor or registered user
-When I have items in my cart
-And I visit my cart
-Next to each item in my cart
-I see a button or link to remove that item from my cart
-- clicking this button will remove the item but not other items
-I see a button or link to increment the count of items I want to purchase
-- I cannot increment the count beyond the merchant's inventory size
-I see a button or link to decrement the count of items I want to purchase
-- If I decrement the count to 0 the item is immediately removed from my cart
-```
-
-```
-[ ] done
-
-User Story 14
-Visitors must register or log in to check out
-
-As a visitor
-When I have items in my cart
-And I visit my cart
-I see information telling me I must register or log in to finish the checkout process
-The word "register" is a link to the registration page
-The words "log in" is a link to the login page
-```
-
-```
-[ ] done
-
-User Story 15
-Registered users can check out
-
-As a registered user
-When I add items to my cart
-And I visit my cart
-I see a button or link indicating that I can check out
-And I click the button or link to check out
-An order is created in the system, which has a status of "pending"
-I am taken to my orders page ("/profile")
-I see a flash message telling me my order was created
-I see my new order listed on my profile page
-```
-
----
-
-## Merchant Order Fulfillment
-Merchants must "fulfill" each ordered item for users. They will visit an order
-show page which will allow them to mark each item as fulfilled. Once every
-merchant marks their items for an order as "fulfilled" then the whole order
-switches its status to "completed". Merchants cannot fulfill items in an order
-if they do not have enough inventory in stock. If a user cancels an order after
-a merchant has fulfilled an item, the quantity of that item is returned to the
-merchant.
-### Admin functionality
-Admins can fulfill items in an order on behalf of a merchant.
-
-```
-[ ] done
-
-User Story 16
-Merchant sees an order show page
-
-As a merchant
-When I visit an order show page from my dashboard
-I see the customer's name and address
-I only the items in the order that are being purchased from my inventory
-I do not see any items in the order being purchased from other merchants
-For each item, I see the following information:
-- the name of the item, which is a link to my item's show page
-- a small thumbnail of the item
-- my price for the item
-- the quantity the user wants to purchase
-```
-
-```
-[ ] done
-
-User Story 17
-Merchant fulfills part of an order
-
-As a merchant
-When I visit an order show page from my dashboard
-For each item of mine in the order
-If the user's desired quantity is equal to or less than my current inventory quantity for that item
-And I have not already "fulfilled" that item:
-- Then I see a button or link to "fulfill" that item
-- When I click on that link or button I am returned to the order show page
-- I see the item is now fulfilled
-- I also see a flash message indicating that I have fulfilled that item
-- My inventory quantity is permanently reduced by the user's desired quantity
-If I have already fulfilled this item, I see text indicating such.
-```
-
-```
-[ ] done
-
-User Story 18
-Merchant cannot fulfill an order due to lack of inventory
-
-As a merchant
-When I visit an order show page from my dashboard
-For each item of mine in the order
-If the user's desired quantity is greater than my current inventory quantity for that item
-Then I do not see a "fulfill" button or link
-Instead I see a big red notice next to the item indicating I cannot fulfill this item
-```
-
----
-
 ## User Registration
 This series of stories will allow a user to register on the site.
 
 ```
 [ ] done
 
-User Story 19
+User Story 7
 User Registration
 
 As a visitor
@@ -420,7 +182,7 @@ I see a flash message indicating that I am now registered and logged in
 ```
 [ ] done
 
-User Story 20
+User Story 8
 User Registration Missing Details
 
 As a visitor
@@ -433,7 +195,7 @@ And I see a flash message indicating that I am missing required fields
 ```
 [ ] done
 
-User Story 21
+User Story 9
 Registration Email must be unique
 
 As a visitor
@@ -448,20 +210,134 @@ I see a flash message telling me the email address is already in use
 
 ---
 
-## User Profile Page
-When a user who is not a merchant nor an admin logs into the system, they are
-taken to a profile page under a route of "/profile".
-### Admins can act on behalf of users
-Admin users can access a namespaced route of "/admin/users" to see an index page
-of all non-merchant/non-admin users, and from there see each user. This will
-allow the admin to perform every action on a user's account that the user
-themselves can perform. Admin users can also "upgrade" a user account to become
-a merchant account.
+## Login / Logout
+Our application wouldn't be much use if users could not log in to use it.
 
 ```
 [ ] done
 
-User Story 22
+User Story 10
+User can Login
+
+As a visitor
+When I visit the login path
+I see a field to enter my email address and password
+When I submit valid information
+If I am a regular user, I am redirected to my profile page
+If I am a merchant user, I am redirected to my merchant dashboard page
+If I am an admin user, I am redirected to the home page of the site
+And I see a flash message that I am logged in
+```
+
+```
+[ ] done
+
+User Story 11
+User cannot log in with bad credentials
+
+As a visitor
+When I visit the login page ("/login")
+And I submit valid information
+Then I am redirected to the login page
+And I see a flash message that tells me that my credentials were incorrect
+I am NOT told whether it was my email or password that was incorrect
+```
+
+```
+[ ] done
+
+User Story 12
+Users who are logged in already are redirected
+
+As a registered user, merchant, or admin
+When I visit the login path
+If I am a regular user, I am redirected to my profile page
+If I am a merchant user, I am redirected to my merchant dashboard page
+If I am an admin user, I am redirected to the home page of the site
+And I see a flash message that tells me I am already logged in
+```
+
+```
+[ ] done
+
+User Story 13
+User can log out
+
+As a registered user, merchant, or admin
+When I visit the logout path
+I am redirected to the welcome / home page of the site
+And I see a flash message that indicates I am logged out
+Any items I had in my shopping cart are deleted
+```
+
+---
+
+## Items
+This is the main "catalog" page of the entire site where users will start their e-commerce experience. Visitors to the site, and regular users, will be able to view an index page of all items available for purchase and some basic statistics. Each item will also have a "show" page where more information is shown.
+
+```
+[ ] done
+
+User Story 14
+Items Index Page
+
+As any kind of user on the system
+I can visit the items catalog ("/items")
+I see all items in the system except disabled items
+Each item will display the following information:
+- the name of the item
+- a small thumbnail image for the item
+- the merchant name who sells the item
+- how many of the item the merchant has in stock
+- the merchant's current price for the item
+The item name is a link to that item's show page
+The item thumbnail is a link to that item's show page
+```
+
+```
+[ ] done
+
+User Story 15
+Items Index Page Statistics
+
+As any kind of user on the system
+When I visit the items index page ("/items")
+I see an area with statistics:
+- the top 5 most popular items
+- the bottom 5 least popular items
+```
+
+```
+[ ] done
+
+User Story 16
+Item Show Page
+
+As any kind of user on the system
+When I visit an item's show page from the items catalog
+My URI route is something like "/items/18"
+I see all information for this item, including:
+- the name of the item
+- the description of the item
+- a larger image of the item
+- the merchant name who sells the item
+- how many of the item the merchant has in stock
+- the merchant's current price for the item
+- an average amount of time it takes this merchant to fulfill this item
+If I am a visitor or regular user, I also see a link to add this item to my cart
+```
+
+---
+
+## User Profile Page
+When a user who is not a merchant nor an admin logs into the system, they are taken to a profile page under a route of "/profile".
+### Admins can act on behalf of users
+Admin users can access a namespaced route of "/admin/users" to see an index page  of all non-merchant/non-admin users, and from there see each user. This will allow the admin to perform every action on a user's account that the user themselves can perform. Admin users can also "upgrade" a user account to become a merchant account.
+
+```
+[ ] done
+
+User Story 17
 User Profile Show Page
 
 As a registered user
@@ -473,7 +349,7 @@ And I see a link to edit my profile data
 ```
 [ ] done
 
-User Story 23
+User Story 18
 User Profile displays Orders
 
 As a registered user
@@ -491,7 +367,7 @@ I see every order I've made, which includes the following information:
 ```
 [ ] done
 
-User Story 24
+User Story 19
 User Can Edit their Profile Data
 
 As a registered user
@@ -512,7 +388,7 @@ And I see my updated information
 ```
 [ ] done
 
-User Story 25
+User Story 20
 User Editing Profile Data must have unique Email address
 
 As a registered user
@@ -526,7 +402,7 @@ And I see a flash message telling me that email address is already in use
 ```
 [ ] done
 
-User Story 26
+User Story 21
 Admin User Profile Page
 
 As an admin user
@@ -537,20 +413,21 @@ I see the same information the user would see themselves
 ```
 [ ] done
 
-User Story 27
+User Story 22
 Admin can edit a user's profile data
 
 As an admin user
 When I visit a user's profile page ("/admin/users/5")
 And I click the link to edit the user's profile data
 The same behaviors exist as if I were that user trying to change their own data
-Except I am returned to the show page path of "/admin/users/5" when I am finished
+Except I am returned to the show page path of
+"/admin/users/5" when I am finished
 ```
 
 ```
 [ ] done
 
-User Story 28
+User Story 23
 Admin Sees User's Orders
 
 As an admin user
@@ -561,7 +438,7 @@ I see the same order data that the user sees
 ```
 [ ] done
 
-User Story 29
+User Story 24
 Admin can make a User a Merchant
 
 As an admin user
@@ -578,14 +455,135 @@ Only admins can reach any route necessary to upgrade the user to merchant status
 ```
 [ ] done
 
-User Story 30
+User Story 25
 Admin is redirected from User profile to Merchant dashboard
 
 As an admin user
 If I visit a profile page for a user, but that user is a merchant
 Then I am redirected to the appropriate merchant dashboard page.
 eg, if I visit "/admin/users/7" but that user is a merchant
-then I am redirected to "/admin/merchants/7" and see their merchant dashboard page
+Then I am redirected to "/admin/merchants/7"
+And I see their merchant dashboard page
+```
+
+---
+
+## Shopping Cart and Checkout
+This is what this app is all about: how a user can put things in a shopping cart and check out, creating an order in the process.
+### Visitors and Regular Users only
+Merchants and Admin users cannot order items. This will cause a conflict in the project if an admin upgrades a user to a merchant and that user had previous orders of their own. We're not going to worry about this conflict.
+
+```
+[ ] done
+
+User Story 26
+User adds an item to the cart
+
+As a visitor or registered user
+When I visit an item's show page from the items catalog
+I see a link or button to add this item to my cart
+And I click its link or button
+I am returned to the item index page
+I see a flash message indicating the item has been added to my cart
+The navigation bar increments my cart counter
+```
+
+```
+[ ] done
+
+User Story 27
+User views their cart show page with items in the cart
+
+As a visitor or registered user
+When I have added items to my cart
+And I visit my cart ("/cart")
+I see all items I've added to my cart
+And I see a link to empty my cart
+Each item in my cart shows the following information:
+- the name of the item
+- a very small thumbnail image of the item
+- the merchant I'm buying this item from
+- the price of the item
+- my desired quantity of the item
+- a subtotal (price multiplied by quantity)
+I also see a grand total of what everything in my cart will cost
+```
+
+```
+[ ] done
+
+User Story 28
+User views their cart show page but it's empty
+
+As a visitor or registered user
+When I add NO items to my cart yet
+And I visit my cart ("/cart")
+I see a message that my cart is empty
+I do NOT see the link to empty my cart
+```
+
+```
+[ ] done
+
+User Story 29
+User can empty a cart that has items
+
+As a visitor or registered user
+When I have items in my cart
+And I visit my cart ("/cart")
+And I click the link to empty my cart
+Then I am returned to my cart
+All items have been completely removed from my cart
+The navigation bar shows 0 items in my cart
+```
+
+```
+[ ] done
+
+User Story 30
+User can manipulate quantities in their cart
+
+As a visitor or registered user
+When I have items in my cart
+And I visit my cart
+Next to each item in my cart
+I see a button or link to remove that item from my cart
+- clicking this button will remove the item but not other items
+I see a button or link to increment the count of items I want to purchase
+- I cannot increment the count beyond the merchant's inventory size
+I see a button or link to decrement the count of items I want to purchase
+- If I decrement the count to 0 the item is immediately removed from my cart
+```
+
+```
+[ ] done
+
+User Story 31
+Visitors must register or log in to check out
+
+As a visitor
+When I have items in my cart
+And I visit my cart
+I see information telling me I must register or log in to finish the checkout process
+The word "register" is a link to the registration page
+The words "log in" is a link to the login page
+```
+
+```
+[ ] done
+
+User Story 32
+Registered users can check out
+
+As a registered user
+When I add items to my cart
+And I visit my cart
+I see a button or link indicating that I can check out
+And I click the button or link to check out
+An order is created in the system, which has a status of "pending"
+I am taken to my orders page ("/profile")
+I see a flash message telling me my order was created
+I see my new order listed on my profile page
 ```
 
 ---
@@ -605,7 +603,7 @@ The show page for an order will be shared between users, merchants and admins.
 ```
 [ ] done
 
-User Story 31
+User Story 33
 User views an Order Show Page
 
 As a registered user
@@ -625,7 +623,7 @@ I see all information about the order, including the following information:
 ```
 [ ] done
 
-User Story 32
+User Story 34
 Admin views a User's Order Show Page
 
 As an admin user
@@ -645,7 +643,7 @@ I see all information about the order, including the following information:
 ```
 [ ] done
 
-User Story 33
+User Story 35
 User cancels an order
 
 As a registered user
@@ -663,7 +661,7 @@ When I click the cancel button for an order, the following happens:
 ```
 [ ] done
 
-User Story 34
+User Story 36
 Admin cancels a user's order
 
 As an admin user
@@ -676,7 +674,7 @@ The same behaviors happen as if the user canceled the order themselves
 ```
 [ ] done
 
-User Story 35
+User Story 37
 All Merchants fulfill items on an order
 
 When all items in an order have been "fulfilled" by their merchants
@@ -685,137 +683,15 @@ The order status changes from "pending" to "complete"
 
 ---
 
-## Admin's User Index Page
-The index page indicated in these stories should be namespaced under a route "/admin/users".
-This route should only be accessible to admin users of your application.
-Any functionality mentioned in this epic should be performed by admin users only, and
-respective routes should all be namespaced under "/admin"
-
-```
-[ ] done
-
-User Story 36
-Admin User Index Page
-
-As an admin user
-When I click on the "Users" link in the nav
-Then my current URI route is "/admin/users"
-And I see all users in the system who are not merchants nor admins
-Each user's name is a link to a show page for that user ("/admin/users/5")
-Next to each user's name is the date they registered
-I see a "disable" button next to any users who are not yet disabled
-I see an "enable" button next to any users whose accounts are disabled
-```
-
-```
-[ ] done
-
-User Story 37
-Admin disables a user account
-
-As an admin user
-When I visit the user index page
-And I click on a "disable" button for an enabled user
-I am returned to the admin's user index page
-And I see a flash message that the user's account is now disabled
-And I see that the user's account is now disabled
-This user cannot log in
-```
+## Merchant Dashboard
+This is the landing page when a merchant logs in. Here, they will see their contact information (but cannot change it), some statistics, and a list of pending orders that require the merchant's attention.
+### Admins can act on behalf of merchants
+Admin users will see more information on the "/merchants" route that all users see. For example, on this page, an admin user can navigate to each merchant's dashboard under a route like "/admin/merchants/7". This will allow the admin to perform every action that the merchant themselves can perform. Admin users can also "downgrade" a merchant account to become a user account.
 
 ```
 [ ] done
 
 User Story 38
-Admin enables a user account
-
-As an admin user
-When I visit the user index page
-And I click on a "enable" button for a disabled user
-I am returned to the admin's user index page
-And I see a flash message that the user's account is now enabled
-And I see that the user's account is now enabled
-This user can now log in
-```
-
----
-
-## Login / Logout
-Our application wouldn't be much use if users could not log in to use it.
-
-```
-[ ] done
-
-User Story 39
-User can Login
-
-As a visitor
-When I visit the login path
-I see a field to enter my email address and password
-When I submit valid information
-If I am a regular user, I am redirected to my profile page
-If I am a merchant user, I am redirected to my merchant dashboard page
-If I am an admin user, I am redirected to the home page of the site
-And I see a flash message that I am logged in
-```
-
-```
-[ ] done
-
-User Story 40
-User cannot log in with bad credentials
-
-As a visitor
-When I visit the login page ("/login")
-And I submit valid information
-Then I am redirected to the login page
-And I see a flash message that tells me that my credentials were incorrect
-I am NOT told whether it was my email or password that was incorrect
-```
-
-```
-[ ] done
-
-User Story 41
-Users who are logged in already are redirected
-
-As a registered user, merchant, or admin, who is already logged in
-When I visit the login path
-If I am a regular user, I am redirected to my profile page
-If I am a merchant user, I am redirected to my merchant dashboard page
-If I am an admin user, I am redirected to the home page of the site
-And I see a flash message that tells me I am already logged in
-```
-
-```
-[ ] done
-
-User Story 42
-User can log out
-
-As a registered user, merchant, or admin, who is already logged in
-When I visit the logout path
-I am redirected to the welcome / home page of the application
-And I see a flash message that indicates I am logged out
-Any items I had in my shopping cart are deleted
-```
-
----
-
-## Merchant Dashboard
-This is the landing page when a merchant logs in. Here, they will see their contact information
-(but cannot change it), some statistics, and a list of pending orders that require the merchant's
-attention.
-### Admins can act on behalf of merchants
-Admin users will see more information on the "/merchants" route that all users
-see. For example, on this page, an admin user can navigate to each merchant's
-dashboard under a route like "/admin/merchants/7". This will allow the admin to
-perform every action that the merchant themselves can perform. Admin users can
-also "downgrade" a merchant account to become a user account.
-
-```
-[ ] done
-
-User Story 43
 Merchant Dashboard Show Page
 
 As a merchant user
@@ -826,7 +702,7 @@ I see my profile data, but cannot edit it
 ```
 [ ] done
 
-User Story 44
+User Story 39
 Merchant Dashboard displays Orders
 
 As a merchant
@@ -843,7 +719,7 @@ Each order listed includes the following information:
 ```
 [ ] done
 
-User Story 45
+User Story 40
 Merchant Dashboard Statistics
 
 As a merchant
@@ -860,7 +736,7 @@ When I visit my dashboard, I see an area with statistics:
 ```
 [ ] done
 
-User Story 46
+User Story 41
 Merchant's Items index page
 
 As a merchant
@@ -873,7 +749,7 @@ My URI route should be "/dashboard/items"
 ```
 [ ] done
 
-User Story 47
+User Story 42
 Admin can see a merchant's dashboard
 
 As an admin user
@@ -886,7 +762,7 @@ Then I see everything that merchant would see
 ```
 [ ] done
 
-User Story 48
+User Story 43
 Admin can downgrade a merchant to regular user
 
 As an admin user
@@ -904,7 +780,7 @@ Only admins can reach any route necessary to downgrade the merchant to user stat
 ```
 [ ] done
 
-User Story 49
+User Story 44
 Admin is redirected from Merchant Dashboard to User profile
 
 As an admin user
@@ -917,14 +793,12 @@ then I am redirected to "/admin/users/7" and see their user profile page
 ---
 
 ## Merchant Index Page
-All users can see a merchant index page at "/merchants" which will list some
-basic information about each merchant. When admins visit this page, however,
-more functionality is found.
+All users can see a merchant index page at "/merchants" which will list some basic information about each merchant. When admins visit this page, however, more functionality is found.
 
 ```
 [ ] done
 
-User Story 50
+User Story 45
 Merchant Index Page
 
 As a visitor
@@ -937,7 +811,7 @@ I also see the date they registered
 ```
 [ ] done
 
-User Story 51
+User Story 46
 Merchant Index Page Statistics
 
 As a visitor
@@ -953,7 +827,7 @@ When I visit the merchants index page, I see an area with statistics:
 ```
 [ ] done
 
-User Story 52
+User Story 47
 Admin visits Merchant Index Page
 
 As an admin user
@@ -968,7 +842,7 @@ I see an "enable" button next to any merchants whose accounts are disabled
 ```
 [ ] done
 
-User Story 53
+User Story 48
 Admin disables a merchant account
 
 As an admin merchant
@@ -983,7 +857,7 @@ This merchant cannot log in
 ```
 [ ] done
 
-User Story 54
+User Story 49
 Admin enables a merchant account
 
 As an admin merchant
@@ -998,21 +872,14 @@ This merchant can now log in
 ---
 
 ## Merchant Items
-Merchants need CRUD functionality for items in the database. These stories
-will work through the management of items. These routes should be namespaced
-like "/dashboard/items" and "/dashboard/items/6" and so on. Merchants can
-disable items so they are no longer for sale but stay in the database so
-orders are still handled properly. Merchants can fully delete items if nobody
-has ever ordered it.
+Merchants need CRUD functionality for items in the database. These stories will work through the management of items. These routes should be namespaced like "/dashboard/items" and "/dashboard/items/6" and so on. Merchants can disable items so they are no longer for sale but stay in the database so orders are still handled properly. Merchants can fully delete items if nobody has ever ordered it.
 ### Admin functionality
-Admin users share all management functionality, but the routes will be much
-longer, like "/admin/merchants/8/items" and "/admin/merchants/8/items/6" and
-so on.
+Admin users share all management functionality, but the routes will be much longer, like "/admin/merchants/8/items" and "/admin/merchants/8/items/6" and so on.
 
 ```
 [ ] done
 
-User Story 55
+User Story 50
 Merchant Items Index Page
 
 As a merchant
@@ -1033,7 +900,7 @@ If the item is disabled, I see a button or link to enable the item
 ```
 [ ] done
 
-User Story 56
+User Story 51
 Merchant disables an item
 
 As a merchant
@@ -1047,7 +914,7 @@ I see the item is now disabled
 ```
 [ ] done
 
-User Story 57
+User Story 52
 Merchant enables an item
 
 As a merchant
@@ -1061,7 +928,7 @@ I see the item is now enabled
 ```
 [ ] done
 
-User Story 58
+User Story 53
 Merchant deletes an item
 
 As a merchant
@@ -1075,7 +942,7 @@ I no longer see this item on the page
 ```
 [ ] done
 
-User Story 59
+User Story 54
 Merchant adds an item
 
 As a merchant
@@ -1098,7 +965,7 @@ If I left the image field blank, I see a placeholder image for the thumbnail
 ```
 [ ] done
 
-User Story 60
+User Story 55
 Merchant cannot add an item if details are bad/missing
 
 As a merchant
@@ -1112,7 +979,7 @@ All fields are re-populated with my previous data
 ```
 [ ] done
 
-User Story 61
+User Story 56
 Merchant edits an item
 
 As a merchant
@@ -1135,7 +1002,7 @@ If I left the image field blank, I see a placeholder image for the thumbnail
 ```
 [ ] done
 
-User Story 62
+User Story 57
 Merchant cannot edit an item if details are bad/missing
 
 As a merchant
@@ -1149,7 +1016,7 @@ All fields are re-populated with my previous data
 ```
 [ ] done
 
-User Story 63
+User Story 58
 Admin can manage items on behalf of a merchant
 
 As an admin user
@@ -1162,8 +1029,111 @@ And have access to all functionality the merchant does, including
 All content rules still apply (eg, item name cannot be blank, etc)
 ```
 
+---
 
+## Merchant Order Fulfillment
+Merchants must "fulfill" each ordered item for users. They will visit an order show page which will allow them to mark each item as fulfilled. Once every merchant marks their items for an order as "fulfilled" then the whole order switches its status to "completed". Merchants cannot fulfill items in an order if they do not have enough inventory in stock. If a user cancels an order after a merchant has fulfilled an item, the quantity of that item is returned to the merchant.
+### Admin functionality
+Admins can fulfill items in an order on behalf of a merchant.
 
-## Extensions
+```
+[ ] done
 
-Once all other work is 100% complete, you may add additional features to your code which are NOT already outlined in the [extensions](extensions.md) document. (those extensions are for your solo project in week 6)
+User Story 59
+Merchant sees an order show page
+
+As a merchant
+When I visit an order show page from my dashboard
+I see the customer's name and address
+I only the items in the order that are being purchased from my inventory
+I do not see any items in the order being purchased from other merchants
+For each item, I see the following information:
+- the name of the item, which is a link to my item's show page
+- a small thumbnail of the item
+- my price for the item
+- the quantity the user wants to purchase
+```
+
+```
+[ ] done
+
+User Story 60
+Merchant fulfills part of an order
+
+As a merchant
+When I visit an order show page from my dashboard
+For each item of mine in the order
+If the user's desired quantity is equal to or less than my current inventory quantity for that item
+And I have not already "fulfilled" that item:
+- Then I see a button or link to "fulfill" that item
+- When I click on that link or button I am returned to the order show page
+- I see the item is now fulfilled
+- I also see a flash message indicating that I have fulfilled that item
+- My inventory quantity is permanently reduced by the user's desired quantity
+If I have already fulfilled this item, I see text indicating such.
+```
+
+```
+[ ] done
+
+User Story 61
+Merchant cannot fulfill an order due to lack of inventory
+
+As a merchant
+When I visit an order show page from my dashboard
+For each item of mine in the order
+If the user's desired quantity is greater than my current inventory quantity for that item
+Then I do not see a "fulfill" button or link
+Instead I see a big red notice next to the item indicating I cannot fulfill this item
+```
+
+---
+
+## Admin's User Index Page
+The index page indicated in these stories should be namespaced under a route "/admin/users". This route should only be accessible to admin users of your application. Any functionality mentioned in this epic should be performed by admin users only, and respective routes should all be namespaced under "/admin"
+
+```
+[ ] done
+
+User Story 62
+Admin User Index Page
+
+As an admin user
+When I click on the "Users" link in the nav
+Then my current URI route is "/admin/users"
+And I see all users in the system who are not merchants nor admins
+Each user's name is a link to a show page for that user ("/admin/users/5")
+Next to each user's name is the date they registered
+I see a "disable" button next to any users who are not yet disabled
+I see an "enable" button next to any users whose accounts are disabled
+```
+
+```
+[ ] done
+
+User Story 63
+Admin disables a user account
+
+As an admin user
+When I visit the user index page
+And I click on a "disable" button for an enabled user
+I am returned to the admin's user index page
+And I see a flash message that the user's account is now disabled
+And I see that the user's account is now disabled
+This user cannot log in
+```
+
+```
+[ ] done
+
+User Story 64
+Admin enables a user account
+
+As an admin user
+When I visit the user index page
+And I click on a "enable" button for a disabled user
+I am returned to the admin's user index page
+And I see a flash message that the user's account is now enabled
+And I see that the user's account is now enabled
+This user can now log in
+```
