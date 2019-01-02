@@ -134,6 +134,8 @@ Merchants can implement bulk discount rates on their inventory. When a user sets
 
 You'll need to build CRUD pages to manage this.
 
+Merchants must be able to include mutiple bulk discounts, but only one type. For example, a merchant cannot have bulk discounts that are both dollar-based ($10 off $30 or more) AND a percentage-off (15% off 20 items or more) at the same time.
+
 #### Mod 2 Learning Goals reflected:
 
 - Database relationships and migrations
