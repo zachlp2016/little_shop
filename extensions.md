@@ -2,9 +2,9 @@
 
 These "extension" stories are for the final week solo project for Backend Module 2 students.
 
-Students will need to include a minimum of 3 points of additional extension work.
+Students will need to include a minimum of 2 points of additional extension work.
 
-1 of these extension points of work will be assigned to you. The other points you get to choose from the following list:
+1 of these extension points of work will be assigned to you. The other point you get to choose from the following list:
 
 ---
 
