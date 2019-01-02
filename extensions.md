@@ -8,25 +8,6 @@ Students will need to include a minimum of 2 points of additional extension work
 
 ---
 
-## Turing student uses a different project's team code base (counts as 1 extension point)
-
-(working on this story presumes your team and another team has completed 100% of the user stories for the project; instructors may provide a codebase to work on instead but will count toward this 1 point of effort)
-
-You will not use your group's project code to implement other extension work.
-
-You will be assigned a code base by your instructors, and you will fork their repo and add your own work to your own repo.
-
-You will deploy the code to your own new Heroku instance.
-
-#### Mod 2 Learning Goals reflected:
-
-- Understanding MVC
-- Rails development (including routing)
-- Understanding HTTP statelessness and sessions
-- Software Testing
-
----
-
 ## Users can rate items (counts as 1 extension point)
 
 Users will have the ability to leave ratings for items they have successfully purchased.
@@ -59,7 +40,7 @@ All paths for users and items should change from `/users/5` or `/items/17` to us
 The slug will need to be saved in the `users` able and `items` table, respectively.
 Admins have the ability to update a 'slug' for a user or item, and these `update` methods should exist under admin-only namespaced routes.
 
-Since user's first and last names are not unique, use their email address instead.
+Since user's first and last names are not unique, use their email address instead. Look into "URL encoding" for working with the `@` symbol in URI paths.
 
 Do not use any third-party gems for this work.
 
@@ -122,7 +103,7 @@ When logged in as a user:
 
 ## Coupon Codes (counts as 1 extension point)
 
-Merchants can generate one-time-use coupon codes within the system. Students will use [UUIDs](https://ruby-doc.org/stdlib-2.4.0/libdoc/securerandom/rdoc/SecureRandom.html) for the codes.
+Merchants can generate one-time-use coupon codes within the system.
 
 Users can enter a coupon code as part of the check-out process. They'll need a field on the cart page where they can enter the code, and a button to "apply" the coupon. The page should show a flash message whether the coupon was successful, and if it was successful the cart should show a new "line item" for the coupon showing its discount, and how it affected the grant total.
 
@@ -132,6 +113,8 @@ The coupon could be good for one of many scenarios:
 - a dollar amount if the cart total exceeds a value ("$10 off orders of $20 or more")
 
 Users should be able to apply the coupon and continue adding items to their cart. The coupon is considered "used" when the user checks-out successfully.
+
+You will need to build CRUD management pages for this as well.
 
 #### Mod 2 Learning Goals reflected:
 
@@ -148,6 +131,8 @@ Merchants can implement bulk discount rates on their inventory. When a user sets
 - 1 to 10 of a single item, no discount
 - 10 to 20 of a single item, 5% discount on that item's price
 - 20+ of a single item, 10% discount on that item's price
+
+You'll need to build CRUD pages to manage this.
 
 #### Mod 2 Learning Goals reflected:
 
