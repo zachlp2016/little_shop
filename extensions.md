@@ -100,28 +100,6 @@ Statistics related to city/state should still work as before.
 
 ## More Merchant stats, Part 1 (counts as 1 extention point)
 
-This extension requires the "many merchants sell the same item" extention
-
-When a merchant visits their dashboard, they see additional statistics:
-- comparison of their mark-up compared to the system average mark-up
-- how much of their revenue is profit
-
-When a merchant visits their merchant items page:
-- each item will show a a min/avg/max price for each item that is also sold by another merchant
-- if this merchant's price is the lowest (or tied to be the lowest), the price should be colored green
-- if this merchant's price is close to the average price, the price should colored orange
-- if this merchan'ts price is higher than the average price, the price should be colored red
-
-#### Mod 2 Learning Goals reflected:
-
-- Advanced ActiveRecord
-- Software Testing
-- HTML/CSS layout and styling
-
----
-
-## More Merchant stats, Part 2 (counts as 1 extention point)
-
 Build a Merchant leaderboard available on "/merchants" that all users can see:
 
 - Top 10 Merchants who sold the most items this month
