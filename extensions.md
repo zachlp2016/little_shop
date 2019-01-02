@@ -114,6 +114,8 @@ The coupon could be good for one of many scenarios:
 
 Users should be able to apply the coupon and continue adding items to their cart. The coupon is considered "used" when the user checks-out successfully.
 
+A coupon code can only apply to items in the order from that merchant, a coupon code cannot apply to other merchant's items.
+
 You will need to build CRUD management pages for this as well.
 
 #### Mod 2 Learning Goals reflected:
