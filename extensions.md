@@ -1,28 +1,36 @@
 # Little Shop Extensions
 
-These "extension" stories are for the final week solo project for Backend Module 2 students.
+These "extension" stories are for the final week solo project for Backend Module 2 students. It assumes your team has already completed 100% of the Little Shop project. In the case that your team has not finished the project, instructors will provide an alternate code base.
 
-Students will need to include a minimum of 2 points of additional extension work.
+Choose 2 stories of extension work, and instructors will do their best to accommodate both of your choices. Try to pick one story that plays to your strengths, and one story that will help an area of growth for yourself.
 
-1 of these extension points of work will be assigned to you. The other point you get to choose from the following list:
+Below, you'll see Completion Criteria and Implementation Guidelines. The Completion Criteria are the points that instructors will be assessing to ensure you've completed the work. The Implementation Guidelines will direct you in how to implement the work or offer advice or restrictions.
+
+You get to choose how to implement the story, presentation, routing, etc, as long as your work satisfies the Completion Criteria.
 
 ---
 
-## Users can rate items (counts as 1 extension point)
+## Users can rate items
+
+#### General Goal
 
 Users will have the ability to leave ratings for items they have successfully purchased.
 
-Users cannot rate items from orders which have been canceled by the user or an admin.
+#### Completion Criteria
 
-Users can write one rating per item per order. If the user orders an item (in any quantity) they can leave one rating. If they order the item again in a different order, the user can leave another rating.
+1. Users can write one review for each item in any "completed" order.
+1. Ratings will include a title, a description, and an integer rating from 1 to 5, a user, an item, and timestamps.
+1. Users will have a link on their Profile to an index page to see all reviews they have written. That index page will give them the ability to edit or delete any review. Users cannot add reviews from this page.
+1. Users will navigate to one of their order show pages where each item will have a button or link to add a review if a review is possible.
+1. If a user orders the same item in a different order, they get to leave an additional review. (if they order the same item in 4 different orders, they get to leave 4 ratings)
+1. The average review rating for each item should be shown on both the Item Catalog page as well as its Item Show page.
+1. The Item Show page will show all reviews for that item including the name of the reviewer and all details of the review including the date it was created; if the review was changed, also show the updated_at date.
 
-Build all CRUD functionality for users to add a rating through their order show page.
+#### Implementation Guidelines
 
-Users can disable any rating they created. Admins can enable or disable any rating.
-
-Disabled ratings should not factor into total counts of ratings, nor averages of ratings.
-
-Ratings will include a title, a description, and a rating from 1 to 5.
+1. No "show page" is required for reviews; reviews will be displayed on each Item's show page.
+1. An order show page should not show a link to create a review for an item if the user cannot review that item any more. Consider building a `reviewable?` helper method to check.
+1. Reviews do not need to be tied to a specific order.
 
 #### Mod 2 Learning Goals reflected:
 
@@ -33,43 +41,52 @@ Ratings will include a title, a description, and a rating from 1 to 5.
 
 ---
 
-## Slugs (counts as 1 extension point)
+## Slugs
 
-All paths for users and items should change from `/users/5` or `/items/17` to use "slugs" such as `/user/iandouglas` or `/items/awesome-widget-2000`
+#### General Goal
 
-The slug will need to be saved in the `users` able and `items` table, respectively.
-Admins have the ability to update a 'slug' for a user or item, and these `update` methods should exist under admin-only namespaced routes.
+All paths for users and items should change from `/users/5` or `/items/17` to use "slugs" such as `/admin/user/user2000-gmail.com` or `/items/awesome-widget-2000`.
 
-Since user's first and last names are not unique, use their email address instead. Look into "URL encoding" for working with the `@` symbol in URI paths.
+#### Completion Criteria
 
-Do not use any third-party gems for this work.
+1. The User model and Item model need an additional string field to contain the slug.
+1. The User slug is built from the user's email address.
+1. The Item slug is based on the name of the item, plus a numeric value ONLY if the item name is not unique. You may choose to use a randomized number, or the ID of the item. eg, if "Widget" is item 17 in the database, its slug could be 'widget-17'.
+1. Do not use any third-party gems to complete this work.
 
+#### Implementation Guidelines
+
+1. The slug string should ONLY be changed when the user's email address, or the item name, is changed.
+1. No other alteration of the user or item record (eg, enabling/disabling a user or item, or adjusting an item's inventory) should generate a new slug. Be sure to include tests that ensure the slug does not change under these conditions, especially if you're using a random number.
 
 #### Mod 2 Learning Goals reflected:
 
-- Additional database migrations
+- Database migrations
 - ActiveRecord
 - Rails routing
-- Namespacing
 - Software Testing
 
 ---
 
-## Users have multiple addresses (counts as 1 extension point)
+## Users have multiple addresses
 
-Users will have more than one address associated with their profile. Each address will have a nickname like "home" or "work". Users will need the ability to create/update and enable/disable the addresses.
+#### General Goal
 
-The very first address they register with will be their "default" address. A user can select any other address to be their new "default" address.
+Users will have more than one address associated with their profile. Each address will have a nickname like "home" or "work". Users will choose an address when checking out.
 
-When creating an order, the check-out process will need the user to select which of their shipping addresses to set for the order. It will show their "default" address first, and then all other addresses. This list will not include any disabled addresses.
+#### Completion Criteria
 
-If the user has no enabled addresses (they are all disabled) then the user cannot check out on the cart page. They will see text where the check-out button would be, telling the user that they must have one enabled address in order to check out.
+1. When a user registers they will still provide an address, this will become their first address entry in the database and nicknamed "home".
+1. Users need full CRUD ability for addresses from their Profile page.
+1. An address cannot be deleted or changed if it's been used in a "completed" order.
+1. When a user checks out on the cart show page, they will have the ability to choose one of their addresses where they'd like the order shipped.
+1. If a user deletes all of their addresses, they cannot check out and see an error telling them they need to add an address first. This should link to a page where they add an address.
+1. If an order is still pending, the user can change to which address they want their items shipped.
 
-While an order is still "pending" (no items have been fulfilled, or the order is not "complete" or "canceled"), the user can alter the order to select a different shipping address.
+#### Implementation Guidelines
 
-The order show page should show the correct shipping address.
-
-Statistics related to city/state should still work as before.
+1. Every order show page should display the chosen shipping address.
+1. Statistics related to city/state should still work as before.
 
 #### Mod 2 Learning Goals reflected:
 
@@ -79,19 +96,27 @@ Statistics related to city/state should still work as before.
 
 ---
 
-## More Merchant stats, Part 1 (counts as 1 extention point)
+## More Merchant Stats
 
-Build a Merchant leaderboard available on "/merchants" that all users can see:
+#### General Goal
 
-- Top 10 Merchants who sold the most items this month
-- Top 10 Merchants who sold the most items last month
-- Top 10 Merchants who fulfilled non-cancelled orders this month
-- Top 10 Merchants who fulfilled non-cancelled orders last month
+Build a Merchant leaderboard as part of the "/merchants" page containing additional statistics that all users can see.
 
-When logged in as a user:
+#### Completion criteria
 
-- Also see top 5 merchants who have fulfilled items the fastest to my state
-- Also see top 5 merchants who have fulfilled items the fastest to my city
+1. Add the following leaderboard items:
+  - Top 10 Merchants who sold the most items this month
+  - Top 10 Merchants who sold the most items last month
+  - Top 10 Merchants who fulfilled non-cancelled orders this month
+  - Top 10 Merchants who fulfilled non-cancelled orders last month
+
+2. When logged in as a user, the following stats are also displayed on the "/merchants" page as well:
+  - Also see top 5 merchants who have fulfilled items the fastest to my state
+  - Also see top 5 merchants who have fulfilled items the fastest to my city
+
+#### Implementation Guidelines
+
+1. It may be tricky to build any one portion of these statistics in a single ActiveRecord call. You can use multiple calls in a method to build these statistics, but allow the database to do the calculations, not Ruby.
 
 #### Mod 2 Learning Goals reflected:
 
@@ -101,22 +126,31 @@ When logged in as a user:
 
 ---
 
-## Coupon Codes (counts as 1 extension point)
+## Coupon Codes
 
-Merchants can generate one-time-use coupon codes within the system.
+#### General Goals
 
-Users can enter a coupon code as part of the check-out process. They'll need a field on the cart page where they can enter the code, and a button to "apply" the coupon. The page should show a flash message whether the coupon was successful, and if it was successful the cart should show a new "line item" for the coupon showing its discount, and how it affected the grant total.
+Merchants can generate coupon codes within the system.
 
-The coupon could be good for one of many scenarios:
-- a total percentage discount ("10% off entire order")
-- a set dollar amount ("$10 off any order") but should not allow the price to below $0.00
-- a dollar amount if the cart total exceeds a value ("$10 off orders of $20 or more")
+#### Completion Criteria
 
-Users should be able to apply the coupon and continue adding items to their cart. The coupon is considered "used" when the user checks-out successfully.
+1. Merchants have a link on their dashboard to manage their coupons.
+1. Merchants have full CRUD functionality over their coupons with exceptions mentioned below:
+  - merchants cannot delete a coupon that has been used
+  - merchants can have a maximum of 5 coupons in the system
+  - merchants can enable/disable coupon codes
+1. A coupon will have a name, and either percent-off or dollar-off value. The name must be unique in the whole database.
+1. Users need a way to add a coupon code when checking out. Only one coupon may be used per order.
+1. Coupons can be used by multiple users, but may only be used one time per user.
+1. If a coupon's dollar value ($10 off) exceeds the total cost of everything in the cart, the cart price is $0, it should not display a negative value.
+1. A coupon code from a merchant only applies to items sold by that merchant.
 
-A coupon code can only apply to items in the order from that merchant, a coupon code cannot apply to other merchant's items.
+#### Implementation Guidelines
 
-You will need to build CRUD management pages for this as well.
+1. Users can enter different coupon codes until they finish checking out, then their choice is final.
+1. The cart show page should calculate subtotals and the grand total as usual, but also show a "discounted total".
+1. Order show pages should display which coupon was used.
+1. If a user adds a coupon code, they can continue shopping. The coupon code is still remembered when returning to the cart page.
 
 #### Mod 2 Learning Goals reflected:
 
@@ -127,16 +161,27 @@ You will need to build CRUD management pages for this as well.
 
 ---
 
-## Bulk Discount (counts as 1 extension point)
+## Bulk Discount
 
-Merchants can implement bulk discount rates on their inventory. When a user sets their cart quantity to a certain level, those discounts get applied. For example, a merchant might set bulk discounts this way:
-- 1 to 10 of a single item, no discount
-- 10 to 20 of a single item, 5% discount on that item's price
-- 20+ of a single item, 10% discount on that item's price
+#### General Goals
 
-You'll need to build CRUD pages to manage this.
+Merchants add bulk discount rates for all of their inventory. These apply automatically in the shopping cart, and adjust the order_items price upon checkout.
 
-Merchants must be able to include mutiple bulk discounts, but only one type. For example, a merchant cannot have bulk discounts that are both dollar-based ($10 off $30 or more) AND a percentage-off (15% off 20 items or more) at the same time.
+#### Completion Criteria
+
+1. Merchants need full CRUD functionality on bulk discounts, and will be accessed a link on the merchant's dashboard.
+1. Bulk discounts can be one of two types: percentage based, or dollar based:
+  - 5% discount on 20 or more items
+  - $10 off an order of $50 or more
+1. A merchant can have multiple bulk discounts in the system, but they must be the same percentage type or dollar type as the first bulk discount made.
+1. When a user adds enough value or quantity of items to their cart, the bulk discount will automatically show up on the cart page.
+1. A bulk discount from one merchant will only affect items from that merchant in the cart.
+1. A bulk discount will only apply to items which exceed the minimum quantity specified in the bulk discount. (eg, a 5% off 5 items or more does not activate if a user is buying 1 quantity of 5 different items; if they raise the quantity of one item to 5, then the bulk discount is only applied to that one item, not all of the others as well)
+
+#### Implementation Guidelines
+
+1. If a merchant wants to change their discounts to a different type, they will need to delete all bulk discounts first.
+1. When an order is created during checkout, try to adjust the price of the items in the order_items table.
 
 #### Mod 2 Learning Goals reflected:
 
@@ -147,29 +192,33 @@ Merchants must be able to include mutiple bulk discounts, but only one type. For
 
 ---
 
-## Downloadable Merchant User Lists (counts as 1 extension point)
+## Downloadable Merchant User Lists
 
-Merchants can generate a list of email addresses for all existing users who are not disabled who have ordered items from this merchant in the past. The 4 columns must include: their name, email address, and how much money they've spent on your items, and how much they've spent from all merchants.
+#### General Goals
 
-Merchants can generate a list of all new users who have never ordered from them before. Columns must include their name, email address, how much they've spent from other merchants, and how many orders they've made on the system.
+On their dashboards, Merchants can access CSV-style data of their existing customers or users who have never bought from them ("potential customers").
 
-These user lists should be downloadable CSV files, one user per line in the CSV.
+#### Completion Criteria
 
-#### Mod 2 Learning Goals reflected:
+1. The list of existing customers should generate 4 columns of data in a CSV format. Columns will include:
+  - user name
+  - email address
+  - how much money they've spent on items sold by this merchant
+  - how much money they've spent on items from all merchants
+1. The list of potential customers should generate 4 columns of data in a CSV format. Columns will include:
+  - user name
+  - email address
+  - how much money they've spent on items from all merchants
+  - total number of orders made by this user
+1. Deactivated users should not be included in these lists of data.
+1. CSV data should sort users alphabetically by name.
+1. Each user should be on a separate line in the CSV data.
 
-- Database relationships and migrations
-- ActiveRecord
-- Software Testing
-- HTML/CSS layout and styling
+#### Implementation Guidelines
 
-
-## Merchant Statistics as charts (counts as 1 extension point)
-
-Convert any statistics screen possible using charting JavaScript libraries like D3, C3 or Google Charts, or find a Ruby gem that can assist. Specifically:
-
-- Merchant stats, pie chart about percentage of total inventory sold
-- include a chart broken down by month for sales
-- on `/merchants`, include a statistical pie chart showing the total sales on the whole site, and each merchant with fulfilled items on completed orders is shown in the pie chart
+1. Test this work very thoroughly at a model level
+1. At a minimum, create a CSV view (make a view like existing_customers.csv.erb) and then `expect(page).to have_content()` should work well for feature tests; do not create an HTML-based view of the data.
+1. Ideally, make the link to the CSV immediately download the CSV files; this complicates feature testing
 
 #### Mod 2 Learning Goals reflected:
 
@@ -180,13 +229,53 @@ Convert any statistics screen possible using charting JavaScript libraries like 
 
 ---
 
-## Merchant To-Do List (counts as 1 extension point)
+## Merchant Statistics as Charts
 
-Merchants who visit their dashboard should see a list of "to-do" tasks such as:
-- fixing items which are using a placeholder image
-  - each of these items will appear on the dashboard page with a link going directly to that item's edit page where they can set a new image URL
-- a count of how many orders are unfulfilled and the revenue impact ("You have 5 unfulfilled orders worth $752.86")
+#### General Goals
 
+Convert statistics blocks on the application to visual charts using charting JavaScript libraries like D3, C3 or Google Charts, or find a Ruby gem that can assist.
+
+#### Completion Criteria
+
+1. Merchant dashboard page:
+  - new: line graph or bar chart of total revenue by month for up to 12 months
+  - existing: pie chart of the percentage of total inventory sold
+  - existing: pie chart for top 3 states and top 3 cities
+1. Merchant index page:
+  - pie chart showing total sales on the whole site; merchants who are part of "completed" orders are shown on the pie chart
+1. Use your discretion to add any additional charts where you see statistics on the site.
+
+#### Implementation Guidelines
+
+1. Feature testing charts is extremely hard; do your best to detect that a chart is present
+1. Model testing will be extremely important to ensure data is coming back correctly
+1. If you are also completing any other extension story which includes stats, try to implement some of that work in charts/graphs as well
+
+#### Mod 2 Learning Goals reflected:
+
+- Database relationships and migrations
+- ActiveRecord
+- Software Testing
+- HTML/CSS layout and styling
+
+---
+
+## Merchant To-Do List
+
+#### General Goals
+
+Merchant dashboards will display a to-do list of tasks that need their attention.
+
+#### Completion Criteria
+
+1. Merchants should be shown a list of items which are using a placeholder image and encouraged to find an appropriate image instead; each item is a link to that item's edit form.
+1. Merchants should see a statistic about unfulfilled items and the revenue impact. eg, "You have 5 unfulfilled orders worth $752.86"
+1. Next to each order on their dashboard, Merchants should see a warning if an item quantity on that order exceeds their current inventory count.
+1. If several orders exist for an item, and their summed quantity exceeds the Merchant's inventory for that item, a warning message is shown.
+
+#### Implementation Guidelines
+
+1. Make sure you are testing for all happy path and sad path scenarios.
 
 #### Mod 2 Learning Goals reflected:
 
