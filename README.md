@@ -33,6 +33,12 @@ Students will be put into 3 or 4 person groups to complete the project.
 ## Permission
 - if there is a specific gem you'd like to use in the project, please get permission from your instructors first
 
+## Schema
+
+You should use this schema:
+
+![Imgur](https://i.imgur.com/kEcAZdw.png)
+
 ## User Stories
 
 Your team may not be able to work on these stories in numeric order. Work together to determine the best starting place and work from there.
