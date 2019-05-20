@@ -105,14 +105,14 @@ Build a Merchant leaderboard as part of the "/merchants" page containing additio
 #### Completion criteria
 
 1. Add the following leaderboard items:
-  - Top 10 Merchants who sold the most items this month
-  - Top 10 Merchants who sold the most items last month
-  - Top 10 Merchants who fulfilled non-cancelled orders this month
-  - Top 10 Merchants who fulfilled non-cancelled orders last month
+   - Top 10 Merchants who sold the most items this month
+   - Top 10 Merchants who sold the most items last month
+   - Top 10 Merchants who fulfilled non-cancelled orders this month
+   - Top 10 Merchants who fulfilled non-cancelled orders last month
 
 2. When logged in as a user, the following stats are also displayed on the "/merchants" page as well:
-  - Also see top 5 merchants who have fulfilled items the fastest to my state
-  - Also see top 5 merchants who have fulfilled items the fastest to my city
+   - Also see top 5 merchants who have fulfilled items the fastest to my state
+   - Also see top 5 merchants who have fulfilled items the fastest to my city
 
 #### Implementation Guidelines
 
@@ -136,9 +136,9 @@ Merchants can generate coupon codes within the system.
 
 1. Merchants have a link on their dashboard to manage their coupons.
 1. Merchants have full CRUD functionality over their coupons with exceptions mentioned below:
-  - merchants cannot delete a coupon that has been used
-  - merchants can have a maximum of 5 coupons in the system
-  - merchants can enable/disable coupon codes
+   - merchants cannot delete a coupon that has been used
+   - merchants can have a maximum of 5 coupons in the system
+   - merchants can enable/disable coupon codes
 1. A coupon will have a name, and either percent-off or dollar-off value. The name must be unique in the whole database.
 1. Users need a way to add a coupon code when checking out. Only one coupon may be used per order.
 1. Coupons can be used by multiple users, but may only be used one time per user.
@@ -171,8 +171,8 @@ Merchants add bulk discount rates for all of their inventory. These apply automa
 
 1. Merchants need full CRUD functionality on bulk discounts, and will be accessed a link on the merchant's dashboard.
 1. Bulk discounts can be one of two types: percentage based, or dollar based:
-  - 5% discount on 20 or more items
-  - $10 off an order of $50 or more
+   - 5% discount on 20 or more items
+   - $10 off an order of $50 or more
 1. A merchant can have multiple bulk discounts in the system, but they must be the same percentage type or dollar type as the first bulk discount made.
 1. When a user adds enough value or quantity of items to their cart, the bulk discount will automatically show up on the cart page.
 1. A bulk discount from one merchant will only affect items from that merchant in the cart.
@@ -201,15 +201,15 @@ On their dashboards, Merchants can access CSV-style data of their existing custo
 #### Completion Criteria
 
 1. The list of existing customers should generate 4 columns of data in a CSV format. Columns will include:
-  - user name
-  - email address
-  - how much money they've spent on items sold by this merchant
-  - how much money they've spent on items from all merchants
+   - user name
+   - email address
+   - how much money they've spent on items sold by this merchant
+   - how much money they've spent on items from all merchants
 1. The list of potential customers should generate 4 columns of data in a CSV format. Columns will include:
-  - user name
-  - email address
-  - how much money they've spent on items from all merchants
-  - total number of orders made by this user
+   - user name
+   - email address
+   - how much money they've spent on items from all merchants
+   - total number of orders made by this user
 1. Deactivated users should not be included in these lists of data.
 1. CSV data should sort users alphabetically by name.
 1. Each user should be on a separate line in the CSV data.
@@ -238,11 +238,11 @@ Convert statistics blocks on the application to visual charts using charting Jav
 #### Completion Criteria
 
 1. Merchant dashboard page:
-  - new: line graph or bar chart of total revenue by month for up to 12 months
-  - existing: pie chart of the percentage of total inventory sold
-  - existing: pie chart for top 3 states and top 3 cities
+   - new: line graph or bar chart of total revenue by month for up to 12 months
+   - existing: pie chart of the percentage of total inventory sold
+   - existing: pie chart for top 3 states and top 3 cities
 1. Merchant index page:
-  - pie chart showing total sales on the whole site; merchants who are part of "completed" orders are shown on the pie chart
+   - pie chart showing total sales on the whole site; merchants who are part of "completed" orders are shown on the pie chart
 1. Use your discretion to add any additional charts where you see statistics on the site.
 
 #### Implementation Guidelines
