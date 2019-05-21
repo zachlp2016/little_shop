@@ -4,5 +4,6 @@ class Item < ApplicationRecord
   has_many :orders, through: :order_items
 
 
-  validates_presence_of :name, :active, :price, :description, :image, :inventory
+  validates_presence_of :name, :price, :description, :image, :inventory
+  validates_inclusion_of :active, in: [true, false]
 end
