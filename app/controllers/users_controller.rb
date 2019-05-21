@@ -14,7 +14,7 @@ class UsersController < ApplicationController
     elsif @user.save
       session[:user_id] = @user.id
       flash[:notice] = "You are now registered and logged in."
-      redirect_to user_path(@user)
+      redirect_to profile_path
     else
       flash[:notice] = "That didn't work, please try again."
       render :new
@@ -22,11 +22,11 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    @user = current_user
   end
 
   def edit
-    @user = User.find(params[:id])
+    @user = current_user
   end
 
   private
