@@ -1,8 +1,13 @@
 Rails.application.routes.draw do
 
-  resources :items, only: [:index, :show]
-  
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  resources :users, only: [:show, :edit]
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  root 'welcome#index'
+
+  get '/profile/:id', to: 'users#show', as: :user
+
+  resources :items, only: [:index, :show]
+
+  resources :users, only:[:new, :create, :edit]
+
 end
