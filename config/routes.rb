@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   resources :items, only: [:index, :show]
 
+  resources :carts, only: [:create]
+
   resources :users, only:[:edit]
 
   get '/register', to: 'users#new'
@@ -12,7 +14,12 @@ Rails.application.routes.draw do
   get '/login', to: 'sessions#new', as: :login
   post '/login', to: 'sessions#create'
 
-  get '/profile/:id', to: 'users#show', as: :user
+  get '/profile', to: 'users#show'
 
   get '/dashboard', to: 'merchants#show'
+
+  namespace :admin do
+    resources :users, only: [:index]
+    get '/dashboard', to: 'users#show'
+  end
 end
