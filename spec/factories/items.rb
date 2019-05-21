@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :item do
     user { nil }
     name { "MyString" }
-    active { false }
+    active { true }
     price { "9.99" }
     description { "MyText" }
     image { "MyString" }
