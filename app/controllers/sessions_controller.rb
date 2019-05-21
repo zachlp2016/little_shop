@@ -22,12 +22,12 @@ class SessionsController < ApplicationController
 
 
   def redirects
-    if current_user
-      redirect_to user_path(session[:user_id])
-    elsif current_merchant
+    if current_merchant?
       redirect_to dashboard_path
-    else current_admin
+    elsif current_admin?
       redirect_to root_path
+    else
+      redirect_to profile_path
     end
   end
 end
