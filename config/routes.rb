@@ -10,4 +10,5 @@ Rails.application.routes.draw do
 
   get '/dashboard', to: 'merchants#show'
 
+  resources :users, only: [:show, :edit]
 end
