@@ -3,7 +3,7 @@ FactoryBot.define do
     email { "MyString" }
     password_digest { "MyString" }
     role { 1 }
-    active { false }
+    active { true }
     name { "MyString" }
     address { "MyString" }
     city { "MyString" }
