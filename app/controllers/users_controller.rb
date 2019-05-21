@@ -10,12 +10,12 @@ class UsersController < ApplicationController
     if password_confirmation != true
       render :new
       flash[:notice] = "Those passwords don't match"
-    end
-    if @user.save
+    elsif @user.save
       session[:user_id] = @user.id
       flash[:notice] = "You are now registered and logged in."
       redirect_to '/profile'
     else
+      flash[:notice] = "That didn't work, please try again."
       render :new
     end
   end
