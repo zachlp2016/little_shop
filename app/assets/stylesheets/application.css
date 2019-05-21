@@ -13,3 +13,6 @@
  *= require_tree .
  *= require_self
  */
+.small-item-img {
+  height: 200px;
+}
