@@ -9,9 +9,20 @@
   </head>
 
   <body>
+
+    <ul class="main-nav">
+
+
+      <section class="register-link">
+        <%= link_to 'Register', new_user_path %>
+      </section>
+    </ul>
+
     <% flash.each do |message| %>
     <%= sanitize(message[1]) %>
     <% end %>
+
+
     <%= yield %>
   </body>
 </html>
