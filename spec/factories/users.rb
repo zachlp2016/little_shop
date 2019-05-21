@@ -1,6 +1,5 @@
 FactoryBot.define do
   factory :user do
-    email { "MyString" }
     password_digest { "MyString" }
     role { 1 }
     active { true }
@@ -9,5 +8,8 @@ FactoryBot.define do
     city { "MyString" }
     state { "MyString" }
     zip { "MyString" }
+    sequence :email do |n|
+      "person#{n}@example.com"
+    end
   end
 end
