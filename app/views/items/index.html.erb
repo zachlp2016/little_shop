@@ -1,10 +1,10 @@
 <h1>Items</h1>
 <% @items.each do |item| %>
   <section id='item-<%= item.id %>'>
-    <%= item.name %>
+    <%= link_to item.name, item_path(item) %>
     <%= item.user.name %>
     <%= item.inventory %>
     <%= item.price %><br>
-    <img class='small-item-img' src="<%= item.image %>">
+    <a class='image_link' href="<%= item_path(item) %>"><img class='small-item-img' src="<%= item.image %>"></a>
   </section>
 <% end %>
