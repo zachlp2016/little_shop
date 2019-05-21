@@ -6,4 +6,8 @@ class Item < ApplicationRecord
 
   validates_presence_of :name, :price, :description, :image, :inventory
   validates_inclusion_of :active, in: [true, false]
+
+  def self.all_active
+    where(active: true)
+  end
 end
