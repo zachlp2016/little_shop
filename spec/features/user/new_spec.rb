@@ -32,7 +32,8 @@ RSpec.describe 'New user form' do
         expect(page).to have_content("City: #{new_user.city}")
         expect(page).to have_content("Zip Code: #{new_user.zip}")
         expect(page).to have_content("Email: #{new_user.email}")
-        expect(page).to have_content('Registration successful.  You are now logged in.')
+        expect(page).to have_content("You are now registered and logged in.")
+
       end
     end
   end

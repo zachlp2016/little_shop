@@ -17,6 +17,10 @@
       </section>
     </ul>
 
+    <% flash.each do |message| %>
+    <%= sanitize(message[1]) %>
+    <% end %>
+
 
     <%= yield %>
   </body>
