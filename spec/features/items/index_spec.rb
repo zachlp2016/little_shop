@@ -66,5 +66,24 @@ RSpec.describe 'as a visitor' do
 
     end
 
+    it 'has item show pages linked to the item name and image' do
+      visit items_path
+
+      within "#item-#{@item_1.id}" do
+        click_link @item_1.name
+      end
+
+      expect(current_path).to eq(item_path(@item_1))
+
+      visit items_path
+
+      within "#item-#{@item_4.id}" do
+        page.first(".image_link").click
+      end
+
+      expect(current_path).to eq(item_path(@item_4))
+
+    end
+
   end
 end
