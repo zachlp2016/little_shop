@@ -1,26 +1,17 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
-  helper_method :current_user, :current_merchant, :current_admin
+  helper_method :current_user, :current_merchant?, :current_admin?
 
   def current_user
-    user = User.find(session[:user_id])
-    if user.role == 0
-      true
-    end
+    @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
 
-  def current_merchant
-    user = User.find(session[:user_id])
-    if user.role == 1
-      true
-    end
+  def current_merchant?
+    current_user && current_user.merchant?
   end
 
-  def current_admin
-    user = User.find(session[:user_id])
-    if user.role == 2
-      true
-    end
+  def current_admin?
+    current_user && current_user.admin?
   end
 end
