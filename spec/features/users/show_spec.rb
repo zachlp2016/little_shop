@@ -28,7 +28,7 @@ RSpec.describe 'As a Registered User', type: :feature do
 
       click_on "Edit Profile"
 
-      expect(current_path).to eq("user/#{@user.id}/edit")
+      expect(current_path).to eq("/users/#{@user.id}/edit")
     end
   end
 end
