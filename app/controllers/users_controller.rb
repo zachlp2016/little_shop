@@ -6,13 +6,13 @@ class UsersController < ApplicationController
   end
 
   def create
-    user = User.new(strong_params)
+    @user = User.new(strong_params)
     if password_confirmation != true
       render :new
       flash[:notice] = "Those passwords don't match"
     end
-    if user.save!
-      session[:user_id] = user.id
+    if @user.save
+      session[:user_id] = @user.id
       flash[:notice] = "You are now registered and logged in."
       redirect_to '/profile'
     else
