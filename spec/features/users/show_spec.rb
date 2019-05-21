@@ -4,10 +4,12 @@ RSpec.describe 'As a Registered User', type: :feature do
   describe 'When I visit my own profile page' do
     before :each do
       @user = User.create!(email: "test@test.com", password_digest: "t3s7", role: 1, active: true, name: "Testy McTesterson", address: "123 Test St", city: "Testville", state: "Test", zip: "01234")
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
     end
 
     it 'Then I can see all my information, except my password' do
-      visit user_path(@user)
+      visit profile_path
 
       expect(page).to have_content(@user.email)
       expect(page).to have_content(@user.role)
@@ -22,7 +24,7 @@ RSpec.describe 'As a Registered User', type: :feature do
     end
 
     it 'I see a link to edit my information' do
-      visit user_path(@user)
+      visit profile_path
 
       expect(page).to have_link("Edit Profile")
 

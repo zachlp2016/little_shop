@@ -22,7 +22,7 @@ RSpec.describe 'User can login' do
 
       click_button('Login')
 
-      expect(current_path).to eq('/profile')
+      expect(current_path).to eq("/profile")
       expect(page).to have_content('You are now logged in.')
     end
 

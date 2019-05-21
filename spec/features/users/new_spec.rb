@@ -17,7 +17,7 @@ RSpec.describe 'New user form' do
           click_link('Register')
         end
 
-        expect(current_path).to eq(new_user_path)
+        expect(current_path).to eq(register_path)
 
         fill_in 'Name', with: 'User'
         fill_in 'Address', with: '1111 South One St.'
@@ -34,7 +34,7 @@ RSpec.describe 'New user form' do
         new_user = User.last
 
 
-        expect(current_path).to eq("/profile/#{new_user.id}")
+        expect(current_path).to eq("/profile")
 
         expect(page).to have_content("#{new_user.name}")
         expect(page).to have_content("Address: #{new_user.address}")
