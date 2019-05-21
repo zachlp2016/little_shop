@@ -20,7 +20,6 @@ RSpec.describe 'User can login' do
 
       expect(current_path).to eq('/profile')
       expect(page).to have_content('You are now logged in.')
-      expect(page).to have_content("Name: #{@regular_user.name}")
     end
   end
 end
