@@ -30,11 +30,13 @@ RSpec.describe 'New user form' do
 
         click_button 'Create User'
 
+
         new_user = User.last
 
 
-        expect(current_path).to eq('/profile')
-        expect(page).to have_content("Name: #{new_user.name}")
+        expect(current_path).to eq("/profile/#{new_user.id}")
+
+        expect(page).to have_content("#{new_user.name}")
         expect(page).to have_content("Address: #{new_user.address}")
         expect(page).to have_content("City: #{new_user.city}")
         expect(page).to have_content("Zip Code: #{new_user.zip}")
