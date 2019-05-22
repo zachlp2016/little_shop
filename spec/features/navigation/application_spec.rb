@@ -147,4 +147,34 @@ RSpec.describe 'within main navigation' do
       end
     end
   end
+
+  context 'as a merchant user' do
+    describe 'Navbar includes the following' do
+
+      before :each do
+        @user_1 = User.create!(email: "test@test.com", password_digest: "t3s7", role: 1, active: true, name: "Testy McTesterson", address: "123 Test St", city: "Testville", state: "Test", zip: "01234")
+
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user_1)
+      end
+
+      it 'it has a link to My Dashboard'
+
+      visit root_path
+
+      within '.navbar' do
+        expect(page).to have_link('My Dashboard')
+        expect(page).to have_link('Logout')
+      end
+    end
+  end
 end
+
+# As a merchant user
+# I see the same links as a visitor
+# Plus the following links:
+# - a link to my merchant dashboard ("/dashboard")
+# - a link to log out ("/logout")
+#
+# Minus the following links/info:
+# - I do not see a link to log in or register
+# - a link to my shopping cart ("/cart") or count of cart items

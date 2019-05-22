@@ -76,31 +76,10 @@ RSpec.describe 'New user form' do
 
       end
 
-<<<<<<< HEAD
-      it 'Can not use a duplicate email address' do
 
-        visit root_path
-
-        within '.register-link' do
-          click_link('Register')
-        end
-
-
-        fill_in 'Name', with: 'User_1'
-        fill_in 'Address', with: '1111 South One St.'
-        fill_in 'City', with: 'Denver'
-        fill_in 'State', with: 'CO'
-        fill_in 'Zip', with: '80000'
-        fill_in 'Email', with: 'user_1@gmail.com'
-        fill_in 'Password', with: 'password'
-        fill_in 'Confirm password', with: 'password'
-
-        click_button 'Create User'
-
-=======
       it 'Can not use an already used email address' do
         user_2 = User.create!(name: "User_1", role: 0, active: true, password_digest: "8320280282", address: "333", city: "Denver", zip: "80000", email: "user_1@gmail.com", state: 'IL' )
->>>>>>> 0b286fe76e8bd0beafce199e306365cfd2fbda6c
+
         visit root_path
 
         within '.navbar' do
