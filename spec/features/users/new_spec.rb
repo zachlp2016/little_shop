@@ -13,7 +13,7 @@ RSpec.describe 'New user form' do
 
         visit root_path
 
-        within '.register-link' do
+        within '.navbar' do
           click_link('Register')
         end
 
@@ -97,10 +97,9 @@ RSpec.describe 'New user form' do
 
         click_button 'Create User'
 
-
         visit root_path
 
-        within '.register-link' do
+        within '.navbar' do
           click_link('Register')
         end
 
