@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   resources :items, only: [:index, :show]
 
-  resources :carts, only: [:create]
+  resources :carts, only: [:create, :index] #added index as we need to show the cart -- User Story 2, Visitor Navigation
 
   resources :users, only:[:edit]
 
@@ -13,12 +13,19 @@ Rails.application.routes.draw do
 
   get '/login', to: 'sessions#new', as: :login
   post '/login', to: 'sessions#create'
+  get '/logout', to: 'sessions#logout' #add logout to pass navigation - User Sotry 3, User Navigation
 
   get '/profile', to: 'users#show'
   get '/profile/edit', to: 'users#edit'
   patch 'profile/edit', to: 'users#patch'
 
+  resources :users, as: :profile do  #add for User Story #27, User Profile displays Orders link
+    resources :orders, only: [:index]
+  end
+
   get '/dashboard', to: 'merchants#show'
+
+  get '/merchants', to: 'merchants#index' # a link to see all merchants ("/merchants") -- User Story 2, Visitor Navigation
 
   namespace :admin do
     resources :users, only: [:index]
