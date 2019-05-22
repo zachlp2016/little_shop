@@ -11,7 +11,7 @@ class UsersController < ApplicationController
     if password_confirmation != true
       flash.now[:notice] = "Those passwords don't match."
       render :new
-    elsif email_confirmation != true
+    elsif email_confirmation == true
       flash.now[:notice] = "That email address is already taken."
       render :new
     elsif @user.save!
@@ -37,7 +37,7 @@ class UsersController < ApplicationController
     if password_confirmation != true
       flash.now[:notice] = "Those passwords don't match."
       render :edit
-    elsif update_email_confirmation(@user.email) != true
+    elsif update_email_confirmation(@user.email) == true
       flash.now[:notice] = "That email address is already taken."
       render :edit
     elsif @user.update!(strong_params)
@@ -52,15 +52,11 @@ class UsersController < ApplicationController
   private
 
   def email_confirmation
-    User.email_string.all? do |email|
-      params[:user][:email] != email
-    end
+    User.email_string.include?(params[:user][:email])
   end
 
   def update_email_confirmation(user_email = nil)
-    (User.email_string - [user_email]).all? do |email|
-      params[:user][:email] != email
-    end
+    (User.email_string - [user_email]).include?(params[:user][:email])
   end
 
   def password_confirmation
