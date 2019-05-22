@@ -31,6 +31,30 @@ RSpec.describe 'As a registered User', type: :feature do
 
         expect(page).to have_button("Edit User")
       end
+
+      it 'Has a form with my information already filled out, except Password/Confirm Password' do
+        visit profile_edit_path
+
+        expect(page).to have_field("Name", with: "Testy McTesterson")
+        expect(find_field("Password").value).blank?
+        expect(find_field("Confirm Password").value).blank?
+        expect(page).to have_field("Address", with: "123 Test St")
+        expect(page).to have_field("City", with: "Testville")
+        expect(page).to have_field("State", with: "Test")
+        expect(page).to have_field("Zip", with: "01234")
+        expect(page).to have_field("Email", with: "test@test.com")
+      end
+
+      it 'Can successfully edit one of my fields' do
+        visit profile_edit_path
+
+        fill_in "Name", with: "Testerino"
+
+        click_button "Edit User"
+
+        expect(current_path).to eq(profile_path)
+        expect(page).to have_content("Testerino")
+      end
     end
   end
 end
