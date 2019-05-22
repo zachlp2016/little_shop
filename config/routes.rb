@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
 
   get '/profile', to: 'users#show'
+  get '/profile/edit', to: 'users#edit'
 
   get '/dashboard', to: 'merchants#show'
 
