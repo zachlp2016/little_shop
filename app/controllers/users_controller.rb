@@ -14,7 +14,7 @@ class UsersController < ApplicationController
     elsif email_confirmation != true
       render :new
       flash[:notice] = "That email address is already taken."
-    elsif @user.save
+    elsif @user.save!
       session[:user_id] = @user.id
       flash[:notice] = "You are now registered and logged in."
       redirect_to profile_path
@@ -35,7 +35,7 @@ class UsersController < ApplicationController
   private
 
   def email_confirmation
-    User.email_string.any? do |email|
+    User.email_string.all? do |email|
       params[:user][:email] != email
     end
   end
