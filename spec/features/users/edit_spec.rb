@@ -56,6 +56,8 @@ RSpec.describe 'As a registered User', type: :feature do
 
         expect(page).to have_content("Your information has been updated!")
         expect(page).to have_content("Testerino")
+
+        expect(@user.password_digest).to eq("t3s7")
       end
 
       it 'Can successfully edit all of my fields except password' do
@@ -79,6 +81,8 @@ RSpec.describe 'As a registered User', type: :feature do
         expect(page).to have_content("Testafornia")
         expect(page).to have_content("54321")
         expect(page).to have_content("test@test.net")
+
+        expect(@user.password_digest).to eq("t3s7")
       end
 
       it 'Can successfully update a password' do
