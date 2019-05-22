@@ -9,11 +9,11 @@ class UsersController < ApplicationController
   def create
     @user = User.new(strong_params)
     if password_confirmation != true
+      flash[:notice] = "Those passwords don't match."
       render :new
-      flash[:notice] = "Those passwords don't match"
     elsif email_confirmation != true
-      render :new
       flash[:notice] = "That email address is already taken."
+      render :new
     elsif @user.save!
       session[:user_id] = @user.id
       flash[:notice] = "You are now registered and logged in."
