@@ -13,9 +13,7 @@ RSpec.describe 'New user form' do
 
         visit root_path
 
-        within '.register-link' do
-          click_link('Register')
-        end
+        click_link('Register')
 
         expect(current_path).to eq(register_path)
 
@@ -50,9 +48,8 @@ RSpec.describe 'New user form' do
 
         visit root_path
 
-        within '.register-link' do
-          click_link('Register')
-        end
+        click_link('Register')
+
 
         expect(current_path).to eq(register_path)
 
@@ -81,9 +78,7 @@ RSpec.describe 'New user form' do
 
         visit root_path
 
-        within '.register-link' do
-          click_link('Register')
-        end
+        click_link('Register')
 
 
         fill_in 'Name', with: 'User_1'
@@ -100,9 +95,8 @@ RSpec.describe 'New user form' do
 
         visit root_path
 
-        within '.register-link' do
-          click_link('Register')
-        end
+        click_link('Register')
+        
 
         fill_in 'Name', with: 'User_2'
         fill_in 'Address', with: '1111 South One St.'
