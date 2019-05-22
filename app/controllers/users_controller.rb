@@ -9,17 +9,17 @@ class UsersController < ApplicationController
   def create
     @user = User.new(strong_params)
     if password_confirmation != true
-      flash[:notice] = "Those passwords don't match."
+      flash.now[:notice] = "Those passwords don't match."
       render :new
     elsif email_confirmation != true
-      flash[:notice] = "That email address is already taken."
+      flash.now[:notice] = "That email address is already taken."
       render :new
     elsif @user.save!
       session[:user_id] = @user.id
       flash[:notice] = "You are now registered and logged in."
       redirect_to profile_path
     else
-      flash[:notice] = "That didn't work, please try again."
+      flash.now[:notice] = "That didn't work, please try again."
       render :new
     end
   end
