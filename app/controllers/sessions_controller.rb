@@ -16,6 +16,8 @@ class SessionsController < ApplicationController
 
   def logout
     reset_session
+    Cart.clear
+    flash[:notice] = "You Have Successfully Logged Out"
     redirect_to root_path
   end
 
