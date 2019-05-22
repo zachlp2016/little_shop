@@ -29,6 +29,14 @@ class UsersController < ApplicationController
     @user = current_user
   end
 
+  def update
+    user = current_user
+    user.update(strong_params)
+    flash[:notice] = "Your information has been updated!"
+
+    redirect_to profile_path
+  end
+
   private
 
   def password_confirmation
