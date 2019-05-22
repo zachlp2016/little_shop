@@ -17,6 +17,10 @@ Rails.application.routes.draw do
 
   get '/profile', to: 'users#show'
 
+  resources :users, as: :profile do  #add for User Story #27, User Profile displays Orders link
+    resources :orders, only: [:index]
+  end
+
   get '/dashboard', to: 'merchants#show'
 
   get '/merchants', to: 'merchants#index' # a link to see all merchants ("/merchants") -- User Story 2, Visitor Navigation
