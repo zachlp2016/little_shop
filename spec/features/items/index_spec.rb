@@ -110,20 +110,32 @@ RSpec.describe 'as a visitor' do
 
     it 'has an area with statistics' do
       visit items_path
-      save_and_open_page
+
       within '#top-stats' do
-        expect(@item_2.name).to appear_before(@item_1.name)
-        expect(@item_1.name).to appear_before(@item_5.name)
-        expect(@item_5.name).to appear_before(@item_4.name)
-        expect(@item_4.name).to appear_before(@item_3.name)
+        text = page.current_scope.text
+        
+        text.index(@item_2.name) < text.index(@item_1.name)
+        text.index(@item_1.name) < text.index(@item_5.name)
+        text.index(@item_5.name) < text.index(@item_4.name)
+        text.index(@item_4.name) < text.index(@item_3.name)
+        # expect(@item_2.name).to appear_before(@item_1.name)
+        # expect(@item_1.name).to appear_before(@item_5.name)
+        # expect(@item_5.name).to appear_before(@item_4.name)
+        # expect(@item_4.name).to appear_before(@item_3.name)
       end
 
-      # within '#bottom-stats' do
-      #   expect(@item_6.name).to appear_before(@item_3.name)
-      #   expect(@item_3.name).to appear_before(@item_4.name)
-      #   expect(@item_4.name).to appear_before(@item_5.name)
-      #   expect(@item_5.name).to appear_before(@item_1.name)
-      # end
+      within '#bottom-stats' do
+        text = page.current_scope.text
+        
+        text.index(@item_6.name) < text.index(@item_3.name)
+        text.index(@item_3.name) < text.index(@item_4.name)
+        text.index(@item_4.name) < text.index(@item_5.name)
+        text.index(@item_5.name) < text.index(@item_1.name)
+        # expect(@item_6.name).to appear_before(@item_3.name)
+        # expect(@item_3.name).to appear_before(@item_4.name)
+        # expect(@item_4.name).to appear_before(@item_5.name)
+        # expect(@item_5.name).to appear_before(@item_1.name)
+      end
 
       # within '#bottom-stats' do
       #   expect(page).to have_content("Least Purchased Items")
