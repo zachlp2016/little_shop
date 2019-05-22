@@ -11,3 +11,7 @@
 <p>Zip Code: <%= @user.zip %></p>
 
 <%= link_to "Edit Profile", profile_edit_path %>
+
+<% if @user.orders.length > 0 %>
+  <%= link_to "My Orders", profile_orders_path(@user) %>
+<% end %>
