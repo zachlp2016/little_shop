@@ -157,13 +157,22 @@ RSpec.describe 'within main navigation' do
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user_1)
       end
 
-      it 'it has a link to My Dashboard'
+      it 'it has a link to My Dashboard' do
 
       visit root_path
 
-      within '.navbar' do
-        expect(page).to have_link('My Dashboard')
-        expect(page).to have_link('Logout')
+        within '.navbar' do
+          expect(page).to have_link('My Dashboard')
+        end
+      end
+
+      it 'it has a link to logout' do
+
+      visit root_path
+
+        within '.navbar' do
+          expect(page).to have_link('Logout')
+        end
       end
     end
   end
