@@ -53,6 +53,8 @@ RSpec.describe 'As a registered User', type: :feature do
         click_button "Edit User"
 
         expect(current_path).to eq(profile_path)
+
+        expect(page).to have_content("Your information has been updated!")
         expect(page).to have_content("Testerino")
       end
     end
