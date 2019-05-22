@@ -99,57 +99,26 @@ RSpec.describe 'as a visitor' do
 
     end
 
-
-      # As any kind of user on the system
-      # When I visit the items index page ("/items")
-      # I see an area with statistics:
-      # - the top 5 most popular items by quantity purchased, plus the quantity bought
-      # - the bottom 5 least popular items, plus the quantity bought
-      #
-      # "Popularity" is determined by total quantity of that item fulfilled
-
     it 'has an area with statistics' do
       visit items_path
 
       within '#top-stats' do
         text = page.current_scope.text
-        
-        text.index(@item_2.name) < text.index(@item_1.name)
-        text.index(@item_1.name) < text.index(@item_5.name)
-        text.index(@item_5.name) < text.index(@item_4.name)
-        text.index(@item_4.name) < text.index(@item_3.name)
-        # expect(@item_2.name).to appear_before(@item_1.name)
-        # expect(@item_1.name).to appear_before(@item_5.name)
-        # expect(@item_5.name).to appear_before(@item_4.name)
-        # expect(@item_4.name).to appear_before(@item_3.name)
+
+        expect(text.index(@item_2.name) < text.index(@item_1.name)).to be true
+        expect(text.index(@item_1.name) < text.index(@item_5.name)).to be true
+        expect(text.index(@item_5.name) < text.index(@item_4.name)).to be true
+        expect(text.index(@item_4.name) < text.index(@item_3.name)).to be true
       end
 
       within '#bottom-stats' do
         text = page.current_scope.text
-        
-        text.index(@item_6.name) < text.index(@item_3.name)
-        text.index(@item_3.name) < text.index(@item_4.name)
-        text.index(@item_4.name) < text.index(@item_5.name)
-        text.index(@item_5.name) < text.index(@item_1.name)
-        # expect(@item_6.name).to appear_before(@item_3.name)
-        # expect(@item_3.name).to appear_before(@item_4.name)
-        # expect(@item_4.name).to appear_before(@item_5.name)
-        # expect(@item_5.name).to appear_before(@item_1.name)
-      end
 
-      # within '#bottom-stats' do
-      #   expect(page).to have_content("Least Purchased Items")
-      #   expect(page.all(".stat-items")[0]).to have_content(@item_6.name)
-      #   expect(page.all(".stat-items")[1]).to have_content("Total Bought: 5")
-      #   expect(page.all(".stat-items")[2]).to have_content(@item_3.name)
-      #   expect(page.all(".stat-items")[3]).to have_content("Total Bought: 6")
-      #   expect(page.all(".stat-items")[4]).to have_content(@item_4.name)
-      #   expect(page.all(".stat-items")[5]).to have_content("Total Bought: 7")
-      #   expect(page.all(".stat-items")[6]).to have_content(@item_5.name)
-      #   expect(page.all(".stat-items")[7]).to have_content("Total Bought: 14")
-      #   expect(page.all(".stat-items")[8]).to have_content(@item_1.name)
-      #   expect(page.all(".stat-items")[9]).to have_content("Total Bought: 33")
-      # end
+        expect(text.index(@item_6.name) < text.index(@item_3.name)).to be true
+        expect(text.index(@item_3.name) < text.index(@item_4.name)).to be true
+        expect(text.index(@item_4.name) < text.index(@item_5.name)).to be true
+        expect(text.index(@item_5.name) < text.index(@item_1.name)).to be true
+      end
 
     end
   end
