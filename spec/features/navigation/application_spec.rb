@@ -173,15 +173,20 @@ RSpec.describe 'within main navigation' do
           expect(page).to have_link('Logout')
         end
       end
+
+      it 'doesnt have link for login/logot or shopping cart' do
+
+      visit root_path
+
+        within '.navbar' do
+          expect(page).to_not have_link('Login')
+          expect(page).to_not have_link('Register')
+        end
+      end
     end
   end
 end
 
-# As a merchant user
-# I see the same links as a visitor
-# Plus the following links:
-# - a link to my merchant dashboard ("/dashboard")
-# - a link to log out ("/logout")
 #
 # Minus the following links/info:
 # - I do not see a link to log in or register
