@@ -1,16 +1,4 @@
 require 'rails_helper'
-# As any kind of user on the system
-# I can visit the items catalog ("/items")
-# I see all items in the system except disabled items
-# Each item will display the following information:
-# - the name of the item
-# - a small thumbnail image for the item
-# - the merchant name who sells the item
-# - how many of the item the merchant has in stock
-# - the merchant's current price for the item
-#
-# The item name is a link to that item's show page
-# The item thumbnail is a link to that item's show page
 
 RSpec.describe 'as a visitor' do
   describe 'when I visit the items catalog' do
@@ -24,6 +12,32 @@ RSpec.describe 'as a visitor' do
       @item_4 = create(:item, user: merchant_2)
       @item_5 = create(:item, user: merchant_2, active: false)
       @item_6 = create(:item, user: merchant_2, active: false)
+      buyer_1 = create(:user)
+      buyer_2 = create(:user)
+      buyer_3 = create(:user)
+      buyer_4 = create(:user)
+      order_1 = create(:order, user: buyer_1)
+      order_2 = create(:order, user: buyer_1)
+      order_3 = create(:order, user: buyer_2)
+      order_4 = create(:order, user: buyer_2)
+      order_5 = create(:order, user: buyer_3)
+      order_6 = create(:order, user: buyer_3)
+      order_7 = create(:order, user: buyer_3)
+      order_8 = create(:order, user: buyer_2)
+      order_9 = create(:order, user: buyer_1)
+      order_10 = create(:order, user: buyer_3)
+      order_11 = create(:order, user: buyer_4)
+      OrderItem.create!(item: @item_1, order: order_1, quantity: 12, price: 1.99, fulfilled: true)
+      OrderItem.create!(item: @item_2, order: order_2, quantity: 3, price: 6.99, fulfilled: true)
+      OrderItem.create!(item: @item_3, order: order_3, quantity: 6, price: 11.99, fulfilled: true)
+      OrderItem.create!(item: @item_4, order: order_4, quantity: 7, price: 12.99, fulfilled: true)
+      OrderItem.create!(item: @item_5, order: order_5, quantity: 14, price: 13.99, fulfilled: true)
+      OrderItem.create!(item: @item_6, order: order_6, quantity: 5, price: 2.99, fulfilled: true)
+      OrderItem.create!(item: @item_1, order: order_7, quantity: 21, price: 9.99, fulfilled: true)
+      OrderItem.create!(item: @item_2, order: order_8, quantity: 31, price: 7.99, fulfilled: true)
+      OrderItem.create!(item: @item_3, order: order_9, quantity: 2, price: 12.99, fulfilled: false)
+      OrderItem.create!(item: @item_4, order: order_10, quantity: 3, price: 11.99, fulfilled: false)
+      OrderItem.create!(item: @item_5, order: order_11, quantity: 1, price: 21.99, fulfilled: false)
     end
 
     it 'displays all enabled items info' do
@@ -85,5 +99,35 @@ RSpec.describe 'as a visitor' do
 
     end
 
+    it 'has an area with statistics' do
+      visit items_path
+
+      within '#top-stats' do
+        text = page.current_scope.text
+
+        expect(text.index(@item_2.name) < text.index(@item_1.name)).to be true
+        expect(text.index('Total Bought: 34') < text.index('Total Bought: 33')).to be true
+        expect(text.index(@item_1.name) < text.index(@item_5.name)).to be true
+        expect(text.index('Total Bought: 33') < text.index('Total Bought: 14')).to be true
+        expect(text.index(@item_5.name) < text.index(@item_4.name)).to be true
+        expect(text.index('Total Bought: 14') < text.index('Total Bought: 7')).to be true
+        expect(text.index(@item_4.name) < text.index(@item_3.name)).to be true
+        expect(text.index('Total Bought: 7') < text.index('Total Bought: 6')).to be true
+      end
+
+      within '#bottom-stats' do
+        text = page.current_scope.text
+
+        expect(text.index(@item_6.name) < text.index(@item_3.name)).to be true
+        expect(text.index('Total Bought: 5') < text.index('Total Bought: 6')).to be true
+        expect(text.index(@item_3.name) < text.index(@item_4.name)).to be true
+        expect(text.index('Total Bought: 6') < text.index('Total Bought: 7')).to be true
+        expect(text.index(@item_4.name) < text.index(@item_5.name)).to be true
+        expect(text.index('Total Bought: 7') < text.index('Total Bought: 14')).to be true
+        expect(text.index(@item_5.name) < text.index(@item_1.name)).to be true
+        expect(text.index('Total Bought: 14') < text.index('Total Bought: 33')).to be true
+      end
+
+    end
   end
 end
