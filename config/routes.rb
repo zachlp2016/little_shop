@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   resources :items, only: [:index, :show]
 
-  resources :carts, only: [:create]
+  resources :carts, only: [:create, :index] #added index as we need to show the cart -- User Story 2, Visitor Navigation
 
   resources :users, only:[:edit]
 
@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   get '/profile', to: 'users#show'
 
   get '/dashboard', to: 'merchants#show'
+
+  get '/merchants', to: 'merchants#index' # a link to see all merchants ("/merchants") -- User Story 2, Visitor Navigation
 
   namespace :admin do
     resources :users, only: [:index]
