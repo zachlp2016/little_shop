@@ -9,9 +9,12 @@ class UsersController < ApplicationController
   def create
     @user = User.new(strong_params)
     if password_confirmation != true
+      flash[:notice] = "Those passwords don't match."
       render :new
-      flash[:notice] = "Those passwords don't match"
-    elsif @user.save
+    elsif email_confirmation != true
+      flash[:notice] = "That email address is already taken."
+      render :new
+    elsif @user.save!
       session[:user_id] = @user.id
       flash[:notice] = "You are now registered and logged in."
       redirect_to profile_path
@@ -38,6 +41,12 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def email_confirmation
+    User.email_string.all? do |email|
+      params[:user][:email] != email
+    end
+  end
 
   def password_confirmation
     if params["user"]["password"] == params["user"]["confirm_password"]

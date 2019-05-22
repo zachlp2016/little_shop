@@ -5,7 +5,7 @@ RSpec.describe 'New user form' do
     describe 'When I visit the register new register link' do
 
       before :each do
-        @user_1 = User.create!(name: "default_user", role: 0, active: true, password_digest: "8320280282", address: "333", city: "Denver", zip: "80000", email: "default_user@gmail.com", state: 'IL' )
+        @user_1 = User.create!(name: "default_user", role: 0, active: true, password_digest: "8320280282", address: "333", city: "Denver", state: "CO", zip: "80000", email: "default_user@gmail.com" )
       end
 
       it 'I can register as a new user' do
@@ -45,8 +45,58 @@ RSpec.describe 'New user form' do
 
       end
 
-      it 'Can not use an already used email address' do
-        user_2 = User.create!(name: "User_1", role: 0, active: true, password_digest: "8320280282", address: "333", city: "Denver", zip: "80000", email: "user_1@gmail.com", state: 'IL' )
+      it 'I throws flash message when password isnt the same' do
+
+
+        visit root_path
+
+        within '.register-link' do
+          click_link('Register')
+        end
+
+        expect(current_path).to eq(register_path)
+
+        fill_in 'Name', with: 'User'
+        fill_in 'Address', with: '1111 South One St.'
+        fill_in 'City', with: 'Denver'
+        fill_in 'State', with: 'CO'
+        fill_in 'Zip', with: '80000'
+        fill_in 'Email', with: 'user@gmail.com'
+        fill_in 'Password', with: 'password'
+        fill_in 'Confirm password', with: 'password3'
+
+        click_button 'Create User'
+
+
+        new_user = User.last
+
+
+        expect(current_path).to eq(register_path)
+
+        expect(page).to have_content("Those passwords don't match.")
+
+      end
+
+      it 'Can not use a duplicate email address' do
+
+        visit root_path
+
+        within '.register-link' do
+          click_link('Register')
+        end
+
+
+        fill_in 'Name', with: 'User_1'
+        fill_in 'Address', with: '1111 South One St.'
+        fill_in 'City', with: 'Denver'
+        fill_in 'State', with: 'CO'
+        fill_in 'Zip', with: '80000'
+        fill_in 'Email', with: 'user_1@gmail.com'
+        fill_in 'Password', with: 'password'
+        fill_in 'Confirm password', with: 'password'
+
+        click_button 'Create User'
+
         visit root_path
 
         within '.navbar' do
@@ -65,9 +115,13 @@ RSpec.describe 'New user form' do
         click_button 'Create User'
 
         new_user = User.last
-
+        expect(page).to have_content("That email address is already taken.")
         expect(new_user.name).to eq('User_1')
       end
     end
   end
 end
+
+# My details are not saved and I am not logged in
+# The form is filled in with all previous data except the email field and password fields
+# I see a flash message telling me the email address is already in use
