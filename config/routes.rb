@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
   get '/login', to: 'sessions#new', as: :login
   post '/login', to: 'sessions#create'
+  get '/logout', to: 'sessions#logout' #add logout to pass navigation - User Sotry 3, User Navigation
 
   get '/profile', to: 'users#show'
 
