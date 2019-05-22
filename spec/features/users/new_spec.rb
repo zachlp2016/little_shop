@@ -76,8 +76,10 @@ RSpec.describe 'New user form' do
 
       end
 
+
       it 'Can not use an already used email address' do
         user_2 = User.create!(name: "User_1", role: 0, active: true, password_digest: "8320280282", address: "333", city: "Denver", zip: "80000", email: "user_1@gmail.com", state: 'IL' )
+
         visit root_path
 
         within '.navbar' do

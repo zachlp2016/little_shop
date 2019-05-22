@@ -70,8 +70,7 @@ RSpec.describe 'within main navigation' do
 
   context 'as a registered user' do
     before :each do
-      @user = User.create!(email: "test@test.com", password_digest: "t3s7", role: 1, active: true, name: "Testy McTesterson", address: "123 Test St", city: "Testville", state: "Test", zip: "01234")
-
+      @user = User.create!(email: "test@test.com", password_digest: "t3s7", role: 0, active: true, name: "Testy McTesterson", address: "123 Test St", city: "Testville", state: "Test", zip: "01234")
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
     end
 
@@ -147,4 +146,50 @@ RSpec.describe 'within main navigation' do
       end
     end
   end
+
+  context 'as a merchant user' do
+    describe 'Navbar includes the following' do
+
+      before :each do
+        @user_1 = User.create!(email: "test@test.com", password_digest: "t3s7", role: 1, active: true, name: "Testy McTesterson", address: "123 Test St", city: "Testville", state: "Test", zip: "01234")
+
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user_1)
+      end
+
+      it 'it has a link to My Dashboard' do
+
+      visit root_path
+
+        within '.navbar' do
+          expect(page).to have_link('My Dashboard')
+        end
+      end
+
+      it 'it has a link to logout' do
+
+      visit root_path
+
+        within '.navbar' do
+          expect(page).to have_link('Logout')
+        end
+      end
+
+      it 'doesnt have link for login/logot or shopping cart' do
+
+      visit root_path
+
+        within '.navbar' do
+          expect(page).to_not have_link('Login')
+          expect(page).to_not have_link('Register')
+          expect(page).to_not have_link('Cart')
+          expect(page).to_not have_content('Cart: 0')
+        end
+      end
+    end
+  end
 end
+
+#
+# Minus the following links/info:
+# - I do not see a link to log in or register
+# - a link to my shopping cart ("/cart") or count of cart items
