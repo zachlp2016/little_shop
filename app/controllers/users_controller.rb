@@ -29,7 +29,7 @@ class UsersController < ApplicationController
     @user = current_user
   end
 
-  def patch
+  def update
     user = current_user
     user.update(strong_params)
     flash[:notice] = "Your information has been updated!"

@@ -6,8 +6,6 @@ Rails.application.routes.draw do
 
   resources :carts, only: [:create]
 
-  resources :users, only:[:edit]
-
   get '/register', to: 'users#new'
   post '/register', to: 'users#create'
 
@@ -16,7 +14,7 @@ Rails.application.routes.draw do
 
   get '/profile', to: 'users#show'
   get '/profile/edit', to: 'users#edit'
-  patch 'profile/edit', to: 'users#patch'
+  patch 'profile/edit', to: 'users#update'
 
   get '/dashboard', to: 'merchants#show'
 
