@@ -182,7 +182,7 @@ RSpec.describe 'within main navigation' do
           expect(page).to_not have_link('Login')
           expect(page).to_not have_link('Register')
           expect(page).to_not have_link('Cart')
-
+          expect(page).to_not have_content('Cart: 0')
         end
       end
     end
