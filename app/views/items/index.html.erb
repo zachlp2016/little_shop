@@ -2,15 +2,15 @@
 <section id='top-stats'>
   <h4>Most Purchased Items</h4>
   <% @most_5_bought_items.each do |item| %>
-    <p class='stat_items'><%= item.name %></p>
-    <p class='stat_items'>Total Bought: <%= item.order_quantity %></p>
+    <p><%= item.name %></p>
+    <p>Total Bought: <%= item.order_quantity %></p>
   <% end %>
 </section>
 <section id='bottom-stats'>
   <h4>Least Purchased Items</h4>
   <% @least_5_bought_items.each do |item| %>
-    <p class='stat_items'><%= item.name %></p>
-    <p class='stat_items'>Total Bought: <%= item.order_quantity %></p>
+    <p><%= item.name %></p>
+    <p>Total Bought: <%= item.order_quantity %></p>
   <% end %>
 </section>
 <% @items.each do |item| %>
