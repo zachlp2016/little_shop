@@ -9,4 +9,8 @@ class User < ApplicationRecord
   has_secure_password
 
   enum role: ["default", "merchant", "admin"]
+
+  def self.email_string
+    pluck(:email)
+  end
 end
