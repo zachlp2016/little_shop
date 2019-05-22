@@ -27,9 +27,11 @@
           </li>
         </ul>
         <ul class="navbar-nav mx">
+          <% if current_user.nil? || current_merchant? == false %>
           <li class="nav-item active">
             <%= link_to 'Cart', carts_path, class: "nav-link" %>
           </li>
+          <% end %>
           <% if current_user.nil? %>
             <li class="nav-item active">
               <%= link_to 'Login', login_path, class: "nav-link" %>

@@ -181,6 +181,8 @@ RSpec.describe 'within main navigation' do
         within '.navbar' do
           expect(page).to_not have_link('Login')
           expect(page).to_not have_link('Register')
+          expect(page).to_not have_link('Cart')
+
         end
       end
     end
