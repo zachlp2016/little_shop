@@ -106,18 +106,26 @@ RSpec.describe 'as a visitor' do
         text = page.current_scope.text
 
         expect(text.index(@item_2.name) < text.index(@item_1.name)).to be true
+        expect(text.index('Total Bought: 34') < text.index('Total Bought: 33')).to be true
         expect(text.index(@item_1.name) < text.index(@item_5.name)).to be true
+        expect(text.index('Total Bought: 33') < text.index('Total Bought: 14')).to be true
         expect(text.index(@item_5.name) < text.index(@item_4.name)).to be true
+        expect(text.index('Total Bought: 14') < text.index('Total Bought: 7')).to be true
         expect(text.index(@item_4.name) < text.index(@item_3.name)).to be true
+        expect(text.index('Total Bought: 7') < text.index('Total Bought: 6')).to be true
       end
 
       within '#bottom-stats' do
         text = page.current_scope.text
 
         expect(text.index(@item_6.name) < text.index(@item_3.name)).to be true
+        expect(text.index('Total Bought: 5') < text.index('Total Bought: 6')).to be true
         expect(text.index(@item_3.name) < text.index(@item_4.name)).to be true
+        expect(text.index('Total Bought: 6') < text.index('Total Bought: 7')).to be true
         expect(text.index(@item_4.name) < text.index(@item_5.name)).to be true
+        expect(text.index('Total Bought: 7') < text.index('Total Bought: 14')).to be true
         expect(text.index(@item_5.name) < text.index(@item_1.name)).to be true
+        expect(text.index('Total Bought: 14') < text.index('Total Bought: 33')).to be true
       end
 
     end
