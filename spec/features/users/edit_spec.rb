@@ -57,6 +57,42 @@ RSpec.describe 'As a registered User', type: :feature do
         expect(page).to have_content("Your information has been updated!")
         expect(page).to have_content("Testerino")
       end
+
+      it 'Can successfully edit all of my fields except password' do
+        visit profile_edit_path
+
+        fill_in "Name", with: "Testerino"
+        fill_in "Address", with: "455 Test Ave"
+        fill_in "City", with: "Testopolis"
+        fill_in "State", with: "Testafornia"
+        fill_in "Zip", with: "54321"
+        fill_in "Email", with: "test@test.net"
+
+        click_button "Edit User"
+
+        expect(current_path).to eq(profile_path)
+
+        expect(page).to have_content("Your information has been updated!")
+        expect(page).to have_content("Testerino")
+        expect(page).to have_content("455 Test Ave")
+        expect(page).to have_content("Testopolis")
+        expect(page).to have_content("Testafornia")
+        expect(page).to have_content("54321")
+        expect(page).to have_content("test@test.net")
+      end
+
+      it 'Can successfully update a password' do
+        visit profile_edit_path
+
+        fill_in "Password", with: "newtest"
+        fill_in "Confirm Password", with: "newtest"
+
+        click_button "Edit User"
+
+        expect(current_path).to eq(profile_path)
+        expect(page).to have_content("Your information has been updated!")
+        expect(@user.password_digest).to_not eq("t3s7")
+      end
     end
   end
 end
