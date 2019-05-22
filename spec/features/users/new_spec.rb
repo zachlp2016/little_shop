@@ -50,9 +50,8 @@ RSpec.describe 'New user form' do
 
         visit root_path
 
-        within '.register-link' do
-          click_link('Register')
-        end
+        click_link('Register')
+
 
         expect(current_path).to eq(register_path)
 
@@ -77,6 +76,7 @@ RSpec.describe 'New user form' do
 
       end
 
+<<<<<<< HEAD
       it 'Can not use a duplicate email address' do
 
         visit root_path
@@ -97,6 +97,10 @@ RSpec.describe 'New user form' do
 
         click_button 'Create User'
 
+=======
+      it 'Can not use an already used email address' do
+        user_2 = User.create!(name: "User_1", role: 0, active: true, password_digest: "8320280282", address: "333", city: "Denver", zip: "80000", email: "user_1@gmail.com", state: 'IL' )
+>>>>>>> 0b286fe76e8bd0beafce199e306365cfd2fbda6c
         visit root_path
 
         within '.navbar' do
@@ -121,7 +125,3 @@ RSpec.describe 'New user form' do
     end
   end
 end
-
-# My details are not saved and I am not logged in
-# The form is filled in with all previous data except the email field and password fields
-# I see a flash message telling me the email address is already in use
