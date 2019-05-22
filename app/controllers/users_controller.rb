@@ -11,6 +11,9 @@ class UsersController < ApplicationController
     if password_confirmation != true
       render :new
       flash[:notice] = "Those passwords don't match"
+    elsif email_confirmation != true
+      render :new
+      flash[:notice] = "That email address is already taken."
     elsif @user.save
       session[:user_id] = @user.id
       flash[:notice] = "You are now registered and logged in."
@@ -30,6 +33,12 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def email_confirmation
+    User.email_string.any? do |email|
+      params[:user][:email] != email
+    end
+  end
 
   def password_confirmation
     if params["user"]["password"] == params["user"]["confirm_password"]

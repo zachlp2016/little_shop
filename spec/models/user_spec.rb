@@ -19,4 +19,15 @@ RSpec.describe User, type: :model do
 
     it { should validate_uniqueness_of :email }
   end
+
+  describe 'class methods' do
+
+    it 'email_string' do
+      user_1 = User.create!(name: "default_user", role: 0, active: true, password_digest: "8320280282", address: "333", city: "Denver", state: "CO", zip: "80000", email: "default_user@gmail.com" )
+      user_2 = User.create!(name: "default_user1", role: 0, active: true, password_digest: "8320280282", address: "333", city: "Denver", state: "CO", zip: "80000", email: "default_user1@gmail.com" )
+      user_3 = User.create!(name: "default_user2", role: 0, active: true, password_digest: "8320280282", address: "333", city: "Denver", state: "CO", zip: "80000", email: "default_user2@gmail.com" )
+
+      expect(User.email_string).not_to eq(["default_user@gmail.com", "default_user@gmail.com", "default_user@gmail.com"])
+    end
+  end
 end
