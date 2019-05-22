@@ -38,9 +38,20 @@
                 <%= link_to 'Register', register_path, class: "nav-link" %>
             </li>
           <% end %>
-          <% if current_user %>
+          <% if current_user != nil && current_user.admin? == false && current_user.merchant? == false%>
             <li class="nav-item active">
                 <%= link_to 'Profile', profile_path, class: "nav-link" %>
+            </li>
+            <li class="nav-item active">
+                <%= link_to 'Logout', logout_path, class: "nav-link" %>
+            </li>
+            <li class="nav-item active">
+              <span class="nav-link">Logged in as <%= current_user.name %></span>
+            </li>
+          <% end %>
+          <% if current_user != nil && current_user.admin? == false && current_user.merchant? == true %>
+            <li class="nav-item active">
+                <%= link_to 'My Dashboard', dashboard_path, class: "nav-link" %>
             </li>
             <li class="nav-item active">
                 <%= link_to 'Logout', logout_path, class: "nav-link" %>
