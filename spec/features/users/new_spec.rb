@@ -63,7 +63,7 @@ RSpec.describe 'New user form' do
         fill_in 'Zip', with: '80000'
         fill_in 'Email', with: 'user@gmail.com'
         fill_in 'Password', with: 'password'
-        fill_in 'Confirm password', with: 'password'
+        fill_in 'Confirm password', with: 'password3'
 
         click_button 'Create User'
 
@@ -71,14 +71,9 @@ RSpec.describe 'New user form' do
         new_user = User.last
 
 
-        expect(current_path).to eq("/profile")
+        expect(current_path).to eq(register_path)
 
-        expect(page).to have_content("#{new_user.name}")
-        expect(page).to have_content("Address: #{new_user.address}")
-        expect(page).to have_content("City: #{new_user.city}")
-        expect(page).to have_content("Zip Code: #{new_user.zip}")
-        expect(page).to have_content("Email: #{new_user.email}")
-        expect(page).to have_content("You are now registered and logged in.")
+        expect(page).to have_content("Those passwords don't match.")
 
       end
 
