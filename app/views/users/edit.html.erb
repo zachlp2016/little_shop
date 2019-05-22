@@ -1,1 +1,31 @@
 <h2>Edit <%= @user.name %>'s Profile</h2>
+
+<%= form_for @user, url: profile_edit_path do |f| %>
+
+<p><%= f.label :name %></p>
+<%= f.text_field :name %>
+
+<p><%= f.label :address %></p>
+<%= f.text_field :address %>
+
+<p><%= f.label :city %></p>
+<%= f.text_field :city %>
+
+<p><%= f.label :state %></p>
+<%= f.text_field :state %>
+
+<p><%= f.label :zip %></p>
+<%= f.text_field :zip %>
+
+<p><%= f.label :email %></p>
+<%= f.text_field :email %>
+
+<p><%= f.label :password %></p>
+<%= f.password_field :password %>
+
+<p><%= f.label :confirm_password, "Confirm Password" %></p>
+<%= f.password_field :confirm_password %>
+
+<%= f.submit "Edit User" %>
+
+<% end %>
