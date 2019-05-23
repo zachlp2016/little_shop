@@ -27,9 +27,11 @@
           </li>
         </ul>
         <ul class="navbar-nav mx">
+          <% if current_user.nil? || !current_merchant? && !current_admin? %>
           <li class="nav-item active">
             <%= link_to 'Cart', carts_path, class: "nav-link" %>
           </li>
+          <% end %>
           <% if current_user.nil? %>
             <li class="nav-item active">
               <%= link_to 'Login', login_path, class: "nav-link" %>
@@ -38,9 +40,20 @@
                 <%= link_to 'Register', register_path, class: "nav-link" %>
             </li>
           <% end %>
-          <% if current_user %>
+          <% if !current_user.nil? && !current_admin? && !current_merchant? %>
             <li class="nav-item active">
                 <%= link_to 'Profile', profile_path, class: "nav-link" %>
+            </li>
+            <li class="nav-item active">
+                <%= link_to 'Logout', logout_path, class: "nav-link" %>
+            </li>
+            <li class="nav-item active">
+              <span class="nav-link">Logged in as <%= current_user.name %></span>
+            </li>
+          <% end %>
+          <% if !current_user.nil? && current_merchant? || current_admin? %>
+            <li class="nav-item active">
+                <%= link_to 'My Dashboard', dashboard_path, class: "nav-link" %>
             </li>
             <li class="nav-item active">
                 <%= link_to 'Logout', logout_path, class: "nav-link" %>

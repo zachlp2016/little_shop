@@ -97,6 +97,21 @@ RSpec.describe 'As a registered User', type: :feature do
         expect(page).to have_content("Your information has been updated!")
         expect(@user.password_digest).to_not eq("t3s7")
       end
+
+      it 'Will not allow an already existing users email' do
+        other_user = User.create!(email: "test@test.net", password_digest: "t3s7", role: 1, active: true, name: "Testy McTesterson", address: "123 Test St", city: "Testville", state: "Test", zip: "01234")
+
+        visit profile_edit_path
+
+        fill_in "Email", with: "test@test.net"
+
+        click_button "Edit User"
+
+        expect(current_path).to eq(profile_edit_path)
+        expect(page).to have_content("That email address is already taken.")
+
+        expect(page).to have_field("Email", with: "test@test.com")
+      end
     end
   end
 end
