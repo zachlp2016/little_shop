@@ -17,6 +17,7 @@ class SessionsController < ApplicationController
 
   def logout
     reset_session
+    flash.notice = "Succesfully Logged Out"
     redirect_to root_path
   end
 
