@@ -5,7 +5,7 @@ class Order < ApplicationRecord
 
   validates_presence_of :status
 
-  enum status: [:pending, :packaged, :shipped, :cancelled]
+  enum status: ["Pending", "Packaged", "Shipped", "Cancelled"]
 
   def date_made
     created_at.strftime("%d %B %Y")
