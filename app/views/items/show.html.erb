@@ -1,0 +1,21 @@
+<div class="item-content container">
+  <h1 class="my-4">
+    <%= @item.name %>
+  </h1>
+  <div class="row">
+    <div class="col-md-8">
+      <img class="img-responsive w-100" src="<%= @item.image %>" alt="">
+    </div>
+    <div class="col-md-4">
+      <h3 class="my-3">Item Description</h3>
+      <p><%= @item.description %></p>
+      <h3 class="my-3">Item Details</h3>
+      <ul class="list-unstyled">
+        <li>Merchant Name: <%= @item.user.name %></li>
+        <li>Available Quantity: <%= @item.inventory %></li>
+        <li>Price: $<%= @item.price %></li>
+        <li>Average Time to Ship: <%= @item.average_days_to_fulfill.round %> Days</li>
+      </ul>
+    </div>
+  </div>
+</div>
