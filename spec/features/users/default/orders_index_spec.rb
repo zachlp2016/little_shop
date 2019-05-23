@@ -66,7 +66,7 @@ RSpec.describe 'As a Registered User', type: :feature do
         expect(page).to have_content("Last Updated: April 12, 2019")
         expect(page).to have_content("Current Status: Shipped")
         expect(page).to have_content("Number of Items: 2")
-        expect(page).to have_content("Grand Total: 19.98")
+        expect(page).to have_content("Grand Total: $19.98")
       end
 
       within("#order-#{@order_2.id}") do
@@ -75,7 +75,7 @@ RSpec.describe 'As a Registered User', type: :feature do
         expect(page).to have_content("Last Updated: May 11, 2019")
         expect(page).to have_content("Current Status: Shipped")
         expect(page).to have_content("Number of Items: 3")
-        expect(page).to have_content("Grand Total: 29.97")
+        expect(page).to have_content("Grand Total: $29.97")
       end
 
       within("#order-#{@order_3.id}") do
@@ -84,7 +84,7 @@ RSpec.describe 'As a Registered User', type: :feature do
         expect(page).to have_content("Last Updated: May 3, 2019")
         expect(page).to have_content("Current Status: Shipped")
         expect(page).to have_content("Number of Items: 2")
-        expect(page).to have_content("Grand Total: 19.98")
+        expect(page).to have_content("Grand Total: $19.98")
       end
 
       within("#order-#{@order_4.id}") do
@@ -93,7 +93,7 @@ RSpec.describe 'As a Registered User', type: :feature do
         expect(page).to have_content("Last Updated: January 16, 2018")
         expect(page).to have_content("Current Status: Shipped")
         expect(page).to have_content("Number of Items: 4")
-        expect(page).to have_content("Grand Total: 39.96")
+        expect(page).to have_content("Grand Total: $39.96")
       end
     end
 
