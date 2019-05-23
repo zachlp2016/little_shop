@@ -79,6 +79,7 @@ RSpec.describe 'User show page', type: :feature do
         expect(page).to have_content(@merchant.zip)
 
         expect(page).to_not have_content(@merchant.password_digest)
+        expect(page).to_not have_link('Edit Profile')
       end
     end
   end
