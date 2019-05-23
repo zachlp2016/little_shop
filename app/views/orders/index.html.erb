@@ -6,7 +6,7 @@
       <%= link_to "Order ID: #{order.id}", order %>
       <p>Date Made: <%= order.date_made %></p>
       <p>Last Updated: <%= order.last_updated %></p>
-      <p>Current Status: <%= order.status %></p>
+      <p>Current Status: <%= order.status.titlecase %></p>
       <p>Number of Items: <%= order.item_count %></p>
       <p>Grand Total: $<%= order.grand_total %></p>
     </section>
