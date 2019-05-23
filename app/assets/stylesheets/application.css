@@ -17,3 +17,9 @@
 .card {
   margin: 10px 10px 10px 10px;
 }
+
+#cart-total {
+  position: relative;
+  right: 4px;
+  top: 8px;
+}
