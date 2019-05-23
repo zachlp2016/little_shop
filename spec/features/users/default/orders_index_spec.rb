@@ -14,6 +14,7 @@ RSpec.describe 'As a Registered User', type: :feature do
       @item_4 = create(:item, user: @merchant_2)
       @item_5 = create(:item, user: @merchant_2)
       @item_6 = create(:item, user: @merchant_2)
+      travel_to Time.zone.local(2019, 04, 11, 8, 00, 00)
       @order_1 = create(:order, user: @user)
       travel_to Time.zone.local(2019, 05, 10, 18, 00, 00)
       @order_2 = create(:order, user: @user)
@@ -53,7 +54,7 @@ RSpec.describe 'As a Registered User', type: :feature do
 
       within("#order-#{@order_1.id}") do
         expect(page).to have_link("Order ID: #{@order_1.id}")
-        expect(page).to have_content("Date Made: #{@order_1.date_made}")
+        expect(page).to have_content("Date Made: April 11, 2019")
         expect(page).to have_content("Last Updated: #{@order_1.last_updated}")
         expect(page).to have_content("Current Status: #{@order_1.status}")
         expect(page).to have_content("Number of Items: #{@order_1.item_count}")
@@ -62,7 +63,7 @@ RSpec.describe 'As a Registered User', type: :feature do
 
       within("#order-#{@order_2.id}") do
         expect(page).to have_link("Order ID: #{@order_2.id}")
-        expect(page).to have_content("Date Made: #{@order_2.date_made}")
+        expect(page).to have_content("Date Made: May 10, 2019")
         expect(page).to have_content("Last Updated: #{@order_2.last_updated}")
         expect(page).to have_content("Current Status: #{@order_2.status}")
         expect(page).to have_content("Number of Items: #{@order_2.item_count}")
@@ -71,7 +72,7 @@ RSpec.describe 'As a Registered User', type: :feature do
 
       within("#order-#{@order_3.id}") do
         expect(page).to have_link("Order ID: #{@order_3.id}")
-        expect(page).to have_content("Date Made: #{@order_3.date_made}")
+        expect(page).to have_content("Date Made: May 2, 2019")
         expect(page).to have_content("Last Updated: #{@order_3.last_updated}")
         expect(page).to have_content("Current Status: #{@order_3.status}")
         expect(page).to have_content("Number of Items: #{@order_3.item_count}")
@@ -80,7 +81,7 @@ RSpec.describe 'As a Registered User', type: :feature do
 
       within("#order-#{@order_4.id}") do
         expect(page).to have_link("Order ID: #{@order_4.id}")
-        expect(page).to have_content("Date Made: #{@order_4.date_made}")
+        expect(page).to have_content("Date Made: January 15, 2018")
         expect(page).to have_content("Last Updated: #{@order_4.last_updated}")
         expect(page).to have_content("Current Status: #{@order_4.status}")
         expect(page).to have_content("Number of Items: #{@order_4.item_count}")
