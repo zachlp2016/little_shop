@@ -8,11 +8,11 @@ class Order < ApplicationRecord
   enum status: ["Pending", "Packaged", "Shipped", "Cancelled"]
 
   def date_made
-    created_at.strftime("%d %B %Y")
+    created_at.strftime("%B %-d, %Y")
   end
 
   def last_updated
-    updated_at.strftime("%d %B %Y")
+    updated_at.strftime("%B %-d, %Y")
   end
 
   def item_count
