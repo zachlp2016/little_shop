@@ -1,4 +1,5 @@
 class ItemsController < ApplicationController
+
   def index
     @items = Item.all_active
     @most_5_bought_items = Item.most_5_bought
@@ -6,5 +7,6 @@ class ItemsController < ApplicationController
   end
 
   def show
+    @item = Item.find_by(id: params['id'])
   end
 end
