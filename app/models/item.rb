@@ -28,4 +28,8 @@ class Item < ApplicationRecord
         .order('order_quantity')
         .limit(5)
   end
+
+  def average_days_to_fulfill
+    order_items.where(fulfilled: true).average("order_items.updated_at - order_items.created_at")
+  end
 end
