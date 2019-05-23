@@ -79,7 +79,7 @@ RSpec.describe 'As a Registered User', type: :feature do
       end
 
       within("#order-#{@order_4.id}") do
-        expect(page).to have_link("#{@order_4.id}")
+        expect(page).to have_link("Order ID: #{@order_4.id}")
         expect(page).to have_content("Date Made: #{@order_4.date_made}")
         expect(page).to have_content("Last Updated: #{@order_4.last_updated}")
         expect(page).to have_content("Current Status: #{@order_4.status}")
