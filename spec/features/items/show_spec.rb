@@ -62,12 +62,40 @@ RSpec.describe 'As any kind of user on the system' do
         expect(page).to have_content("Average Time to Ship: #{@item_1.average_days_to_fulfill.round} Days")
       end
     end
+
+    describe 'as a visitor or regular user, I can see a link to add item to cart' do
+      it 'as a visitor' do
+        visit item_path(@item_1.id)
+
+        expect(page).to have_link('Add to Cart')
+      end
+
+      it 'as a regular user' do
+        user = User.create!(email: "test@test.com", password_digest: "t3s7", role: :default, active: true, name: "Testy McTesterson", address: "123 Test St", city: "Testville", state: "Test", zip: "01234")
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+    
+        visit item_path(@item_1.id)
+
+        expect(page).to have_link('Add to Cart')
+      end
+
+      it 'as a merchant user' do
+        user = User.create!(email: "test@test.com", password_digest: "t3s7", role: :merchant, active: true, name: "Testy McTesterson", address: "123 Test St", city: "Testville", state: "Test", zip: "01234")
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+        visit item_path(@item_1.id)
+
+        expect(page).to have_no_link('Add to Cart')
+      end
+
+      it 'as an admin user' do
+        user = User.create!(email: "test@test.com", password_digest: "t3s7", role: :admin, active: true, name: "Testy McTesterson", address: "123 Test St", city: "Testville", state: "Test", zip: "01234")
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+        visit item_path(@item_1.id)
+
+        expect(page).to have_no_link('Add to Cart')
+      end
+    end
   end
 end
-
-
-
-# - a larger image of the item
-# - an average amount of time it takes this merchant to fulfill this item
-
-# If I am a visitor or regular user, I also see a link to add this item to my cart
