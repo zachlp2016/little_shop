@@ -52,7 +52,7 @@ RSpec.describe 'As a Registered User', type: :feature do
       visit profile_orders_path
 
       within("#order-#{@order_1.id}") do
-        expect(page).to have_link("#{@order_1.id}")
+        expect(page).to have_link("Order ID: #{@order_1.id}")
         expect(page).to have_content("Date Made: #{@order_1.date_made}")
         expect(page).to have_content("Last Updated: #{@order_1.last_updated}")
         expect(page).to have_content("Current Status: #{@order_1.status}")
@@ -61,7 +61,7 @@ RSpec.describe 'As a Registered User', type: :feature do
       end
 
       within("#order-#{@order_2.id}") do
-        expect(page).to have_link("#{@order_2.id}")
+        expect(page).to have_link("Order ID: #{@order_2.id}")
         expect(page).to have_content("Date Made: #{@order_2.date_made}")
         expect(page).to have_content("Last Updated: #{@order_2.last_updated}")
         expect(page).to have_content("Current Status: #{@order_2.status}")
@@ -70,7 +70,7 @@ RSpec.describe 'As a Registered User', type: :feature do
       end
 
       within("#order-#{@order_3.id}") do
-        expect(page).to have_link("#{@order_3.id}")
+        expect(page).to have_link("Order ID: #{@order_3.id}")
         expect(page).to have_content("Date Made: #{@order_3.date_made}")
         expect(page).to have_content("Last Updated: #{@order_3.last_updated}")
         expect(page).to have_content("Current Status: #{@order_3.status}")
