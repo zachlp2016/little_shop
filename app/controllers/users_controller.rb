@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(strong_params)
+    @user = User.new(user_params)
     if password_confirmation != true
       flash.now[:notice] = "Those passwords don't match."
       render :new
@@ -40,7 +40,7 @@ class UsersController < ApplicationController
     elsif email_confirmation(@user.email) == true
       flash.now[:notice] = "That email address is already taken."
       render :edit
-    elsif @user.update!(strong_params)
+    elsif @user.update!(user_params)
       flash[:notice] = "Your information has been updated!"
       redirect_to profile_path
     else
@@ -63,7 +63,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def strong_params
+  def user_params
     params.require(:user).permit(:name, :address, :city, :state, :zip, :email, :password)
   end
 
