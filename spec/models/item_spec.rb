@@ -38,17 +38,18 @@ RSpec.describe Item, type: :model do
     order_9 = create(:order, user: buyer_1)
     order_10 = create(:order, user: buyer_3)
     order_11 = create(:order, user: buyer_4)
-    OrderItem.create!(item: @item_1, order: order_1, quantity: 12, price: 1.99, fulfilled: true)
-    OrderItem.create!(item: @item_2, order: order_2, quantity: 3, price: 6.99, fulfilled: true)
-    OrderItem.create!(item: @item_3, order: order_3, quantity: 6, price: 11.99, fulfilled: true)
-    OrderItem.create!(item: @item_4, order: order_4, quantity: 7, price: 12.99, fulfilled: true)
-    OrderItem.create!(item: @item_5, order: order_5, quantity: 14, price: 13.99, fulfilled: true)
-    OrderItem.create!(item: @item_6, order: order_6, quantity: 5, price: 2.99, fulfilled: true)
-    OrderItem.create!(item: @item_1, order: order_7, quantity: 21, price: 9.99, fulfilled: true)
-    OrderItem.create!(item: @item_2, order: order_8, quantity: 31, price: 7.99, fulfilled: true)
-    OrderItem.create!(item: @item_3, order: order_9, quantity: 2, price: 12.99, fulfilled: false)
-    OrderItem.create!(item: @item_4, order: order_10, quantity: 3, price: 11.99, fulfilled: false)
-    OrderItem.create!(item: @item_5, order: order_11, quantity: 1, price: 21.99, fulfilled: false)
+    @order_item_1 = OrderItem.create!(item: @item_1, order: order_1, quantity: 12, price: 1.99, fulfilled: true, created_at: 4.days.ago, updated_at: 1.days.ago)
+    @order_item_2 = OrderItem.create!(item: @item_2, order: order_2, quantity: 3, price: 6.99, fulfilled: true, created_at: 3.days.ago, updated_at: 1.days.ago)
+    @order_item_3 = OrderItem.create!(item: @item_3, order: order_3, quantity: 6, price: 11.99, fulfilled: true, created_at: 3.days.ago, updated_at: 1.days.ago)
+    @order_item_4 = OrderItem.create!(item: @item_4, order: order_4, quantity: 7, price: 12.99, fulfilled: true, created_at: 7.days.ago, updated_at: 1.days.ago)
+    @order_item_5 = OrderItem.create!(item: @item_5, order: order_5, quantity: 14, price: 13.99, fulfilled: true, created_at: 10.days.ago, updated_at: 1.days.ago)
+    @order_item_6 = OrderItem.create!(item: @item_6, order: order_6, quantity: 5, price: 2.99, fulfilled: true, created_at: 1.days.ago, updated_at: 1.days.ago)
+    @order_item_7 = OrderItem.create!(item: @item_1, order: order_7, quantity: 21, price: 9.99, fulfilled: true, created_at: 2.days.ago, updated_at: 1.days.ago)
+    @order_item_8 = OrderItem.create!(item: @item_2, order: order_8, quantity: 31, price: 7.99, fulfilled: true, created_at: 4.days.ago, updated_at: 1.days.ago)
+    @order_item_9 = OrderItem.create!(item: @item_3, order: order_9, quantity: 2, price: 12.99, fulfilled: false, created_at: 5.days.ago, updated_at: 1.days.ago)
+    @order_item_10 = OrderItem.create!(item: @item_4, order: order_10, quantity: 3, price: 11.99, fulfilled: false, created_at: 8.days.ago, updated_at: 1.days.ago)
+    @order_item_11 = OrderItem.create!(item: @item_5, order: order_11, quantity: 1, price: 21.99, fulfilled: false, created_at: 9.days.ago, updated_at: 1.days.ago)
+    @order_item_12 = OrderItem.create!(item: @item_1, order: order_11, quantity: 1, price: 21.99, fulfilled: false, created_at: 9.days.ago, updated_at: 1.days.ago)
   end
 
   describe 'class methods' do
@@ -82,6 +83,11 @@ RSpec.describe Item, type: :model do
       expect(Item.least_5_bought.length).to eq(5)
     end
 
+    it '.average_days_to_fulfill' do
+      item1_average_days = ((@order_item_7.updated_at - @order_item_7.created_at)+(@order_item_1.updated_at - @order_item_1.created_at))/2 /60 /60 /24
+
+      expect(@item_1.average_days_to_fulfill.round).to eq(item1_average_days.round)
+    end
   end
 
 end
