@@ -36,14 +36,14 @@ RSpec.describe 'As a Registered User', type: :feature do
     describe 'And I have orders placed in the system' do
       it 'I can click on My Orders and navigate to profile/orders' do
         order_1 = @user.orders.create!(status: 0)
-        
+
         visit profile_path
 
         expect(page).to have_link("My Orders")
 
         click_on "My Orders"
 
-        expect(current_path).to eq(profile_orders_path(@user))
+        expect(current_path).to eq(profile_orders_path)
       end
     end
     describe 'And I do not have orders placed in the system' do
