@@ -1,3 +1,7 @@
+<% @user.errors.full_messages.each do |msg| %>
+<%= msg %>
+<% end %>
+
 <%= form_for @user, url: register_path do |f| %>
 
 <p><%= f.label :name %></p>

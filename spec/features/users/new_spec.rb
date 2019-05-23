@@ -111,18 +111,20 @@ RSpec.describe 'New user form' do
       end
 
       fill_in 'Name', with: ''
-      fill_in 'Address', with: ''
-      fill_in 'City', with: ''
+      fill_in 'Address', with: '1111 South One St.'
+      fill_in 'City', with: 'Denver'
       fill_in 'State', with: ''
-      fill_in 'Zip', with: ''
+      fill_in 'Zip', with: '80000'
       fill_in 'Email', with: 'user_1@gmail.com'
-      fill_in 'Password', with: 'password'
-      fill_in 'Confirm password', with: 'password'
+      fill_in 'Password', with: ''
+      fill_in 'Confirm password', with: ''
 
       click_button 'Create User'
 
       expect(current_path).to eq(register_path)
-      expect(page).to have_content("Some required fields are missing.")
+      expect(page).to have_content("Name can't be blank")
+      expect(page).to have_content("State can't be blank")
+      expect(page).to have_content("Password can't be blank")
     end
   end
 end
