@@ -68,6 +68,7 @@ RSpec.describe 'User show page', type: :feature do
       it 'I see my profile data' do
         visit dashboard_path
 
+
         expect(page).to have_content(@merchant.email)
         expect(page).to have_content(@merchant.role)
         expect(page).to have_content(@merchant.active)
