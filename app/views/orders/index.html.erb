@@ -1,1 +1,7 @@
-<p>Test orders!!!!</p>
+<h2><%= @user.name %>'s Orders</h2>
+
+<% @orders.each do |order| %>
+  <section id="order-<%= order.id %>">
+    <p>Test</p>
+  </section>
+<% end %>
