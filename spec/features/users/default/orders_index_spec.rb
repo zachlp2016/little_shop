@@ -87,5 +87,18 @@ RSpec.describe 'As a Registered User', type: :feature do
         expect(page).to have_content("Grand Total: #{@order_4.grand_total}")
       end
     end
+
+    it 'I see no items if I have no orders' do
+      user = User.create!(email: "not_test@test.com", password_digest: "t3s7", role: 1, active: true, name: "Testy McTesterson", address: "123 Test St", city: "Testville", state: "Test", zip: "01234")
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+      visit profile_orders_path
+
+      expect(page).to have_content("#{user.name}'s Orders")
+
+      expect(page).to_not have_css("#order-\d")
+
+      expect(page).to have_content("You haven't made any orders yet!")
+    end
   end
 end
