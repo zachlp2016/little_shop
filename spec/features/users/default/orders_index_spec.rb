@@ -22,6 +22,14 @@ RSpec.describe 'As a Registered User', type: :feature do
       @order_3 = create(:order, user: @user)
       travel_to Time.zone.local(2018, 01, 15, 14, 00, 00)
       @order_4 = create(:order, user: @user)
+      travel_to Time.zone.local(2019, 04, 12, 8, 00, 00)
+      @order_1.update(status: 2)
+      travel_to Time.zone.local(2019, 05, 11, 18, 00, 00)
+      @order_2.update(status: 2)
+      travel_to Time.zone.local(2019, 05, 03, 12, 00, 00)
+      @order_3.update(status: 2)
+      travel_to Time.zone.local(2018, 01, 16, 14, 00, 00)
+      @order_4.update(status: 2)
       travel_back
       order_item_1 = create(:order_item, order: @order_1, item: @item_1)
       order_item_2 = create(:order_item, order: @order_1, item: @item_2)
@@ -55,37 +63,37 @@ RSpec.describe 'As a Registered User', type: :feature do
       within("#order-#{@order_1.id}") do
         expect(page).to have_link("Order ID: #{@order_1.id}")
         expect(page).to have_content("Date Made: April 11, 2019")
-        expect(page).to have_content("Last Updated: #{@order_1.last_updated}")
-        expect(page).to have_content("Current Status: #{@order_1.status}")
-        expect(page).to have_content("Number of Items: #{@order_1.item_count}")
-        expect(page).to have_content("Grand Total: #{@order_1.grand_total}")
+        expect(page).to have_content("Last Updated: April 12, 2019")
+        expect(page).to have_content("Current Status: Shipped")
+        expect(page).to have_content("Number of Items: 2")
+        expect(page).to have_content("Grand Total: 19.98")
       end
 
       within("#order-#{@order_2.id}") do
         expect(page).to have_link("Order ID: #{@order_2.id}")
         expect(page).to have_content("Date Made: May 10, 2019")
-        expect(page).to have_content("Last Updated: #{@order_2.last_updated}")
-        expect(page).to have_content("Current Status: #{@order_2.status}")
-        expect(page).to have_content("Number of Items: #{@order_2.item_count}")
-        expect(page).to have_content("Grand Total: #{@order_2.grand_total}")
+        expect(page).to have_content("Last Updated: May 11, 2019")
+        expect(page).to have_content("Current Status: Shipped")
+        expect(page).to have_content("Number of Items: 3")
+        expect(page).to have_content("Grand Total: 29.97")
       end
 
       within("#order-#{@order_3.id}") do
         expect(page).to have_link("Order ID: #{@order_3.id}")
         expect(page).to have_content("Date Made: May 2, 2019")
-        expect(page).to have_content("Last Updated: #{@order_3.last_updated}")
-        expect(page).to have_content("Current Status: #{@order_3.status}")
-        expect(page).to have_content("Number of Items: #{@order_3.item_count}")
-        expect(page).to have_content("Grand Total: #{@order_3.grand_total}")
+        expect(page).to have_content("Last Updated: May 3, 2019")
+        expect(page).to have_content("Current Status: Shipped")
+        expect(page).to have_content("Number of Items: 2")
+        expect(page).to have_content("Grand Total: 19.98")
       end
 
       within("#order-#{@order_4.id}") do
         expect(page).to have_link("Order ID: #{@order_4.id}")
         expect(page).to have_content("Date Made: January 15, 2018")
-        expect(page).to have_content("Last Updated: #{@order_4.last_updated}")
-        expect(page).to have_content("Current Status: #{@order_4.status}")
-        expect(page).to have_content("Number of Items: #{@order_4.item_count}")
-        expect(page).to have_content("Grand Total: #{@order_4.grand_total}")
+        expect(page).to have_content("Last Updated: January 16, 2018")
+        expect(page).to have_content("Current Status: Shipped")
+        expect(page).to have_content("Number of Items: 4")
+        expect(page).to have_content("Grand Total: 39.96")
       end
     end
 
