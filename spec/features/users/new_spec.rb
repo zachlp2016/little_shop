@@ -102,5 +102,33 @@ RSpec.describe 'New user form' do
         expect(new_user.name).to eq('User_1')
       end
     end
+
+    it 'Will not let me register if fields are missing' do
+      visit root_path
+
+      within '.navbar' do
+        click_link('Register')
+      end
+
+      fill_in 'Name', with: ''
+      fill_in 'Address', with: ''
+      fill_in 'City', with: ''
+      fill_in 'State', with: ''
+      fill_in 'Zip', with: ''
+      fill_in 'Email', with: 'user_1@gmail.com'
+      fill_in 'Password', with: 'password'
+      fill_in 'Confirm password', with: 'password'
+
+      click_button 'Create User'
+
+      expect(current_path).to eq(register_path)
+      expect(page).to have_content("Some required fields are missing.")
+    end
   end
 end
+#
+# As a visitor
+# When I visit the user registration page
+# And I do not fill in this form completely,
+# I am returned to the registration page
+# And I see a flash message indicating that I am missing required fields
