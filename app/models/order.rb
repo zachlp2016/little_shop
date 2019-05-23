@@ -4,4 +4,24 @@ class Order < ApplicationRecord
   has_many :items, through: :order_items
 
   validates_presence_of :status
+
+  enum :status [:pending, :packaged, :shipped, :cancelled]
+
+  def date_made
+    created_at.strftime("%d %B %Y")
+  end
+
+  def last_updated
+    updated_at.strftime("%d %B %Y")
+  end
+
+  def item_count
+    items.count
+  end
+
+  def grand_total
+    order_items.sum do |item|
+      item.price * item.quantity
+    end
+  end
 end
