@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   patch '/profile/edit', to: 'users#update'
   get '/profile/orders', to: 'orders#index'
 
+  resources :orders, only: [:show]
+
   get '/dashboard', to: 'merchants#show'
 
   get '/merchants', to: 'merchants#index' # a link to see all merchants ("/merchants") -- User Story 2, Visitor Navigation
