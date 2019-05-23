@@ -14,7 +14,9 @@
         <li>Merchant Name: <%= @item.user.name %></li>
         <li>Available Quantity: <%= @item.inventory %></li>
         <li>Price: $<%= @item.price %></li>
-        <li>Average Time to Ship: <%= @item.average_days_to_fulfill.round %> Days</li>
+        <% if @item.average_days_to_fulfill %>
+          <li>Average Time to Ship: <%= @item.average_days_to_fulfill.round %> Days</li>
+        <% end %>
       </ul>
       <% if current_user.nil? || current_user.default? %>
         <%= link_to "Add to Cart", root_path %>
