@@ -27,10 +27,17 @@
           </li>
         </ul>
         <ul class="navbar-nav mx">
-          <% if current_user.nil? || current_merchant? == false %>
-          <li class="nav-item active">
-            <%= link_to 'Cart', carts_path, class: "nav-link" %>
-          </li>
+          <% if current_user.nil? || !current_merchant? && !current_admin? %>
+            <li class="nav-item active">
+              <span class="nav-link" >
+                <%= link_to 'Cart', carts_path %>
+                <% if session[:cart] %>
+                  (<%= session[:cart].values.sum %>)
+                <% else %>
+                  (0)
+                <% end %>
+              </span>
+            </li>
           <% end %>
           <% if current_user.nil? %>
             <li class="nav-item active">
@@ -40,7 +47,7 @@
                 <%= link_to 'Register', register_path, class: "nav-link" %>
             </li>
           <% end %>
-          <% if current_user != nil && current_user.admin? == false && current_user.merchant? == false%>
+          <% if !current_user.nil? && !current_admin? && !current_merchant? %>
             <li class="nav-item active">
                 <%= link_to 'Profile', profile_path, class: "nav-link" %>
             </li>
@@ -51,7 +58,7 @@
               <span class="nav-link">Logged in as <%= current_user.name %></span>
             </li>
           <% end %>
-          <% if current_user != nil && current_user.admin? == false && current_user.merchant? == true %>
+          <% if !current_user.nil? && current_merchant? || current_admin? %>
             <li class="nav-item active">
                 <%= link_to 'My Dashboard', dashboard_path, class: "nav-link" %>
             </li>

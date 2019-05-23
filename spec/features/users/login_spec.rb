@@ -51,15 +51,27 @@ RSpec.describe 'User can login' do
       expect(current_path).to eq(root_path)
       expect(page).to have_content('You are now logged in.')
     end
+
+    it 'shows error message if credentials are bad' do
+      visit login_path
+
+      fill_in 'Email', with: "reg_@gmail.com"
+      fill_in 'Password', with: "password"
+
+      click_button('Login')
+
+      save_and_open_page
+
+      expect(current_path).to eq(login_path)
+      expect(page).to have_content('Those are the wrong credentials.')
+    end
   end
 end
-#
+
 #
 # As a visitor
-# When I visit the login path
-# I see a field to enter my email address and password
-# When I submit valid information
-# If I am a regular user, I am redirected to my profile page
-# If I am a merchant user, I am redirected to my merchant dashboard page
-# If I am an admin user, I am redirected to the home page of the site
-# And I see a flash message that I am logged in
+# When I visit the login page ("/login")
+# And I submit valid information
+# Then I am redirected to the login page
+# And I see a flash message that tells me that my credentials were incorrect
+# I am NOT told whether it was my email or password that was incorrect
