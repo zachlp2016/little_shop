@@ -13,6 +13,15 @@
  *= require_tree .
  *= require_self
  */
-.small-item-img {
-  height: 200px;
+
+.card {
+  margin: 10px 10px 10px 10px;
+}
+
+.card-img-top {
+  height: 220px;
+}
+
+.card-group {
+  margin-left: 30px;
 }
