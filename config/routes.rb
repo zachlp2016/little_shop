@@ -21,8 +21,8 @@ Rails.application.routes.draw do
     resources :orders, only: [:index]
   end
 
-  get '/dashboard', to: 'merchants#show'
 
+  get '/dashboard', to: 'merchants#show'
   get '/merchants', to: 'merchants#index' # a link to see all merchants ("/merchants") -- User Story 2, Visitor Navigation
 
   namespace :admin do
