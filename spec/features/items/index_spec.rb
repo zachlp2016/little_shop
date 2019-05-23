@@ -92,7 +92,7 @@ RSpec.describe 'as a visitor' do
       visit items_path
 
       within "#item-#{@item_4.id}" do
-        page.first(".image_link").click
+        page.first(".img-link").click
       end
 
       expect(current_path).to eq(item_path(@item_4))
@@ -128,6 +128,26 @@ RSpec.describe 'as a visitor' do
         expect(text.index('Total Bought: 14') < text.index('Total Bought: 33')).to be true
       end
 
+    end
+
+    it 'allows user to add items to shopping cart' do
+      visit items_path
+
+      expect(page).to have_content("(0)")
+
+      within "#item-#{@item_1.id}" do
+        click_button "Add To Cart"
+      end
+
+      expect(page).to have_content("#{@item_1.name} has been added to your cart")
+      expect(page).to have_content("(1)")
+
+      within "#item-#{@item_2.id}" do
+        click_button "Add To Cart"
+      end
+
+      expect(page).to have_content("#{@item_2.name} has been added to your cart")
+      expect(page).to have_content("(2)")
     end
   end
 end

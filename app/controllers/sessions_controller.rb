@@ -10,6 +10,7 @@ class SessionsController < ApplicationController
       flash[:notice] = "You are now logged in."
       redirects
     else
+      flash[:notice] = "Those are the wrong credentials."
       render :new
     end
   end

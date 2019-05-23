@@ -28,9 +28,16 @@
         </ul>
         <ul class="navbar-nav mx">
           <% if current_user.nil? || !current_merchant? && !current_admin? %>
-          <li class="nav-item active">
-            <%= link_to 'Cart', carts_path, class: "nav-link" %>
-          </li>
+            <li class="nav-item active">
+              <span class="nav-link" >
+                <%= link_to 'Cart', carts_path %>
+                <% if session[:cart] %>
+                  (<%= session[:cart].values.sum %>)
+                <% else %>
+                  (0)
+                <% end %>
+              </span>
+            </li>
           <% end %>
           <% if current_user.nil? %>
             <li class="nav-item active">

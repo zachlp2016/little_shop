@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :items, only: [:index, :show]
 
   resources :carts, only: [:create, :index] #added index as we need to show the cart -- User Story 2, Visitor Navigation
-
+  
   get '/register', to: 'users#new'
   post '/register', to: 'users#create'
 
