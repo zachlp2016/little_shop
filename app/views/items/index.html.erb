@@ -13,12 +13,22 @@
     <p>Total Bought: <%= item.order_quantity %></p>
   <% end %>
 </section>
-<% @items.each do |item| %>
-  <section id='item-<%= item.id %>'>
-    <%= link_to item.name, item_path(item) %>
-    <%= item.user.name %>
-    <%= item.inventory %>
-    <%= item.price %><br>
-    <a class='image_link' href="<%= item_path(item) %>"><img class='small-item-img' src="<%= item.image %>"></a>
-  </section>
-<% end %>
+<div class="card-group">
+  <% @items.each do |item| %>
+    <section id='item-<%= item.id %>'>
+      <div class="card" style="width: 18rem;">
+        <a class='img-link' href="<%= item_path(item) %>">
+          <img class="card-img-top" src="<%= item.image %>" alt="Card image cap">
+        </a>
+        <div class="card-body">
+          <h5 class="card-title"><%= link_to item.name, item_path(item) %></h5>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Seller: <%= item.user.name %></li>
+          <li class="list-group-item">Inventory: <%= item.inventory %></li>
+          <li class="list-group-item">Price: $<%= item.price %><br></li>
+        </ul>
+      </div>
+    </section>
+  <% end %>
+</div>
