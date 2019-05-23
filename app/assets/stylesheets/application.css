@@ -27,3 +27,7 @@
 .card-img-top {
   height: 220px;
 }
+
+.card-group {
+  margin-left: 30px;
+}
