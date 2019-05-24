@@ -39,7 +39,7 @@ RSpec.describe 'As a Registered User', type: :feature do
         expect(page).to have_content("#{@item_1.description}")
         expect(page).to have_css("img[src*='#{@item_1.image}']")
         expect(page).to have_content("Quantity: #{@order_item_1.quantity}")
-        expect(page).to have_content("Subtotal: #{@order_item_1.sub_total}")
+        expect(page).to have_content("Subtotal: $#{@order_item_1.sub_total}")
       end
 
       within("#order-item-#{@order_item_2.id}") do
@@ -47,7 +47,7 @@ RSpec.describe 'As a Registered User', type: :feature do
         expect(page).to have_content("#{@item_2.description}")
         expect(page).to have_css("img[src*='#{@item_2.image}']")
         expect(page).to have_content("Quantity: #{@order_item_2.quantity}")
-        expect(page).to have_content("Subtotal: #{@order_item_2.sub_total}")
+        expect(page).to have_content("Subtotal: $#{@order_item_2.sub_total}")
       end
 
       within("#order-item-#{@order_item_3.id}") do
@@ -55,11 +55,11 @@ RSpec.describe 'As a Registered User', type: :feature do
         expect(page).to have_content("#{@item_3.description}")
         expect(page).to have_css("img[src*='#{@item_3.image}']")
         expect(page).to have_content("Quantity: #{@order_item_3.quantity}")
-        expect(page).to have_content("Subtotal: #{@order_item_3.sub_total}")
+        expect(page).to have_content("Subtotal: $#{@order_item_3.sub_total}")
       end
 
       expect(page).to have_content("Number of Items: #{@order_1.item_count}")
-      expect(page).to have_content("Grand Total: #{@order_1.grand_total}")
+      expect(page).to have_content("Grand Total: $#{@order_1.grand_total}")
     end
   end
 end
