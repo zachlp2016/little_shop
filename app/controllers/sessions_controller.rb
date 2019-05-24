@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
       redirect_to dashboard_path
     elsif !current_merchant? && current_admin?
       flash[:notice] = "You have already logged in."
-      redirect_to dashboard_path
+      redirect_to root_path
     end
   end
 
