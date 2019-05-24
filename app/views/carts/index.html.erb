@@ -1,2 +1,4 @@
-<h1>Just a test page for a view</h1>
-<p>Remove when needed.</p>
+<h1>My cart</h1>
+<% if @cart.contents == {} %>
+<p>Your cart is currently empty.</p>
+<% end %>
