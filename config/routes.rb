@@ -15,11 +15,10 @@ Rails.application.routes.draw do
 
   get '/profile', to: 'users#show'
   get '/profile/edit', to: 'users#edit'
-  patch 'profile/edit', to: 'users#update'
+  patch '/profile/edit', to: 'users#update'
+  get '/profile/orders', to: 'orders#index'
 
-  resources :users, as: :profile do  #add for User Story #27, User Profile displays Orders link
-    resources :orders, only: [:index]
-  end
+  resources :orders, only: [:show]
 
 
   get '/dashboard', to: 'merchants#show'

@@ -44,7 +44,7 @@ RSpec.describe 'User show page', type: :feature do
 
           click_on "My Orders"
 
-          expect(current_path).to eq(profile_orders_path(@user))
+          expect(current_path).to eq(profile_orders_path)
         end
       end
       describe 'And I do not have orders placed in the system' do
