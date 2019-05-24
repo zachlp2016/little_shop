@@ -34,26 +34,26 @@ RSpec.describe 'As a Registered User', type: :feature do
       expect(page).to have_content("Last Updated: #{@order_1.last_updated}")
       expect(page).to have_content("Current Status: #{@order_1.status.capitalize}")
 
-      within("#order-item-#{@item_1}") do
+      within("#order-item-#{@order_item_1.id}") do
         expect(page).to have_content("#{@item_1.name}")
         expect(page).to have_content("#{@item_1.description}")
-        expect(page).to have_content("#{@item_1.image}")
+        expect(page).to have_css("img[src*='#{@item_1.image}']")
         expect(page).to have_content("Quantity: #{@order_item_1.quantity}")
         expect(page).to have_content("Subtotal: #{@order_item_1.sub_total}")
       end
 
-      within("#order-item-#{@item_2}") do
+      within("#order-item-#{@order_item_2.id}") do
         expect(page).to have_content("#{@item_2.name}")
         expect(page).to have_content("#{@item_2.description}")
-        expect(page).to have_content("#{@item_2.image}")
+        expect(page).to have_css("img[src*='#{@item_2.image}']")
         expect(page).to have_content("Quantity: #{@order_item_2.quantity}")
         expect(page).to have_content("Subtotal: #{@order_item_2.sub_total}")
       end
 
-      within("#order-item-#{@item_3}") do
+      within("#order-item-#{@order_item_3.id}") do
         expect(page).to have_content("#{@item_3.name}")
         expect(page).to have_content("#{@item_3.description}")
-        expect(page).to have_content("#{@item_3.image}")
+        expect(page).to have_css("img[src*='#{@item_3.image}']")
         expect(page).to have_content("Quantity: #{@order_item_3.quantity}")
         expect(page).to have_content("Subtotal: #{@order_item_3.sub_total}")
       end
