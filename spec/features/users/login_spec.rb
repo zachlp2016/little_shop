@@ -96,6 +96,22 @@ RSpec.describe 'User can login' do
       end
     end
   end
+
+  context 'As a admin user' do
+    describe 'When I visit the login page' do
+      before :each do
+        @admin = User.create!(name: "Admin", password_digest: "password", role: 2, active: true, address: "88888", city: "Denver", state: "CO", zip: "88888", email: "merchant@gmail.com")
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
+      end
+
+      it 'It redirects me to my profile page' do
+        visit login_path
+
+        expect(current_path).to eq(root_path)
+        expect(page).to have_content('You have already logged in.')
+      end
+    end
+  end
 end
 # As a registered user, merchant, or admin
 # When I visit the login path
