@@ -1,2 +1,5 @@
-<h1>Just a test page for a view</h1>
+<h1>My cart</h1>
+<% if @cart.nil? %>
+<p>Your cart is currently empty.</p>
+<% end %>
 <p>Remove when needed.</p>
