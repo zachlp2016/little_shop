@@ -1,2 +1,16 @@
-<h1>Merchant Page</h1>
-<p>This is only for testing, remove when needed.</p>
+<h1>Merchants</h1>
+<section class="card-group">
+  <% @merchants.each do |merchant| %>
+    <section id="merchant-<%= merchant.id %>">
+      <div class="card" style="width: 18rem;">
+        <div class="card-header text-center">
+          <%= merchant.name %>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item text-center">Location: <%= merchant.city %>, <%= merchant.state %></li>
+          <li class="list-group-item text-center">Joined: <%= merchant.created_at.strftime("%B %d, %Y") %></li>
+        </ul>
+      </div>
+    </section>
+  <% end %>
+</section>

@@ -1,13 +1,18 @@
 FactoryBot.define do
   factory :user do
-    password_digest { "MyString" }
-    role { 1 }
+    password_digest { "password" }
+    role { 0 }
     active { true }
-    name { "MyString" }
-    address { "MyString" }
-    city { "MyString" }
-    state { "MyString" }
-    zip { "MyString" }
+
+    sequence :name do |n|
+      "User #{n}"
+    end
+
+    address { "1234 Test Rd." }
+    city { "Denver" }
+    state { "CO" }
+    zip { "80123" }
+
     sequence :email do |n|
       "person#{n}@example.com"
     end

@@ -13,4 +13,9 @@ class User < ApplicationRecord
   def self.email_string
     pluck(:email)
   end
+
+  def self.all_active_merchants
+    where('active=true AND role=1')
+  end
+
 end
