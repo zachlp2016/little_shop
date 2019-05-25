@@ -11,10 +11,11 @@
           <h5 class="card-title"><%= link_to item.name, item_path(item) %></h5>
         </div>
         <ul class="list-group list-group-flush">
+          <li class="list-group-item">Item Id: <%= item.id %></li>
           <li class="list-group-item">Inventory: <%= item.inventory %></li>
           <li class="list-group-item">Price: $<%= item.price %><br></li>
         </ul>
-        <button class="btn btn-primary"><%= button_to "Add To Cart", carts_path(item_id: item.id) %></button>
+        <%= link_to "Edit this item" %>
       </div>
     </section>
   <% end %>
