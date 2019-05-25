@@ -18,6 +18,5 @@
 <p>Number of Items: <%= @order.item_count %></p>
 <p>Grand Total: <%= number_to_currency(@order.grand_total, unit: "$") %></p>
 
-<% if @order.pending?%>
-  <%= button_to "Cancel Order", profile_order_path(@order), method: "delete" %>
-<% end %>
+
+<%= button_to "Cancel Order", profile_order_path(@order), method: "delete", disabled: !@order.pending? %>
