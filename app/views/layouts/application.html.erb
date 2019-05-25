@@ -85,9 +85,13 @@
     </nav>
 
     <% flash.each do |message| %>
-    <%= sanitize(message[1]) %>
+      <div id="flash-message" class="alert alert-primary alert-dismissible fade show" role="alert">
+        <%= sanitize(message[1]) %>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
     <% end %>
-
 
     <%= yield %>
   </body>
