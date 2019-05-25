@@ -9,6 +9,6 @@ class Admin::UsersController < ApplicationController
 
   def dashboard
     @user = current_user
-    # require 'pry'; binding.pry
+    @orders = Order.order(:status)
   end
 end
