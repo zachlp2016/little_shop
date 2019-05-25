@@ -10,7 +10,7 @@ RSpec.describe 'As a merchant' do
       @merchant_2 = create(:user, role: 1)
       @item_1 = create(:item, user: @merchant_1)
       @item_2 = create(:item, user: @merchant_1)
-      @item_3 = create(:item, user: @merchant_1, active: false)
+      @item_3 = create(:item, user: @merchant_1)
       @item_4 = create(:item, user: @merchant_2)
       @item_5 = create(:item, user: @merchant_2)
 
@@ -61,7 +61,7 @@ RSpec.describe 'As a merchant' do
       @merchant_2 = create(:user, role: 1)
       @item_1 = create(:item, user: @merchant_1)
       @item_2 = create(:item, user: @merchant_1)
-      @item_3 = create(:item, user: @merchant_1)
+      @item_3 = create(:item, user: @merchant_1, active: false)
       @item_4 = create(:item, user: @merchant_2)
       @item_5 = create(:item, user: @merchant_2)
       @user = create(:user)
@@ -98,7 +98,7 @@ RSpec.describe 'As a merchant' do
       end
     end
 
-    it 'has a link to disable if the item is enabled' do
+    it 'has a link to enable if the item is disabled' do
       visit dashboard_items_path
       within "#item-#{@item_1.id}" do
 
@@ -113,19 +113,18 @@ RSpec.describe 'As a merchant' do
         find "img[src='https://kaaskraam.com/wp-content/uploads/2018/02/Gouda-Belegen.jpg']"
       end
     end
-    
+
     it 'has a link to disable if the item is enabled' do
       visit dashboard_items_path
       within "#item-#{@item_1.id}" do
 
-
-        expect(page).to_not have_link('Enable this item')
+        expect(page).to have_link('Disable this item')
         find "img[src='https://kaaskraam.com/wp-content/uploads/2018/02/Gouda-Belegen.jpg']"
       end
 
       within "#item-#{@item_3.id}" do
 
-        expect(page).to have_link('Enable this item')
+        expect(page).to_not have_link('Disable this item')
         find "img[src='https://kaaskraam.com/wp-content/uploads/2018/02/Gouda-Belegen.jpg']"
       end
     end
