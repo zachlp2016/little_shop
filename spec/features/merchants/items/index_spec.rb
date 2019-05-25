@@ -13,15 +13,14 @@ RSpec.describe 'As a merchant' do
     end
 
     it 'I see a link to add item to the system' do
-      visit '/dashboard/items'
+      visit dashboard_items_path
 
-
+      expect(page).to have_link('Add a New Item')
     end
   end
 end
 
-# When I visit my items page "/dashboard/items"
-# I see a link to add a new item to the system
+
 # I see each item I have already added to the system, including:
 # - the ID of the item
 # - the name of the item
