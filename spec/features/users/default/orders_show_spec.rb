@@ -64,6 +64,12 @@ RSpec.describe 'As a Registered User', type: :feature do
 
     it 'I can cancel the order if it is still pending' do
       @order_1.update!(status: :pending)
+      @item_2.update!(inventory: 3)
+      @order_item_2.update!(fulfilled: true)
+      @item_2.reload
+      @order_item_2.reload
+      expect(@item_2.inventory).to eq(2)
+
       visit profile_order_path(@order_1)
 
       expect(page).to have_content("Current Status: Pending")
@@ -71,11 +77,15 @@ RSpec.describe 'As a Registered User', type: :feature do
 
       click_button "Cancel Order"
 
-      expect(@order_item_1.fulfilled).to be_falsy
-      expect(@order_item_2.fulfilled).to be_falsy
-      expect(@order_item_3.fulfilled).to be_falsy
+      @order_item_1.reload
+      @order_item_2.reload
+      @order_item_3.reload
+      expect(@order_item_1.fulfilled).to be false
+      expect(@order_item_2.fulfilled).to be false
+      expect(@order_item_3.fulfilled).to be false
 
-      # Expectations for Merchant Inventory being returned pending, need functionality
+      @item_2.reload
+      expect(@item_2.inventory).to eq(3)
 
       expect(current_path).to eq(profile_orders_path)
 
