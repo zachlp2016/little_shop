@@ -24,6 +24,8 @@ Rails.application.routes.draw do
 
   get '/dashboard', to: 'merchants#show'
   get '/merchants', to: 'merchants#index' # a link to see all merchants ("/merchants") -- User Story 2, Visitor Navigation
+  patch 'merchant/enable/:id', to: 'merchants#enable'
+  patch 'merchant/disable/:id', to: 'merchants#disable'
 
   scope module: 'merchants', path: 'dashboard', as: :dashboard do
     resources :items, only: [:index, :new, :edit, :show]
