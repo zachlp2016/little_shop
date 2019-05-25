@@ -15,7 +15,7 @@ RSpec.describe 'As a merchant' do
     it 'I see a link to add item to the system' do
       visit dashboard_items_path
 
-      expect(page).to have_link('Add a New Item')
+      expect(page).to have_link('Add a new item')
     end
   end
 end
