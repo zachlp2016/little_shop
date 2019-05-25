@@ -19,7 +19,7 @@
             <tbody>
               <% @default_users.each do |user| %>
                 <tr id="user-<%= user.id %>">
-                  <td><%= user.name %></td>
+                  <td><%= link_to user.name, admin_user_path(user.id) %></td>
                   <td><%= user.email %></td>
                   <td><%= user.created_at %></td>
                   <td><%= button_to "Upgrade to Merchant", root_path, class:"btn btn-primary" %></td>
