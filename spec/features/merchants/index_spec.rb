@@ -96,6 +96,7 @@ RSpec.describe 'when visiting the merchants index page' do
 
         within "#merchant-#{@m1.id}" do
           expect(page).to have_link("Enable")
+          expect(@m1.active).to eq(true)
         end
       end
 
@@ -114,6 +115,7 @@ RSpec.describe 'when visiting the merchants index page' do
 
         within "#merchant-#{@m2.id}" do
           expect(page).to have_link("Disable")
+          expect(@m2.active).to eq(false)
         end
       end
     end
