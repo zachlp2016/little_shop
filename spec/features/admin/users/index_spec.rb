@@ -10,14 +10,18 @@ RSpec.describe 'As an admin user' do
       @user_1 = User.create!(email: "user1@gmail.com", password: "12345", role: 0, active: true, name: "Jon 1", address: "1234 Test Rd", city: "Kansas City", state: "MO", zip: '64086')
       @user_2 = User.create!(email: "user2@gmail.com", password: "12345", role: 0, active: true, name: "Ron 2", address: "1234 Test Rd", city: "Kansas City", state: "MO", zip: '64086')
       @user_3 = User.create!(email: "user3@gmail.com", password: "12345", role: 0, active: true, name: "Jon 3", address: "1234 Test Rd", city: "Kansas City", state: "MO", zip: '64086')
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin_1)
     end
 
     it 'shows all users who are not admins' do
       visit root_path
 
       click_on 'Users'
+
+      save_and_open_page
       
-      expect(current_path).to eq('admin_users_path')
+      expect(current_path).to eq(admin_users_path)
 
       within "#user-#{@user_1.id}" do
         expect(page).to have_content(@user_1.name) # ("/admin/users/5")
