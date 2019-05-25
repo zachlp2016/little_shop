@@ -45,18 +45,18 @@ describe 'As a visitor or a registered user' do
       visit items_path
 
       within "#item-#{@item_1.id}" do
-        click_button "Add To Cart"
+        click_link "Add To Cart"
       end
 
       within "#item-#{@item_2.id}" do
-        click_button "Add To Cart"
-        click_button "Add To Cart"
+        click_link "Add To Cart"
+        click_link "Add To Cart"
       end
 
       within "#item-#{@item_3.id}" do
-        click_button "Add To Cart"
-        click_button "Add To Cart"
-        click_button "Add To Cart"
+        click_link "Add To Cart"
+        click_link "Add To Cart"
+        click_link "Add To Cart"
       end
 
       visit carts_path

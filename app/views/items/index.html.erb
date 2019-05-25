@@ -40,7 +40,7 @@
           <li class="list-group-item">Inventory: <%= item.inventory %></li>
           <li class="list-group-item">Price: $<%= item.price %><br></li>
         </ul>
-        <button class="btn btn-primary"><%= button_to "Add To Cart", carts_path(item_id: item.id) %></button>
+        <button class="btn btn-primary"><%= link_to "Add To Cart", carts_path(item_id: item.id), method: :post, style:"color:white;" %></button>
       </div>
     </section>
   <% end %>
