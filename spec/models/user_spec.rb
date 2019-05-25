@@ -51,4 +51,34 @@ RSpec.describe User, type: :model do
     end
 
   end
+
+  describe 'instance_methods' do
+
+    before :each do
+      @merchant = create(:user, role: 1)
+      @item_1 = create(:item, user: @merchant)
+      @item_2 = create(:item, user: @merchant)
+      @item_3 = create(:item, user: @merchant)
+      @item_4 = create(:item, user: @merchant)
+      @user_1 = create(:user)
+      @user_2 = create(:user)
+      @user_3 = create(:user)
+      @order_1 = create(:order, user: @user_1, status: 1)
+      @order_2 = create(:order, user: @user_2, status: 1)
+      @order_3 = create(:order, user: @user_3, status: 0)
+      @order_4 = create(:order, user: @user_3, status: 0)
+      OrderItem.create!(item: @item_1, order: @order_1, quantity: 12, price: 1.99, fulfilled: true)
+      OrderItem.create!(item: @item_2, order: @order_2, quantity: 12, price: 1.99, fulfilled: true)
+      OrderItem.create!(item: @item_3, order: @order_3, quantity: 12, price: 1.99, fulfilled: true)
+      OrderItem.create!(item: @item_3, order: @order_4, quantity: 12, price: 1.99, fulfilled: true)
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant)
+    end
+
+    it 'pending_orders' do
+      orders = [@order_1, @order_2]
+
+      expect(@merchant.pending_orders).to eq(orders)
+    end
+  end
 end

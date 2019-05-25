@@ -62,7 +62,6 @@ RSpec.describe 'Merchant show page', type: :feature do
         expect(page).to_not have_content("Date created: #{@order_3.date_made}")
         expect(page).to_not have_content("Total quantity: #{@order_3.item_count}")
         expect(page).to_not have_content("Total price: #{@order_3.grand_total}")
-
         expect(page).to_not have_content("Order id: #{@order_4.id}")
 
       end

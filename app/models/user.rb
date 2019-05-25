@@ -18,4 +18,9 @@ class User < ApplicationRecord
     where('active=true AND role=1')
   end
 
+  def pending_orders
+    binding.pry
+
+  end
+
 end

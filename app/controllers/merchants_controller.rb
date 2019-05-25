@@ -6,6 +6,7 @@ class MerchantsController < ApplicationController
 
   def show
     @user = User.find(current_user.id)
+    @orders = @user.pending_orders
   end
 
 end
