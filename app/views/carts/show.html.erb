@@ -1,5 +1,5 @@
 <% if current_user.nil? %>
-  "You must <%= link_to 'register', register_path %> or <%= link_to 'login', login_path %> to checkout."
+  <p>You must <%= link_to 'register', register_path %> or <%= link_to 'login', login_path %> to checkout.</p>
 <% end %>
 
 <% if @user %>
