@@ -14,4 +14,9 @@ class CartsController < ApplicationController
     flash.notice = "#{item.name} has been added to your cart"
     redirect_to items_path
   end
+
+  def clear
+    session[:cart] = {}
+    redirect_to carts_path
+  end
 end
