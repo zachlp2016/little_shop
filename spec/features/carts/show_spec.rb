@@ -16,17 +16,28 @@ require 'rails_helper'
 # I also see a grand total of what everything in my cart will cost
 RSpec.describe 'As a visitor' do
   context 'As a visitor' do
-    before :each do
-      @user = User.create!(email: "test@test.com", password_digest: "t3s7", role: 1, active: true, name: "Testy McTesterson", address: "123 Test St", city: "Testville", state: "Test", zip: "01234")
-
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
-    end
 
     it 'When my cart is empty and I visit my cart, It says my cart is empty' do
       visit carts_path
 
       expect(page).to have_content('Your cart is currently empty.')
       expect(page).to_not have_content('Empty your Cart')
+    end
+
+    it 'shows all items in my cart and allows user to clear cart' do
+      merchant = create(:user, name: "Merchant", role: 1)
+      item_1 = create(:item, user: merchant)
+
+      visit items_path
+
+      within "#item-#{item_1.id}" do
+        click_button "Add To Cart"
+      end
+
+      click_link('Cart')
+
+      expect(page).to have_content('You must register or login to checkout.')
+
     end
   end
 end
@@ -40,6 +51,7 @@ describe 'As a visitor or a registered user' do
       @item_2 = create(:item, user: @merchant)
       @item_3 = create(:item, user: @merchant)
     end
+
 
     it 'shows all items in my cart and allows user to clear cart' do
       visit items_path
@@ -101,3 +113,9 @@ describe 'As a visitor or a registered user' do
     end
   end
 end
+
+
+# And I visit my cart
+# I see information telling me I must register or log in to finish the checkout process
+# The word "register" is a link to the registration page
+# The words "log in" is a link to the login page
