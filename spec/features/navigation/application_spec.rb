@@ -63,6 +63,7 @@ RSpec.describe 'within main navigation' do
         within '.navbar' do
           expect(page).to have_no_link('Logout')
           expect(page).to have_no_link('Profile')
+          expect(page).to_not have_link('Users')
         end
       end
     end
@@ -135,6 +136,7 @@ RSpec.describe 'within main navigation' do
         within '.navbar' do
           expect(page).to have_no_link('Login')
           expect(page).to have_no_link('Register')
+          expect(page).to_not have_link('Users')
         end
       end
 
@@ -182,6 +184,7 @@ RSpec.describe 'within main navigation' do
           expect(page).to_not have_link('Login')
           expect(page).to_not have_link('Register')
           expect(page).to_not have_link('Cart')
+          expect(page).to_not have_link('Users')
           expect(page).to_not have_content('Cart: 0')
         end
       end
@@ -195,6 +198,15 @@ RSpec.describe 'within main navigation' do
         @user_1 = User.create!(email: "test@test.com", password_digest: "t3s7", role: 2, active: true, name: "Testy McTesterson", address: "123 Test St", city: "Testville", state: "Test", zip: "01234")
 
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user_1)
+      end
+
+      it 'it has a link to Users' do
+  
+        visit root_path
+  
+        within '.navbar' do
+          expect(page).to have_link('Users')
+        end
       end
 
       it 'it has a link to My Dashboard' do
