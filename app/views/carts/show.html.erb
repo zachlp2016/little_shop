@@ -16,17 +16,21 @@
     </tr>
   </thead>
   <tbody>
-    <% @cart_items.each do |item, qty| %>
-      <section id='item-<%= item.id %>'>
-        <tr class="text-center">
-          <td class='align-middle'><%= item.name %></td>
-          <td class='align-middle'><%= qty %></td>
-          <td class='align-middle'><%= item.user.name %></td>
-          <td class='align-middle'><%= number_to_currency(item.price) %></td>
-          <td class='align-middle'><%= number_to_currency(item.price * qty) %></td>
-          <td class='align-middle'><img class='cart-img' src='<%= item.image %>'></td>
-        </tr>
-      </section>
+    <% if @cart_items.empty? %>
+      <p>Your cart is currently empty.</p>
+    <% else %>
+      <% @cart_items.each do |item, qty| %>
+        <section id='item-<%= item.id %>'>
+          <tr class="text-center">
+            <td class='align-middle'><%= item.name %></td>
+            <td class='align-middle'><%= qty %></td>
+            <td class='align-middle'><%= item.user.name %></td>
+            <td class='align-middle'><%= number_to_currency(item.price) %></td>
+            <td class='align-middle'><%= number_to_currency(item.price * qty) %></td>
+            <td class='align-middle'><img class='cart-img' src='<%= item.image %>'></td>
+          </tr>
+        </section>
+      <% end %>
     <% end %>
       <tr class='text-center' id='cart_total'>
         <td>Total: </td>

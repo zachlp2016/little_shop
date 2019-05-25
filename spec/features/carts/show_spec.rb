@@ -14,8 +14,24 @@ require 'rails_helper'
 # - a subtotal (price multiplied by quantity)
 #
 # I also see a grand total of what everything in my cart will cost
+RSpec.describe 'As a visitor' do
+  context 'As a visitor' do
+    before :each do
+      @user = User.create!(email: "test@test.com", password_digest: "t3s7", role: 1, active: true, name: "Testy McTesterson", address: "123 Test St", city: "Testville", state: "Test", zip: "01234")
 
-RSpec.describe 'As a visitor or a registered user' do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+    end
+
+    it 'When my cart is empty and I visit my cart, It says my cart is empty' do
+      visit carts_path
+
+      expect(page).to have_content('Your cart is currently empty.')
+      expect(page).to_not have_content('Empty your Cart')
+    end
+  end
+end
+
+describe 'As a visitor or a registered user' do
   describe 'when I have items in my cart and view my cart' do
 
     before :each do
@@ -77,7 +93,7 @@ RSpec.describe 'As a visitor or a registered user' do
       end
 
       click_link "Clear Cart"
-      
+
       expect(page).to_not have_content(@item_1.name)
       expect(page).to_not have_content(@item_2.name)
       expect(page).to_not have_content(@item_3.name)
