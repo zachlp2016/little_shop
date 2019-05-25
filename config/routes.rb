@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :items, only: [:index, :show]
 
   resources :carts, only: [:create, :index] #added index as we need to show the cart -- User Story 2, Visitor Navigation
-  
+
   get '/register', to: 'users#new'
   post '/register', to: 'users#create'
 
@@ -17,8 +17,7 @@ Rails.application.routes.draw do
   get '/profile/edit', to: 'users#edit'
   patch '/profile/edit', to: 'users#update'
   get '/profile/orders', to: 'orders#index'
-
-  resources :orders, only: [:show]
+  get '/profile/orders/:id', to: 'orders#show', as: :profile_order
 
 
   get '/dashboard', to: 'merchants#show'

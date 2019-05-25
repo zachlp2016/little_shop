@@ -109,5 +109,23 @@ RSpec.describe 'As a Registered User', type: :feature do
 
       expect(page).to have_content("You haven't made any orders yet!")
     end
+
+    it 'Has a link to the show page for each Order' do
+      visit profile_orders_path
+      click_on("Order ID: #{@order_1.id}")
+      expect(current_path).to eq("/profile/orders/#{@order_1.id}")
+
+      visit profile_orders_path
+      click_on("Order ID: #{@order_2.id}")
+      expect(current_path).to eq("/profile/orders/#{@order_2.id}")
+
+      visit profile_orders_path
+      click_on("Order ID: #{@order_3.id}")
+      expect(current_path).to eq("/profile/orders/#{@order_3.id}")
+
+      visit profile_orders_path
+      click_on("Order ID: #{@order_4.id}")
+      expect(current_path).to eq("/profile/orders/#{@order_4.id}")
+    end
   end
 end
