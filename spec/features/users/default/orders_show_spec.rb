@@ -61,5 +61,29 @@ RSpec.describe 'As a Registered User', type: :feature do
       expect(page).to have_content("Number of Items: #{@order_1.item_count}")
       expect(page).to have_content("Grand Total: $#{@order_1.grand_total}")
     end
+
+    it 'I can cancel the order if it is still pending' do
+      @order_1.update!(status: :pending)
+      visit profile_order_path(@order_1)
+
+      expect(page).to have_content("Current Status: Pending")
+      expect(page).to have_button("Cancel Order")
+
+      click_button "Cancel Order"
+
+      expect(@order_item_1.fullfilled).to be_falsy
+      expect(@order_item_2.fullfilled).to be_falsy
+      expect(@order_item_3.fullfilled).to be_falsy
+
+      # Expectations for Merchant Inventory being returned pending, need functionality
+
+      expect(current_path).to eq(profile_path)
+
+      expect(page).to have_content("#{@order_1.id} has been cancelled.")
+
+      within("#order-#{@order_1.id}") do
+        expect(page).to have_content("Current Status: Cancelled")
+      end
+    end
   end
 end
