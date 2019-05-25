@@ -31,7 +31,7 @@ RSpec.describe 'As a visitor' do
       visit items_path
 
       within "#item-#{item_1.id}" do
-        click_button "Add To Cart"
+        click_link "Add To Cart"
       end
 
       click_link('Cart')
