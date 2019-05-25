@@ -40,6 +40,15 @@ RSpec.describe 'As a visitor' do
       expect(page).to have_link('register')
       expect(page).to have_link('login')
 
+      click_link('register')
+
+      expect(current_path).to eq(register_path)
+
+      click_link('Cart')
+      click_link('login')
+
+      expect(current_path).to eq(login_path)
+
     end
   end
 end
@@ -115,8 +124,3 @@ describe 'As a visitor or a registered user' do
     end
   end
 end
-
-
-
-# The word "register" is a link to the registration page
-# The words "log in" is a link to the login page
