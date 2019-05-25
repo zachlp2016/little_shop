@@ -71,13 +71,13 @@ RSpec.describe 'As a Registered User', type: :feature do
 
       click_button "Cancel Order"
 
-      expect(@order_item_1.fullfilled).to be_falsy
-      expect(@order_item_2.fullfilled).to be_falsy
-      expect(@order_item_3.fullfilled).to be_falsy
+      expect(@order_item_1.fulfilled).to be_falsy
+      expect(@order_item_2.fulfilled).to be_falsy
+      expect(@order_item_3.fulfilled).to be_falsy
 
       # Expectations for Merchant Inventory being returned pending, need functionality
 
-      expect(current_path).to eq(profile_path)
+      expect(current_path).to eq(profile_orders_path)
 
       expect(page).to have_content("#{@order_1.id} has been cancelled.")
 
