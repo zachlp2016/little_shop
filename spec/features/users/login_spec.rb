@@ -113,9 +113,3 @@ RSpec.describe 'User can login' do
     end
   end
 end
-# As a registered user, merchant, or admin
-# When I visit the login path
-# If I am a regular user, I am redirected to my profile page
-# If I am a merchant user, I am redirected to my merchant dashboard page
-# If I am an admin user, I am redirected to the home page of the site
-# And I see a flash message that tells me I am already logged in
