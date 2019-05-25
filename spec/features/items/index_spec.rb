@@ -136,14 +136,14 @@ RSpec.describe 'as a visitor' do
       expect(page).to have_content("(0)")
 
       within "#item-#{@item_1.id}" do
-        click_button "Add To Cart"
+        click_link "Add To Cart"
       end
 
       expect(page).to have_content("#{@item_1.name} has been added to your cart")
       expect(page).to have_content("(1)")
 
       within "#item-#{@item_2.id}" do
-        click_button "Add To Cart"
+        click_link "Add To Cart"
       end
 
       expect(page).to have_content("#{@item_2.name} has been added to your cart")

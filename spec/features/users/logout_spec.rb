@@ -19,8 +19,8 @@ RSpec.describe 'when logging out' do
 
     it 'logs out and clears cart' do
       visit items_path
-      click_button "Add To Cart"
-      click_button "Add To Cart"
+      click_link "Add To Cart"
+      click_link "Add To Cart"
 
       visit login_path
 
