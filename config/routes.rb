@@ -18,8 +18,12 @@ Rails.application.routes.draw do
   get '/profile', to: 'users#show'
   get '/profile/edit', to: 'users#edit'
   patch '/profile/edit', to: 'users#update'
-  get '/profile/orders', to: 'orders#index'
-  get '/profile/orders/:id', to: 'orders#show', as: :profile_order
+  scope :profile do
+    # resources :users, only: [:show, :edit, :update], as: :profile
+    resources :orders, only: [:show, :index, :destroy], as: :profile_orders
+    # get '/profile/orders', to: 'orders#index'
+    # get '/profile/orders/:id', to: 'orders#show'
+  end
 
 
   get '/dashboard', to: 'merchants#show'
