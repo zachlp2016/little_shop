@@ -25,6 +25,10 @@ Rails.application.routes.draw do
   get '/dashboard', to: 'merchants#show'
   get '/merchants', to: 'merchants#index' # a link to see all merchants ("/merchants") -- User Story 2, Visitor Navigation
 
+  scope module: 'merchants', path: 'dashboard' do
+    resources :items, only: [:index, :new, :edit, :show]
+  end
+
   namespace :admin do
     resources :users, only: [:index, :show]
     get '/dashboard', to: 'users#show'
