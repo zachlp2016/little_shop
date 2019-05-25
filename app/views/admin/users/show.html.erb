@@ -1,0 +1,13 @@
+<h2><%= @user.name %></h2>
+
+<p>Email: <%= @user.email %></p>
+<p>Role: <%= @user.role %></p>
+<p>Active: <%= @user.active %></p>
+<p>Address: <%= @user.address %></p>
+<p>City: <%= @user.city %></p>
+<p>State: <%= @user.state %></p>
+<p>Zip Code: <%= @user.zip %></p>
+
+<% if @user.orders.length > 0 %>
+  <%= link_to "View Customers Orders", root_path %>
+<% end %>
