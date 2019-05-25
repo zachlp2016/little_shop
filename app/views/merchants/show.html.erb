@@ -10,7 +10,10 @@
 <p>Zip Code: <%= @user.zip %></p>
 
 <% @orders.each do |order| %>
-<section id="<%= order.id %>">
-
+<section id="order-<%= order.id %>">
+  <p>Order id: <%= link_to "#{order.id}", profile_order_path(order.id) %>
+  <p>Date created: <%= order.date_made %></p>
+  <p>Total quantity: <%= order.item_count %></p>
+  <p>Total price: <%= order.grand_total %></p>
 </section>
 <% end %>
