@@ -25,7 +25,7 @@ RSpec.describe 'As a visitor or a registered user' do
       @item_3 = create(:item, user: @merchant)
     end
 
-    it 'shows all items in my cart' do
+    it 'shows all items in my cart and allows user to clear cart' do
       visit items_path
 
       within "#item-#{@item_1.id}" do
@@ -76,6 +76,12 @@ RSpec.describe 'As a visitor or a registered user' do
         find "img[src='https://kaaskraam.com/wp-content/uploads/2018/02/Gouda-Belegen.jpg']"
       end
 
+      click_link "Clear Cart"
+      
+      expect(page).to_not have_content(@item_1.name)
+      expect(page).to_not have_content(@item_2.name)
+      expect(page).to_not have_content(@item_3.name)
+      expect(page).to have_content("(0)")
     end
   end
 end
