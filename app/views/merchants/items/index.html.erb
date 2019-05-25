@@ -1,0 +1,30 @@
+<%= link_to 'Add a new item' %>
+
+<div class="card-group">
+  <% @merchant.items.each do |item| %>
+    <section id='item-<%= item.id %>'>
+      <div class="card" style="width: 18rem;">
+        <a class='img-link' href="<%= item_path(item) %>">
+          <img class="card-img-top" src="<%= item.image %>" alt="Card image cap">
+        </a>
+        <div class="card-body">
+          <h5 class="card-title"><%= link_to item.name, item_path(item) %></h5>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Item Id: <%= item.id %></li>
+          <li class="list-group-item">Inventory: <%= item.inventory %></li>
+          <li class="list-group-item">Price: $<%= item.price %><br></li>
+        </ul>
+        <%= link_to "Edit this item" %>
+        <% if item.orders.empty? %>
+          <%= link_to "Delete this item" %>
+        <% end %>
+        <% if item.active == true %>
+          <%= link_to "Disable this item" %>
+        <% else %>
+          <%= link_to "Enable this item" %>
+        <% end %>
+      </div>
+    </section>
+  <% end %>
+</div>
