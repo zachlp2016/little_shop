@@ -80,8 +80,44 @@ RSpec.describe 'when visiting the merchants index page' do
           expect(page).to have_link("Enable")
         end
       end
+
+      it 'can disable a merchant' do
+        visit merchants_path
+
+        within "#merchant-#{@m1.id}" do
+          click_on("Disable")
+        end
+
+        expect(current_path).to eq(merchants_path)
+
+        within("#flash-message") do
+          expect(page).to have_content("Merchant's account is now disabled")
+        end
+
+        within "#merchant-#{@m1.id}" do
+          expect(page).to have_link("Enable")
+        end
+      end
+
+      it 'can enable a merchant' do
+        visit merchants_path
+
+        within "#merchant-#{@m2.id}" do
+          click_on("Enable")
+        end
+
+        expect(current_path).to eq(merchants_path)
+
+        within("#flash-message") do
+          expect(page).to have_content("Merchant's account is now enabled")
+        end
+
+        within "#merchant-#{@m2.id}" do
+          expect(page).to have_link("Disable")
+        end
+      end
     end
   end
 end
 
-# The merchant's name is a link to their Merchant Dashboard at routes such as "/admin/merchants/5"
+# This merchant cannot log in
