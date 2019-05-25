@@ -1,8 +1,5 @@
 class CartsController < ApplicationController
   def show
-    if current_user.nil?
-      flash[:notice] = "You must register or login to checkout."
-    end
     @user = current_user
     cart = Cart.new(session[:cart])
     @cart_items = cart.ids_to_items
