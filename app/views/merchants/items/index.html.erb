@@ -16,6 +16,9 @@
           <li class="list-group-item">Price: $<%= item.price %><br></li>
         </ul>
         <%= link_to "Edit this item" %>
+        <% if item.orders.empty? %>
+          <%= link_to "Delete this item" %>
+        <% end %>
       </div>
     </section>
   <% end %>
