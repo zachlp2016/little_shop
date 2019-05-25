@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   get '/carts', to: 'carts#show'
   post '/carts', to: 'carts#add'
+  delete '/carts', to: 'carts#clear'
 
   get '/register', to: 'users#new'
   post '/register', to: 'users#create'
