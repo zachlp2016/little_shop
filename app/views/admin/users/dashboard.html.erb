@@ -1,9 +1,52 @@
-<h2><%= @user.name %></h2>
+<div id="content-wrapper">
+  <div class="container-fluid">
+    <div class="card mb=12">
+      <div class="card-header">
+        <%= @user.name %> details
+      </div>
+      <div class="card-body">
+        <div class="content">
+          <p>Email: <%= @user.email.titlecase %></p>
+          <p>Role: <%= @user.role.titlecase %></p>
+          <p>Active: <%= @user.active %></p>
+          <p>Address: <%= @user.address.titlecase %></p>
+          <p>City: <%= @user.city.titlecase %></p>
+          <p>State: <%= @user.state.titlecase %></p>
+          <p>Zip Code: <%= @user.zip.titlecase %></p>
+        </div>
+      </div>
+    </div>
 
-<p>Email: <%= @user.email %></p>
-<p>Role: <%= @user.role %></p>
-<p>Active: <%= @user.active %></p>
-<p>Address: <%= @user.address %></p>
-<p>City: <%= @user.city %></p>
-<p>State: <%= @user.state %></p>
-<p>Zip Code: <%= @user.zip %></p>
+    <div class="card mb-3">
+      <div class="card-header">
+        Orders Table
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+              <tr>
+                <th>Order #</th>
+                <th>Placed By</th>
+                <th>Date placed</th>
+                <th>Order Status</th>
+                <%# <th>Delete Order</th> %>
+              </tr>
+            </thead>
+            <tbody>
+              <% @orders.each do |order| %>
+                <tr id="order-<%= order.id %>">
+                  <td><%= order.id  %></td>
+                  <td><%= order.user.name %></td>
+                  <td><%= order.created_at.strftime("%b %d, %Y") %></td>
+                  <td><%= order.status.titlecase %></td>
+                  <%# <td><%= button_to "Delete Order", root_path, class:"btn btn-primary" /td> %>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>  
+</div>
