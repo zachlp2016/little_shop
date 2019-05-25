@@ -38,10 +38,10 @@ RSpec.describe 'As any kind of user on the system' do
       OrderItem.create!(item: @item_4, order: order_10, quantity: 3, price: 11.99, fulfilled: false, created_at: 8.days.ago, updated_at: 1.days.ago)
       OrderItem.create!(item: @item_5, order: order_11, quantity: 1, price: 21.99, fulfilled: false, created_at: 9.days.ago, updated_at: 1.days.ago)
     end
-    
+
     it 'any my url path is correct' do
       visit items_path
-      
+
       within "#item-#{@item_1.id}" do
         click_on(@item_1.name)
       end
@@ -73,7 +73,7 @@ RSpec.describe 'As any kind of user on the system' do
       it 'as a regular user' do
         user = User.create!(email: "test@test.com", password_digest: "t3s7", role: :default, active: true, name: "Testy McTesterson", address: "123 Test St", city: "Testville", state: "Test", zip: "01234")
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
-    
+
         visit item_path(@item_1.id)
 
         expect(page).to have_link('Add to Cart')
@@ -95,6 +95,17 @@ RSpec.describe 'As any kind of user on the system' do
         visit item_path(@item_1.id)
 
         expect(page).to have_no_link('Add to Cart')
+      end
+
+      # The bulk of this functionality is tested in carts show spec
+      it 'successfully adds items to cart' do
+        visit item_path(@item_1.id)
+
+        click_link "Add to Cart"
+
+        expect(current_path).to eq(items_path)
+        expect(page).to have_content("#{@item_1.name} has been added to your cart")
+        expect(page).to have_content("(1)")
       end
     end
   end
