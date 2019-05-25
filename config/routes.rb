@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   get '/merchants', to: 'merchants#index' # a link to see all merchants ("/merchants") -- User Story 2, Visitor Navigation
 
   namespace :admin do
-    resources :users, only: [:index]
+    resources :users, only: [:index, :show]
     get '/dashboard', to: 'users#show'
   end
 end
