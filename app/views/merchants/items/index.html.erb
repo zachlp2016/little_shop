@@ -19,6 +19,12 @@
         <% if item.orders.empty? %>
           <%= link_to "Delete this item" %>
         <% end %>
+        <% binding.pry %>
+        <% if item.active == true %>
+          <%= link_to "Disable this item" %>
+        <% else %>
+          <%= link_to "Enable this item" %>
+        <% end %>
       </div>
     </section>
   <% end %>

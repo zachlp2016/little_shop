@@ -10,7 +10,7 @@ RSpec.describe 'As a merchant' do
       @merchant_2 = create(:user, role: 1)
       @item_1 = create(:item, user: @merchant_1)
       @item_2 = create(:item, user: @merchant_1)
-      @item_3 = create(:item, user: @merchant_1)
+      @item_3 = create(:item, user: @merchant_1, active: false)
       @item_4 = create(:item, user: @merchant_2)
       @item_5 = create(:item, user: @merchant_2)
 
@@ -75,22 +75,16 @@ RSpec.describe 'As a merchant' do
       # If no user has ever ordered this item, I see a link to delete the item
       visit dashboard_items_path
 
-      expect(page).to have_link('Add a new item')
-
       within "#item-#{@item_1.id}" do
         expect(page).to have_content(@item_1.id)
         expect(page).to have_content(@item_1.name)
         expect(page).to have_content(@item_1.inventory)
         expect(page).to have_content(@item_1.price)
         expect(page).to have_link('Edit this item')
+
+        expect(page).to have_link('Delete this item')
         find "img[src='https://kaaskraam.com/wp-content/uploads/2018/02/Gouda-Belegen.jpg']"
       end
-    end
-
-    it 'it doesnt have link to delete item if user is assigned' do
-      visit dashboard_items_path
-
-      expect(page).to have_link('Add a new item')
 
       within "#item-#{@item_2.id}" do
         expect(page).to have_content(@item_2.id)
@@ -98,6 +92,40 @@ RSpec.describe 'As a merchant' do
         expect(page).to have_content(@item_2.inventory)
         expect(page).to have_content(@item_2.price)
         expect(page).to have_link('Edit this item')
+
+        expect(page).to_not have_link('Delete this item')
+        find "img[src='https://kaaskraam.com/wp-content/uploads/2018/02/Gouda-Belegen.jpg']"
+      end
+    end
+
+    it 'has a link to disable if the item is enabled' do
+      visit dashboard_items_path
+      within "#item-#{@item_1.id}" do
+
+
+        expect(page).to_not have_link('Enable this item')
+        find "img[src='https://kaaskraam.com/wp-content/uploads/2018/02/Gouda-Belegen.jpg']"
+      end
+
+      within "#item-#{@item_3.id}" do
+
+        expect(page).to have_link('Enable this item')
+        find "img[src='https://kaaskraam.com/wp-content/uploads/2018/02/Gouda-Belegen.jpg']"
+      end
+    end
+    
+    it 'has a link to disable if the item is enabled' do
+      visit dashboard_items_path
+      within "#item-#{@item_1.id}" do
+
+
+        expect(page).to_not have_link('Enable this item')
+        find "img[src='https://kaaskraam.com/wp-content/uploads/2018/02/Gouda-Belegen.jpg']"
+      end
+
+      within "#item-#{@item_3.id}" do
+
+        expect(page).to have_link('Enable this item')
         find "img[src='https://kaaskraam.com/wp-content/uploads/2018/02/Gouda-Belegen.jpg']"
       end
     end
