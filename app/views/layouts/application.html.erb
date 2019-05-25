@@ -25,6 +25,11 @@
           <li class="nav-item active">
             <%= link_to 'Merchants', merchants_path, class: "nav-link" %>
           </li>
+          <% if current_admin? %>
+            <li class="nav-item active">
+              <%= link_to 'Users', admin_users_path, class: "nav-link" %>
+            </li>
+          <% end %>
         </ul>
         <ul class="navbar-nav mx">
           <% if current_user.nil? || !current_merchant? && !current_admin? %>
