@@ -91,6 +91,7 @@ RSpec.describe 'As a Registered User', type: :feature do
 
       expect(page).to have_content("Current Status: Shipped")
       expect(page).to have_button("Cancel Order", disabled: true)
+      expect(page).to have_content("You can only cancel orders that are pending!")
     end
   end
 end
