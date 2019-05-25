@@ -9,4 +9,17 @@ class Cart
     @contents[item_id.to_s] ||= 0
     @contents[item_id.to_s] += 1
   end
+
+  def ids_to_items
+    items = {}
+    self.contents.each do |item_id, qty|
+      items[Item.find(item_id)] = qty
+    end
+    items
+  end
+
+  def total_price
+    ids_to_items.sum{|item, qty| item.price * qty}
+  end
+
 end
