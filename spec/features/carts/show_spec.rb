@@ -37,6 +37,8 @@ RSpec.describe 'As a visitor' do
       click_link('Cart')
 
       expect(page).to have_content('You must register or login to checkout.')
+      expect(page).to have_link('register')
+      expect(page).to have_link('login')
 
     end
   end
@@ -115,7 +117,6 @@ describe 'As a visitor or a registered user' do
 end
 
 
-# And I visit my cart
-# I see information telling me I must register or log in to finish the checkout process
+
 # The word "register" is a link to the registration page
 # The words "log in" is a link to the login page
