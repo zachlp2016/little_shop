@@ -6,4 +6,9 @@ class Admin::UsersController < ApplicationController
   def show
     @user = User.find_by(id: params[:id])
   end
+
+  def dashboard
+    @user = current_user
+    # require 'pry'; binding.pry
+  end
 end

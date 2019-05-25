@@ -34,3 +34,19 @@ RSpec.describe 'As an admin user' do
     end
   end
 end
+
+# As an admin user
+# When I log into my dashboard, "/admin/dashboard"
+# Then I see all orders in the system.
+# For each order I see the following information:
+
+# - user who placed the order, which links to admin view of user profile
+# - order id
+# - date the order was created
+
+# Orders are sorted by "status" in this order:
+
+# - packaged
+# - pending
+# - shipped
+# - cancelled
