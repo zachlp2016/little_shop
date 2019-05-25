@@ -24,4 +24,10 @@ class Order < ApplicationRecord
       item.price * item.quantity
     end
   end
+
+  def check_fulfillments
+    if order_items.all? {|order_item| order_item.fulfilled}
+      update(status: :packaged)
+    end
+  end
 end
