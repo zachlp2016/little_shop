@@ -63,10 +63,16 @@
               <span class="nav-link">Logged in as <%= current_user.name %></span>
             </li>
           <% end %>
-          <% if !current_user.nil? && current_merchant? || current_admin? %>
+          <% if !current_user.nil? && current_merchant? %>
             <li class="nav-item active">
                 <%= link_to 'My Dashboard', dashboard_path, class: "nav-link" %>
             </li>
+          <% elsif current_admin? %>
+            <li class="nav-item active">
+                <%= link_to 'My Dashboard', admin_dashboard_path, class: "nav-link" %>
+            </li>
+          <% end %>
+          <% if !current_user.nil? && current_merchant? || current_admin? %>
             <li class="nav-item active">
                 <%= link_to 'Logout', logout_path, class: "nav-link" %>
             </li>

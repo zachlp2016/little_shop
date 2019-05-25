@@ -215,7 +215,9 @@ RSpec.describe 'within main navigation' do
 
         within '.navbar' do
           expect(page).to have_link('My Dashboard')
+          click_on("My Dashboard")
         end
+        expect(current_path).to eq(admin_dashboard_path)
       end
 
       it 'it has a link to logout' do
