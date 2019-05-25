@@ -20,3 +20,6 @@
 
 
 <%= button_to "Cancel Order", profile_order_path(@order), method: "delete", disabled: !@order.pending? %>
+<% if !@order.pending? %>
+  <p>You can only cancel orders that are pending!</p>
+<% end %>
