@@ -1,0 +1,39 @@
+<% if @user %>
+  <h1 id='cart-header' class="text-center"><%= @user.name %>'s Cart'</h1>
+<% else %>
+  <h1 id='cart-header' class="text-center">Visitor's Cart</h1>
+<% end %>
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr class="text-center">
+      <th scope="col">Cheese</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Seller</th>
+      <th scope="col">Price</th>
+      <th scope="col">Item Total</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @cart_items.each do |item, qty| %>
+      <section id='item-<%= item.id %>'>
+        <tr class="text-center">
+          <td class='align-middle'><%= item.name %></td>
+          <td class='align-middle'><%= qty %></td>
+          <td class='align-middle'><%= item.user.name %></td>
+          <td class='align-middle'><%= number_to_currency(item.price) %></td>
+          <td class='align-middle'><%= number_to_currency(item.price * qty) %></td>
+          <td class='align-middle'><img class='cart-img' src='<%= item.image %>'></td>
+        </tr>
+      </section>
+    <% end %>
+      <tr class='text-center' id='cart_total'>
+        <td>Total: </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><%= number_to_currency(@cart_price_total) %></td>
+      </tr>
+  </tbody>
+</table>
