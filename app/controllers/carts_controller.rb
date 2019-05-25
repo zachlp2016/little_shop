@@ -1,8 +1,12 @@
 class CartsController < ApplicationController
-  def index
+  def show
+    @user = current_user
+    cart = Cart.new(session[:cart])
+    @cart_items = cart.ids_to_items
+    @cart_price_total = cart.total_price
   end
 
-  def create
+  def add
     item = Item.find(params[:item_id])
     cart = Cart.new(session[:cart])
     cart.add(item.id)
