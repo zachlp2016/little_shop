@@ -25,8 +25,8 @@ RSpec.describe 'Merchant show page', type: :feature do
       end
 
       it 'I see my profile data' do
-        visit dashboard_path
 
+        visit dashboard_path
 
         expect(page).to have_content(@merchant.email)
         expect(page).to have_content(@merchant.role)
@@ -36,7 +36,6 @@ RSpec.describe 'Merchant show page', type: :feature do
         expect(page).to have_content(@merchant.city)
         expect(page).to have_content(@merchant.state)
         expect(page).to have_content(@merchant.zip)
-
         expect(page).to_not have_content(@merchant.password_digest)
         expect(page).to_not have_link('Edit Profile')
       end

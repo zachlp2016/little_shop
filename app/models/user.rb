@@ -19,8 +19,9 @@ class User < ApplicationRecord
   end
 
   def pending_orders
-    binding.pry
+    Order.joins(:items).
+          where("items.user_id = #{self.id} AND orders.status = 1").
+          distinct(:orders)
 
   end
-
 end
