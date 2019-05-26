@@ -18,8 +18,8 @@ RSpec.describe 'Merchant show page', type: :feature do
         @order_4 = create(:order, user: @user_3, status: 0)
         OrderItem.create!(item: @item_1, order: @order_1, quantity: 12, price: 1.99, fulfilled: true)
         OrderItem.create!(item: @item_2, order: @order_2, quantity: 13, price: 1.99, fulfilled: true)
-        OrderItem.create!(item: @item_3, order: @order_3, quantity: 14, price: 1.99, fulfilled: true)
-        OrderItem.create!(item: @item_3, order: @order_4, quantity: 15, price: 1.99, fulfilled: true)
+        OrderItem.create!(item: @item_3, order: @order_3, quantity: 14, price: 1.99, fulfilled: false)
+        OrderItem.create!(item: @item_3, order: @order_4, quantity: 15, price: 1.99, fulfilled: false)
 
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant)
       end
