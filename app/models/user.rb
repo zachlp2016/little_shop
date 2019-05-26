@@ -18,4 +18,10 @@ class User < ApplicationRecord
     where('active=true AND role=1')
   end
 
+  def pending_orders
+    Order.joins(:items).
+          where("items.user_id = #{self.id} AND orders.status = 1").
+          distinct(:orders)
+
+  end
 end

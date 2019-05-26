@@ -56,31 +56,4 @@ RSpec.describe 'User show page', type: :feature do
       end
     end
   end
-
-  context 'As a merchant user' do
-    describe 'When I visit my dashboard' do
-      before :each do
-        @merchant = User.create!(email: "test@test.com", password_digest: "t3s7", role: 1, active: true, name: "Testy McTesterson", address: "123 Test St", city: "Testville", state: "Test", zip: "01234")
-
-        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant)
-      end
-
-      it 'I see my profile data' do
-        visit dashboard_path
-
-
-        expect(page).to have_content(@merchant.email)
-        expect(page).to have_content(@merchant.role)
-        expect(page).to have_content(@merchant.active)
-        expect(page).to have_content(@merchant.name)
-        expect(page).to have_content(@merchant.address)
-        expect(page).to have_content(@merchant.city)
-        expect(page).to have_content(@merchant.state)
-        expect(page).to have_content(@merchant.zip)
-
-        expect(page).to_not have_content(@merchant.password_digest)
-        expect(page).to_not have_link('Edit Profile')
-      end
-    end
-  end
 end
