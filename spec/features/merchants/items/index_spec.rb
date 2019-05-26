@@ -144,6 +144,7 @@ RSpec.describe 'As a merchant' do
         click_link('Delete this item')
       end
 
+      expect(page).to have_content("Item #{@item_1.id} is now deleted.")
       expect(page).to_not have_content(@item_1.id)
     end
   end

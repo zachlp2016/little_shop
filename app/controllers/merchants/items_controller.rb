@@ -6,6 +6,7 @@ class Merchants::ItemsController < ApplicationController
 
   def destroy
     @item = Item.destroy(params[:id])
+    flash[:notice] = "Item #{@item.id} is now deleted."
     redirect_to dashboard_items_path
   end
 end
