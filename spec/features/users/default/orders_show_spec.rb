@@ -61,5 +61,47 @@ RSpec.describe 'As a Registered User', type: :feature do
       expect(page).to have_content("Number of Items: #{@order_1.item_count}")
       expect(page).to have_content("Grand Total: $#{@order_1.grand_total}")
     end
+
+    it 'I can cancel the order if it is still pending' do
+      @order_1.update!(status: :pending)
+      @item_2.update!(inventory: 3)
+      @order_item_2.update!(fulfilled: true)
+      @item_2.reload
+      @order_item_2.reload
+      expect(@item_2.inventory).to eq(2)
+
+      visit profile_order_path(@order_1)
+
+      expect(page).to have_content("Current Status: Pending")
+      expect(page).to have_button("Cancel Order")
+
+      click_button "Cancel Order"
+
+      @order_item_1.reload
+      @order_item_2.reload
+      @order_item_3.reload
+      expect(@order_item_1.fulfilled).to be false
+      expect(@order_item_2.fulfilled).to be false
+      expect(@order_item_3.fulfilled).to be false
+
+      @item_2.reload
+      expect(@item_2.inventory).to eq(3)
+
+      expect(current_path).to eq(profile_orders_path)
+
+      expect(page).to have_content("#{@order_1.id} has been cancelled.")
+
+      within("#order-#{@order_1.id}") do
+        expect(page).to have_content("Current Status: Cancelled")
+      end
+    end
+
+    it 'Should have a disabled cancel button if the order is not pending' do
+      visit profile_order_path(@order_1)
+
+      expect(page).to have_content("Current Status: Shipped")
+      expect(page).to have_button("Cancel Order", disabled: true)
+      expect(page).to have_content("You can only cancel orders that are pending!")
+    end
   end
 end
