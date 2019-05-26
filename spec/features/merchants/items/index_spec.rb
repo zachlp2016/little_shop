@@ -145,15 +145,7 @@ RSpec.describe 'As a merchant' do
       end
 
       expect(page).to have_content("Item #{@item_1.id} is now deleted.")
-      expect(page).to_not have_content(@item_1.id)
+      expect(page).to_not have_content("Item id: #{@item_1.id}")
     end
   end
 end
-
-
-# As a merchant
-# When I visit my items page
-# And I click on a "delete" button or link for an item
-# I am returned to my items page
-# I see a flash message indicating this item is now deleted
-# I no longer see this item on the page
