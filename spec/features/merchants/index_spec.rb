@@ -121,5 +121,3 @@ RSpec.describe 'when visiting the merchants index page' do
     end
   end
 end
-
-# This merchant cannot log in
