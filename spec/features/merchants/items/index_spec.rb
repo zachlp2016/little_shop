@@ -128,8 +128,31 @@ RSpec.describe 'As a merchant' do
         find "img[src='https://kaaskraam.com/wp-content/uploads/2018/02/Gouda-Belegen.jpg']"
       end
     end
+
+    it 'can delete an item' do
+      visit dashboard_items_path
+
+      within "#item-#{@item_1.id}" do
+        expect(page).to have_content(@item_1.id)
+        expect(page).to have_content(@item_1.name)
+        expect(page).to have_content(@item_1.inventory)
+        expect(page).to have_content(@item_1.price)
+
+        expect(page).to have_link('Delete this item')
+        find "img[src='https://kaaskraam.com/wp-content/uploads/2018/02/Gouda-Belegen.jpg']"
+
+        click_link('Delete this item')
+      end
+
+      expect(page).to_not have_content(@item_1.id)
+    end
   end
 end
 
-# If the item is enabled, I see a button or link to disable the item
-# If the item is disabled, I see a button or link to enable the item
+
+# As a merchant
+# When I visit my items page
+# And I click on a "delete" button or link for an item
+# I am returned to my items page
+# I see a flash message indicating this item is now deleted
+# I no longer see this item on the page
