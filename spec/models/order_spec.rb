@@ -81,5 +81,31 @@ RSpec.describe Order, type: :model do
       expect(@order_3.grand_total).to eq(19.98)
       expect(@order_4.grand_total).to eq(39.96)
     end
+
+    it '#check_fulfillments' do
+      user = User.create!(email: "not_test@test.com", password_digest: "t3s7", role: 1, active: true, name: "Testy McTesterson", address: "123 Test St", city: "Testville", state: "Test", zip: "01234")
+      merchant_1 = create(:user)
+      item_1 = create(:item, user: merchant_1)
+      item_2 = create(:item, user: merchant_1)
+      item_3 = create(:item, user: merchant_1)
+      order_1 = create(:order, user: user, status: :pending)
+      order_item_1 = create(:order_item, order: order_1, item: item_1)
+      order_item_2 = create(:order_item, order: order_1, item: item_2)
+      order_item_3 = create(:order_item, order: order_1, item: item_3)
+
+      expect(order_1.status).to eq("pending")
+
+      order_item_1.update!(fulfilled: true)
+      order_item_2.update!(fulfilled: true)
+      order_item_1.reload
+      order_item_2.reload
+      order_1.reload
+      expect(order_1.status).to eq("pending")
+
+      order_item_3.update!(fulfilled: true)
+      order_item_3.reload
+      order_1.reload
+      expect(order_1.status).to eq("packaged")
+    end
   end
 end
