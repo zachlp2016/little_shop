@@ -181,12 +181,45 @@ RSpec.describe 'As a merchant' do
         find "img[src='https://kaaskraam.com/wp-content/uploads/2018/02/Gouda-Belegen.jpg']"
       end
     end
+
+
+    it 'Allows blank image' do
+      visit dashboard_items_path
+
+      click_link('Add a new item')
+
+      expect(current_path).to eq('/dashboard/items/new')
+
+      fill_in 'Name', with: 'Velveeta'
+      fill_in 'Description', with: 'Glorified Cheese Wizz.'
+      fill_in 'Image', with: ''
+      fill_in 'Price', with: '3.90'
+      fill_in 'Inventory', with: '25'
+
+
+      click_button 'Create Item'
+
+
+      expect(current_path).to eq(dashboard_items_path)
+      expect(page).to have_content('The item was created successfully.')
+
+      @lastitem = Item.last
+
+      within "#item-#{@lastitem.id}" do
+        expect(page).to have_content(@lastitem.id)
+        expect(page).to have_content(@lastitem.name)
+        expect(page).to have_content(@lastitem.inventory)
+        expect(page).to have_content(@lastitem.price)
+
+        expect(page).to have_link('Disable this item')
+        expect(page).to have_link('Delete this item')
+        find "img[src='https://kaaskraam.com/wp-content/uploads/2018/02/Gouda-Belegen.jpg']"
+      end
+    end
   end
 end
 
 # I see a form where I can add new information about an item, including:
-# - the name of the item, which cannot be blank
-# - a description for the item, which cannot be blank
 # - a thumbnail image URL string, which CAN be left blank
 # - a price which must be greater than $0.00
 # - my current inventory count of this item which is 0 or greater
