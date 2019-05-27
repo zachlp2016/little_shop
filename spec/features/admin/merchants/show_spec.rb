@@ -26,5 +26,21 @@ RSpec.describe 'As an admin user' do
       expect(page).to have_content(@merchant_1.state)
       expect(page).to have_content(@merchant_1.zip)
     end
+
+    it 'has an downgrade link for a merchant' do
+      visit "/admin/merchants/#{@merchant_1.id}"
+      
+      
+      expect(current_path).to eq("/admin/merchants/#{@merchant_1.id}")
+      expect(page).to have_link("Downgrade to User")
+
+      click_on("Downgrade to User")
+
+      expect(current_path).to eq(admin_user_path(@merchant_1.id))
+      expect(@merchant_1.reload.role).to eq("default")
+      within("#flash-message") do
+        expect(page).to have_content("User #{@merchant_1.name} has been demoted to Default")
+      end
+    end
   end
 end
