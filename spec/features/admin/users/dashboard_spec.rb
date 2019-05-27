@@ -54,7 +54,37 @@ RSpec.describe 'As an admin user' do
         expect(text.index("#{@o6.id} #{@o6.user.name}") < text.index("#{@o7.id} #{@o7.user.name}")).to be true
         expect(text.index("#{@o7.id} #{@o7.user.name}") < text.index("#{@o3.id} #{@o3.user.name}")).to be true
         expect(text.index("#{@o3.id} #{@o3.user.name}") < text.index("#{@o4.id} #{@o4.user.name}")).to be true
+      end
     end
+
+    it 'I see any packaged orders ready to ship' do
+      visit admin_dashboard_path
+
+      within "#order-#{@o1.id}" do
+        expect(page).to have_content("Packaged: Ready to ship!")
+        expect(page).to have_button("Ship Order")
+      end
+
+      within "#order-#{@o5.id}" do
+        expect(page).to have_content("Packaged: Ready to ship!")
+        expect(page).to have_button("Ship Order")
+      end
+    end
+
+    it 'When I click Ship Order, the order status is changed to Shipped' do
+      visit admin_dashboard_path
+
+      within "#order-#{@o1.id}" do
+        click_button "Ship Order"
+      end
+
+      expect(current_path).to eq(admin_dashboard_path)
+      @o1.reload
+
+      within "#order-#{@o1.id}" do
+        expect(page).to have_content("Shipped")
+        # Expectation for Cancel button to not be enabled requires US # 63
+      end
     end
   end
 end

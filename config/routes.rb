@@ -44,5 +44,6 @@ Rails.application.routes.draw do
     get '/dashboard', to: 'users#dashboard'
     get '/merchants/:id', to: 'merchants#show'
     patch '/merchant/edit', to: 'merchants#edit'
+    resources :orders, only: [:update]
   end
 end
