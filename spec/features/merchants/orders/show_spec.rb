@@ -73,5 +73,26 @@ RSpec.describe 'As a merchant', type: :feature do
         expect(page).to have_content("You do not have enough inventory to fulfill this item!")
       end
     end
+
+    it 'When I fulfill the Item, I see a flash notice, can no longer fulfill the Item, and the Item inventory is reduced' do
+      visit dashboard_order_path(@order)
+
+      within("#item-#{@item_1.id}") do
+        click_button "Fulfill Item"
+
+        @item_1.reload
+
+        expect(current_path).to eq(dashboard_order_path(@order))
+
+        expect(page).to have_content("Item '#{@item_1.name}' fulfilled.")
+
+        within("#item-#{@item_1.id}") do
+          expect(page).to have_button("Fulfill Item", disabled: true)
+          expect(page).to have_content("You have already fulfilled this item!")
+        end
+
+        expect(@item_1.inventory).to eq(@item_1.inventory - @order_item_1.quantity)
+      end
+    end
   end
 end
