@@ -20,7 +20,7 @@
           <%= link_to "Delete this item" %>
         <% end %>
         <% if item.active == true %>
-          <%= link_to "Disable this item" %>
+          <%= link_to "Disable this item", "/merchants/items/disable/#{item.id}", :method=> :patch %>
         <% else %>
           <%= link_to "Enable this item" %>
         <% end %>
