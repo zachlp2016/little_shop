@@ -10,6 +10,8 @@ class Merchants::ItemsController < ApplicationController
   end
 
   def create
+    verify_image(params)
+    binding.pry
     @merchant = User.find(current_user.id)
     @item = @merchant.items.create!(items_params)
     if @item.save
@@ -30,5 +32,11 @@ class Merchants::ItemsController < ApplicationController
 
   def items_params
     params.require(:item).permit(:name, :price, :description, :inventory )
+  end
+
+  def verify_image(params)
+    if params["item"]["image"] == ""
+      params["item"]["image"] = "https://kaaskraam.com/wp-content/uploads/2018/02/Gouda-Belegen.jpg"
+    end
   end
 end
