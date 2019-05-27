@@ -47,5 +47,20 @@ RSpec.describe 'As a merchant', type: :feature do
 
       expect(page).to_not have_css("#item-#{@item_3.id}")
     end
+
+    it 'Should have a Fulfill button on unfulfilled items, and a disabled button on fulfilled items' do
+      @order_item_2.update(fulfilled: true)
+      @order_item_2.reload
+      visit dashboard_order_path(@order)
+
+      within("#item-#{@item_1.id}") do
+        expect(page).to have_button("Fulfill Item")
+      end
+
+      within("#item-#{@item_2.id}") do
+        expect(page).to have_button("Fulfill Item", disabled: true)
+        expect(page).to have_content("You have already fulfilled this item!")
+      end
+    end
   end
 end
