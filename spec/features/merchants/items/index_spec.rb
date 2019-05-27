@@ -171,10 +171,10 @@ RSpec.describe 'As a merchant' do
       @lastitem = Item.last
 
       within "#item-#{@lastitem.id}" do
-        expect(page).to have_content(@item_1.id)
-        expect(page).to have_content(@item_1.name)
-        expect(page).to have_content(@item_1.inventory)
-        expect(page).to have_content(@item_1.price)
+        expect(page).to have_content(@lastitem.id)
+        expect(page).to have_content(@lastitem.name)
+        expect(page).to have_content(@lastitem.inventory)
+        expect(page).to have_content(@lastitem.price)
 
         expect(page).to have_link('Disable this item')
         expect(page).to have_link('Delete this item')
