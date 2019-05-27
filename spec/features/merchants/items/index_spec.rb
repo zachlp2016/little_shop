@@ -147,5 +147,53 @@ RSpec.describe 'As a merchant' do
       expect(page).to have_content("Item #{@item_1.id} is now deleted.")
       expect(page).to_not have_content("Item id: #{@item_1.id}")
     end
+
+    it 'can add an item' do
+      visit dashboard_items_path
+
+      click_link('Add a new item.')
+
+      expect(current_path).to eq('/dashboard/items/new')
+
+      fill_in 'Name', with: 'Velveeta'
+      fill_in 'Description', with: 'Glorified Cheese Wizz.'
+      fill_in 'Image url', with: 'https://kaaskraam.com/wp-content/uploads/2018/02/Gouda-Belegen.jpg'
+      fill_in 'Price', with: '3.90'
+      fill_in 'Inventory', with: '25'
+
+      click_button 'Create Item'
+
+      expect(current_path).to eq(dashboard_items_path)
+      expect(page).to have_content('The item was created successfully.')
+
+      @lastitem = Item.last
+
+      it 'has a link to disable if the item is enabled' do
+        visit dashboard_items_path
+        within "#item-#{@lastitem.id}" do
+          expect(page).to have_content(@item_1.id)
+          expect(page).to have_content(@item_1.name)
+          expect(page).to have_content(@item_1.inventory)
+          expect(page).to have_content(@item_1.price)
+
+          expect(page).to have_link('Disable this item')
+          expect(page).to have_link('Delete this item')
+          find "img[src='https://kaaskraam.com/wp-content/uploads/2018/02/Gouda-Belegen.jpg']"
+        end
+      end
+    end
   end
 end
+
+# I see a form where I can add new information about an item, including:
+# - the name of the item, which cannot be blank
+# - a description for the item, which cannot be blank
+# - a thumbnail image URL string, which CAN be left blank
+# - a price which must be greater than $0.00
+# - my current inventory count of this item which is 0 or greater
+#
+# When I submit valid information and save the form
+# I am taken back to my items page
+# I see a flash message indicating my new item is saved
+# I see the new item on the page, and it is enabled and available for sale
+# If I left the image field blank, I see a placeholder image for the thumbnail
