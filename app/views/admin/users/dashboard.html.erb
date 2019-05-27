@@ -39,7 +39,7 @@
                   <td><%= order.id  %></td>
                   <td><%= order.user.name %></td>
                   <td><%= order.created_at.strftime("%b %d, %Y") %></td>
-                  <td><%= order.status.titlecase %></td>
+                  <td><%= order.status.titlecase %><%= + ": Ready to ship!" if order.status == "packaged" %><%= button_to "Ship Order", admin_order_path(order), method: "patch" if order.status == "packaged" %></td>
                   <%# <td><%= button_to "Delete Order", root_path, class:"btn btn-primary" /td> %>
                 </tr>
               <% end %>
@@ -48,5 +48,5 @@
         </div>
       </div>
     </div>
-  </div>  
+  </div>
 </div>

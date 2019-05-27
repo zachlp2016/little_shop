@@ -29,6 +29,22 @@ class Merchants::ItemsController < ApplicationController
     end
   end
 
+  def disable
+    @item = Item.find(params[:id])
+    @item.active = false
+    @item.save
+    flash[:notice] = "This item has been disabled."
+    redirect_to dashboard_items_path
+  end
+    
+  def enable
+    @item = Item.find(params[:id])
+    @item.active = true
+    @item.save
+    flash[:notice] = "This item has been enabled."
+    redirect_to dashboard_items_path
+  end
+
   def destroy
     @item = Item.destroy(params[:id])
     flash[:notice] = "Item #{@item.id} is now deleted."
@@ -58,4 +74,5 @@ class Merchants::ItemsController < ApplicationController
       params["item"]["image"] = "https://kaaskraam.com/wp-content/uploads/2018/02/Gouda-Belegen.jpg"
     end
   end
+
 end

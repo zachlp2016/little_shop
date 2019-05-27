@@ -25,15 +25,13 @@ Rails.application.routes.draw do
     # get '/profile/orders/:id', to: 'orders#show'
   end
 
-
   get '/dashboard', to: 'merchants#show'
   get '/merchants', to: 'merchants#index' # a link to see all merchants ("/merchants") -- User Story 2, Visitor Navigation
   patch 'merchant/enable/:id', to: 'merchants#enable'
   patch 'merchant/disable/:id', to: 'merchants#disable'
 
-  namespace :merchants do
-    resources :items, only:[:create]
-  end
+  patch 'merchants/items/enable/:id', to: 'merchants/items#enable'
+  patch 'merchants/items/disable/:id', to: 'merchants/items#disable'
 
   scope module: 'merchants', path: 'dashboard', as: :dashboard do
     resources :items, only: [:index, :new, :create, :edit, :show, :destroy]
@@ -45,5 +43,6 @@ Rails.application.routes.draw do
     get '/dashboard', to: 'users#dashboard'
     get '/merchants/:id', to: 'merchants#show'
     patch '/merchant/edit', to: 'merchants#edit'
+    resources :orders, only: [:update]
   end
 end

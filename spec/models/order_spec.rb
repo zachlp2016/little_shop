@@ -108,4 +108,50 @@ RSpec.describe Order, type: :model do
       expect(order_1.status).to eq("packaged")
     end
   end
+
+  describe 'class methods' do
+
+    before :each do
+      @merchant_1 = create(:user, role: 1, created_at: Date.new(1995, 5, 3), city: 'Kansas City', state: "MO")
+      @merchant_2 = create(:user, role: 1, created_at: Date.new(2015, 12, 8), city: 'Springfield', state: 'CO')
+      @merchant_3 = create(:user, role: 1, created_at: Date.new(2002, 9, 10), city: 'Springfield', state: 'MI')
+      @merchant_4 = create(:user, role: 1, created_at: Date.new(1955, 3, 21), city: 'Little Rock', state: 'AR')
+      @merchant_5 = create(:user, role: 1, active: false)
+      @merchant_6 = create(:user, role: 1, active: false)
+      user = create(:user)
+      item_1 = create(:item, user: @merchant_1)
+      item_2 = create(:item, user: @merchant_2)
+      item_3 = create(:item, user: @merchant_3)
+      item_4 = create(:item, user: @merchant_4)
+      item_5 = create(:item, user: @merchant_1)
+      item_6 = create(:item, user: @merchant_5)
+      @order_1 = create(:order, user: user, status: 2)
+      @order_2 = create(:order, user: user, status: 2)
+      @order_3 = create(:order, user: user, status: 2)
+      @order_4 = create(:order, user: user, status: 2)
+      @order_5 = create(:order, user: user, status: 1)
+      order_item_1 = OrderItem.create!(item: item_1, order: @order_1, quantity: 1, price: item_1.price, fulfilled: false, updated_at: Time.now + 30)
+      order_item_2 = OrderItem.create!(item: item_2, order: @order_1, quantity: 2, price: item_2.price, fulfilled: false, updated_at: Time.now + 40)
+      order_item_3 = OrderItem.create!(item: item_3, order: @order_1, quantity: 3, price: item_3.price, fulfilled: false, updated_at: Time.now + 50)
+      order_item_4 = OrderItem.create!(item: item_4, order: @order_1, quantity: 4, price: item_4.price, fulfilled: false, updated_at: Time.now + 60)
+      order_item_5 = OrderItem.create!(item: item_1, order: @order_2, quantity: 5, price: item_1.price, fulfilled: false, updated_at: Time.now + 80)
+      order_item_6 = OrderItem.create!(item: item_2, order: @order_2, quantity: 6, price: item_2.price, fulfilled: false, updated_at: Time.now + 90)
+      order_item_7 = OrderItem.create!(item: item_3, order: @order_2, quantity: 7, price: item_3.price, fulfilled: false, updated_at: Time.now + 100)
+      order_item_8 = OrderItem.create!(item: item_1, order: @order_3, quantity: 8, price: item_1.price, fulfilled: false, updated_at: Time.now + 110)
+      order_item_9 = OrderItem.create!(item: item_2, order: @order_3, quantity: 9, price: item_2.price, fulfilled: false, updated_at: Time.now + 120)
+      order_item_10 = OrderItem.create!(item: item_1, order: @order_4, quantity: 10, price: item_1.price, fulfilled: false, updated_at: Time.now + 130)
+      order_item_10 = OrderItem.create!(item: item_5, order: @order_1, quantity: 11, price: item_5.price, fulfilled: false, updated_at: Time.now + 70)
+      order_item_11 = OrderItem.create!(item: item_6, order: @order_5, quantity: 12, price: item_6.price, fulfilled: false, updated_at: Time.now + 70)
+      order_item_12 = OrderItem.create!(item: item_5, order: @order_5, quantity: 12, price: item_6.price, fulfilled: false, updated_at: Time.now + 70)
+
+    end
+
+    it '.biggest_3' do
+      expect(Order.biggest_3[0]).to eq(@order_1)
+      expect(Order.biggest_3[1]).to eq(@order_2)
+      expect(Order.biggest_3[2]).to eq(@order_3)
+      expect(Order.biggest_3.length).to eq(3)
+    end
+
+  end
 end

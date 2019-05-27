@@ -60,6 +60,19 @@ RSpec.describe 'Merchant show page', type: :feature do
 
         expect(page).to_not have_link("#{@order_3.id}")
       end
+
+      it 'has a link to redirect to my items page' do
+        visit dashboard_path
+
+        click_link('View My Items')
+
+        expect(current_path).to eq(dashboard_items_path)
+
+        expect(page).to have_content("Item Id: #{@item_1.id}")
+        expect(page).to have_content("Item Id: #{@item_2.id}")
+        expect(page).to have_content("Item Id: #{@item_3.id}")
+        expect(page).to have_content("Item Id: #{@item_4.id}")
+      end
     end
   end
 end
