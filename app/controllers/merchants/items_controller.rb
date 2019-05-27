@@ -10,8 +10,14 @@ class Merchants::ItemsController < ApplicationController
   end
 
   def create
-    @item = Item.create!(params)
-
+    @merchant = User.find(current_user.id)
+    @item = @merchant.items.create!(items_params)
+    if @item.save
+      flash[:notice] = "The item was created successfully."
+      redirect_to dashboard_items_path
+    else
+      render :new
+    end
   end
 
   def destroy
@@ -22,7 +28,7 @@ class Merchants::ItemsController < ApplicationController
 
   private
 
-  def user_params
+  def items_params
     params.require(:item).permit(:name, :price, :description, :image, :inventory )
   end
 end

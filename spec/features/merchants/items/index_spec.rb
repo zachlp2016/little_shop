@@ -164,6 +164,7 @@ RSpec.describe 'As a merchant' do
 
       click_button 'Create Item'
 
+
       expect(current_path).to eq(dashboard_items_path)
       expect(page).to have_content('The item was created successfully.')
 
