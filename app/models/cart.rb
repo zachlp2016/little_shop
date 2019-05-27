@@ -21,5 +21,4 @@ class Cart
   def total_price
     ids_to_items.sum{|item, qty| item.price * qty}
   end
-
 end
