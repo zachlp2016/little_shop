@@ -61,14 +61,12 @@ RSpec.describe 'As an admin user' do
       visit admin_dashboard_path
 
       within "#order-#{@o1.id}" do
-        expect(page).to have_content("Current Status: Packaged")
-        expect(page).to have_content("Ready to ship!")
+        expect(page).to have_content("Packaged: Ready to ship!")
         expect(page).to have_button("Ship Order")
       end
 
       within "#order-#{@o5.id}" do
-        expect(page).to have_content("Current Status: Packaged")
-        expect(page).to have_content("Ready to ship!")
+        expect(page).to have_content("Packaged: Ready to ship!")
         expect(page).to have_button("Ship Order")
       end
     end
