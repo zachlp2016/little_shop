@@ -72,18 +72,19 @@ RSpec.describe 'when visiting the merchants index page' do
         order_3 = create(:order, user: @user, status: 2)
         order_4 = create(:order, user: @user, status: 2)
         order_5 = create(:order, user: @user, status: 1)
-        order_item_1 = OrderItem.create!(item: item_1, order: order_1, quantity: 1, price: item_1.price, fulfilled: true, updated_at: Time.now + 30)
-        order_item_2 = OrderItem.create!(item: item_2, order: order_1, quantity: 2, price: item_2.price, fulfilled: true, updated_at: Time.now + 40)
-        order_item_3 = OrderItem.create!(item: item_3, order: order_1, quantity: 3, price: item_3.price, fulfilled: true, updated_at: Time.now + 50)
-        order_item_4 = OrderItem.create!(item: item_4, order: order_1, quantity: 4, price: item_4.price, fulfilled: true, updated_at: Time.now + 60)
-        order_item_5 = OrderItem.create!(item: item_1, order: order_2, quantity: 5, price: item_1.price, fulfilled: true, updated_at: Time.now + 80)
-        order_item_6 = OrderItem.create!(item: item_2, order: order_2, quantity: 6, price: item_2.price, fulfilled: true, updated_at: Time.now + 90)
-        order_item_7 = OrderItem.create!(item: item_3, order: order_2, quantity: 7, price: item_3.price, fulfilled: true, updated_at: Time.now + 100)
-        order_item_8 = OrderItem.create!(item: item_1, order: order_3, quantity: 8, price: item_1.price, fulfilled: true, updated_at: Time.now + 110)
-        order_item_9 = OrderItem.create!(item: item_2, order: order_3, quantity: 9, price: item_2.price, fulfilled: true, updated_at: Time.now + 120)
-        order_item_10 = OrderItem.create!(item: item_1, order: order_4, quantity: 10, price: item_1.price, fulfilled: true, updated_at: Time.now + 130)
-        order_item_10 = OrderItem.create!(item: item_5, order: order_1, quantity: 11, price: item_5.price, fulfilled: true, updated_at: Time.now + 70)
-        order_item_11 = OrderItem.create!(item: item_6, order: order_5, quantity: 12, price: item_5.price, fulfilled: true, updated_at: Time.now + 70)
+        order_item_1 = OrderItem.create!(item: item_1, order: order_1, quantity: 1, price: item_1.price, fulfilled: true, updated_at: Time.now + (2*7*24*60*60))
+        order_item_2 = OrderItem.create!(item: item_2, order: order_1, quantity: 2, price: item_2.price, fulfilled: true, updated_at: Time.now + (2*7*24*60*120))
+        order_item_3 = OrderItem.create!(item: item_3, order: order_1, quantity: 3, price: item_3.price, fulfilled: true, updated_at: Time.now + (2*7*24*60*180))
+        order_item_4 = OrderItem.create!(item: item_4, order: order_1, quantity: 4, price: item_4.price, fulfilled: true, updated_at: Time.now + (2*7*24*60*240))
+        order_item_5 = OrderItem.create!(item: item_1, order: order_2, quantity: 5, price: item_1.price, fulfilled: true, updated_at: Time.now + (2*7*24*60*300))
+        order_item_6 = OrderItem.create!(item: item_2, order: order_2, quantity: 6, price: item_2.price, fulfilled: true, updated_at: Time.now + (2*7*24*60*360))
+        order_item_7 = OrderItem.create!(item: item_3, order: order_2, quantity: 7, price: item_3.price, fulfilled: true, updated_at: Time.now + (2*7*24*60*420))
+        order_item_8 = OrderItem.create!(item: item_1, order: order_3, quantity: 8, price: item_1.price, fulfilled: true, updated_at: Time.now + (2*7*24*60*480))
+        order_item_9 = OrderItem.create!(item: item_2, order: order_3, quantity: 9, price: item_2.price, fulfilled: true, updated_at: Time.now + (2*7*24*60*540))
+        order_item_10 = OrderItem.create!(item: item_1, order: order_4, quantity: 10, price: item_1.price, fulfilled: true, updated_at: Time.now + (2*7*24*60*600))
+        order_item_10 = OrderItem.create!(item: item_5, order: order_1, quantity: 11, price: item_5.price, fulfilled: true, updated_at: Time.now + (2*7*24*60*660))
+        order_item_11 = OrderItem.create!(item: item_6, order: order_5, quantity: 12, price: item_5.price, fulfilled: true, updated_at: Time.now + (2*7*24*60*720))
+        order_item_12 = OrderItem.create!(item: item_5, order: order_5, quantity: 12, price: item_6.price, fulfilled: true, updated_at: Time.now + (2*7*24*60*780))
 
         visit merchants_path
 
@@ -94,37 +95,43 @@ RSpec.describe 'when visiting the merchants index page' do
         expect(page.all(".most-sold")[2]).to have_content(@merchant_3.name)
         expect(page.all(".most-sold")[2]).to have_content("200")
 
-        expect(page.all('.fastest')[0]).to have_content(@merchant_4.name) # 60 seconds total
-        expect(page.all('.fastest')[1]).to have_content(@merchant_3.name) # 150 seconds total
-        expect(page.all('.fastest')[2]).to have_content(@merchant_2.name) # 250 seconds total
+        expect(page.all('.fastest')[0]).to have_content(@merchant_4.name)
+        expect(page.all('.fastest')[0]).to have_content('55')
+        expect(page.all('.fastest')[1]).to have_content(@merchant_3.name)
+        expect(page.all('.fastest')[1]).to have_content('138')
+        expect(page.all('.fastest')[2]).to have_content(@merchant_2.name)
+        expect(page.all('.fastest')[2]).to have_content('235')
 
-        expect(page.all('.slowest')[0]).to have_content(@merchant_1.name) # 420 seconds total
-        expect(page.all('.slowest')[1]).to have_content(@merchant_2.name) # 250 seconds total
-        expect(page.all('.slowest')[2]).to have_content(@merchant_3.name) # 150 seconds total
+        expect(page.all('.slowest')[0]).to have_content(@merchant_1.name)
+        expect(page.all('.slowest')[0]).to have_content('485')
+        expect(page.all('.slowest')[1]).to have_content(@merchant_2.name)
+        expect(page.all('.slowest')[1]).to have_content('235')
+        expect(page.all('.slowest')[2]).to have_content(@merchant_3.name)
+        expect(page.all('.slowest')[2]).to have_content('138')
 
         expect(page.all('.top-states')[0]).to have_content("MO")
-        expect(page.all('.top-states')[0]).to have_content("4")
+        expect(page.all('.top-states')[0]).to have_content("5")
         expect(page.all('.top-states')[1]).to have_content("CO")
         expect(page.all('.top-states')[1]).to have_content("3")
         expect(page.all('.top-states')[2]).to have_content("MI")
         expect(page.all('.top-states')[2]).to have_content("2")
 
         expect(page.all('.top-cities')[0]).to have_content("Kansas City")
-        expect(page.all('.top-cities')[0]).to have_content("4")
+        expect(page.all('.top-cities')[0]).to have_content("5")
         expect(page.all('.top-cities')[1]).to have_content("Springfield")
         expect(page.all('.top-cities')[1]).to have_content("3")
         expect(page.all('.top-cities')[2]).to have_content("Springfield")
         expect(page.all('.top-cities')[2]).to have_content("2")
 
         expect(page.all('.top-orders')[0]).to have_content(order_1.user.name)
-        expect(page.all('.top-orders')[0]).to have_content(order_1.created_at)
-        expect(page.all('.top-orders')[0]).to have_content("21")
+        expect(page.all('.top-orders')[0]).to have_content(order_1.created_at.strftime("%B %d, %Y"))
+        expect(page.all('.top-orders')[0]).to have_content("5")
         expect(page.all('.top-orders')[1]).to have_content(order_2.user.name)
-        expect(page.all('.top-orders')[1]).to have_content(order_2.created_at)
-        expect(page.all('.top-orders')[1]).to have_content('18')
+        expect(page.all('.top-orders')[1]).to have_content(order_2.created_at.strftime("%B %d, %Y"))
+        expect(page.all('.top-orders')[1]).to have_content('3')
         expect(page.all('.top-orders')[2]).to have_content(order_3.user.name)
-        expect(page.all('.top-orders')[2]).to have_content(order_3.created_at)
-        expect(page.all('.top-orders')[2]).to have_content('17')
+        expect(page.all('.top-orders')[2]).to have_content(order_3.created_at.strftime("%B %d, %Y"))
+        expect(page.all('.top-orders')[2]).to have_content('2')
       end
 
     end
