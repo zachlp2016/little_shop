@@ -151,7 +151,7 @@ RSpec.describe 'As a merchant' do
     it 'can add an item' do
       visit dashboard_items_path
 
-      click_link('Add a new item.')
+      click_link('Add a new item')
 
       expect(current_path).to eq('/dashboard/items/new')
 
@@ -168,18 +168,15 @@ RSpec.describe 'As a merchant' do
 
       @lastitem = Item.last
 
-      it 'has a link to disable if the item is enabled' do
-        visit dashboard_items_path
-        within "#item-#{@lastitem.id}" do
-          expect(page).to have_content(@item_1.id)
-          expect(page).to have_content(@item_1.name)
-          expect(page).to have_content(@item_1.inventory)
-          expect(page).to have_content(@item_1.price)
+      within "#item-#{@lastitem.id}" do
+        expect(page).to have_content(@item_1.id)
+        expect(page).to have_content(@item_1.name)
+        expect(page).to have_content(@item_1.inventory)
+        expect(page).to have_content(@item_1.price)
 
-          expect(page).to have_link('Disable this item')
-          expect(page).to have_link('Delete this item')
-          find "img[src='https://kaaskraam.com/wp-content/uploads/2018/02/Gouda-Belegen.jpg']"
-        end
+        expect(page).to have_link('Disable this item')
+        expect(page).to have_link('Delete this item')
+        find "img[src='https://kaaskraam.com/wp-content/uploads/2018/02/Gouda-Belegen.jpg']"
       end
     end
   end
