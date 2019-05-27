@@ -11,7 +11,6 @@ class Merchants::ItemsController < ApplicationController
 
   def create
     verify_image(params)
-    binding.pry
     @merchant = User.find(current_user.id)
     @item = @merchant.items.create!(items_params)
     if @item.save
@@ -31,7 +30,7 @@ class Merchants::ItemsController < ApplicationController
   private
 
   def items_params
-    params.require(:item).permit(:name, :price, :description, :inventory )
+    params.require(:item).permit(:name, :price, :description, :image, :inventory )
   end
 
   def verify_image(params)
