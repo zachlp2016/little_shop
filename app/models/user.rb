@@ -31,7 +31,7 @@ class User < ApplicationRecord
   def self.fastest_3_fulfilling_merchants
     self.joins(items: :order_items)
         .joins('JOIN orders ON order_items.order_id=orders.id')
-        .where('users.role=1 AND users.active=true AND orders.status=2')
+        .where("users.role=1 AND users.active=true AND orders.status=2")
         .select('sum(order_items.updated_at - order_items.created_at) AS fulfillment_time, users.*')
         .group(:id)
         .order('fulfillment_time')
@@ -51,9 +51,21 @@ class User < ApplicationRecord
   def self.top_3_states
     self.joins(items: :order_items)
         .joins('JOIN orders ON order_items.order_id=orders.id')
-        .select('count(orders.id), users.state')
-        .where('users.role=1 AND orders.status=2')
+        .select('count(orders.*), users.state')
+        .where('orders.status=2 AND users.role=1')
         .group(:state)
         .order(count: :desc)
+        .limit(3)
+  end
+
+  def self.top_3_cities
+    self.joins(items: :order_items)
+        .joins('JOIN orders ON order_items.order_id=orders.id')
+        .select('count(orders.*), users.state, users.city')
+        .where('orders.status=2 AND users.role=1')
+        .group(:state)
+        .group(:city)
+        .order(count: :desc)
+        .limit(3)
   end
 end
