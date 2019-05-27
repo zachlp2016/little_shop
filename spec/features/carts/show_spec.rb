@@ -1,19 +1,5 @@
 require 'rails_helper'
 
-# As a visitor or registered user
-# When I have added items to my cart
-# And I visit my cart ("/cart")
-# I see all items I've added to my cart
-# And I see a link to empty my cart
-# Each item in my cart shows the following information:
-# - the name of the item
-# - a very small thumbnail image of the item
-# - the merchant I'm buying this item from
-# - the price of the item
-# - my desired quantity of the item
-# - a subtotal (price multiplied by quantity)
-#
-# I also see a grand total of what everything in my cart will cost
 RSpec.describe 'As a visitor' do
   context 'As a visitor' do
 
@@ -69,21 +55,120 @@ RSpec.describe 'As a visitor' do
 
     end
   end
-end
 
-describe 'As a visitor or a registered user' do
-  describe 'when I have items in my cart and view my cart' do
+  describe 'As a visitor or a registered user' do
+    describe 'when I have items in my cart and view my cart' do
 
+      before :each do
+        @merchant = create(:user, name: "Merchant", role: 1)
+        @item_1 = create(:item, user: @merchant)
+        @item_2 = create(:item, user: @merchant)
+        @item_3 = create(:item, user: @merchant)
+      end
+
+
+      it 'shows all items in my cart and allows user to clear cart' do
+        visit items_path
+
+        within "#item-#{@item_1.id}" do
+          click_link "Add To Cart"
+        end
+
+        within "#item-#{@item_2.id}" do
+          click_link "Add To Cart"
+          click_link "Add To Cart"
+        end
+
+        within "#item-#{@item_3.id}" do
+          click_link "Add To Cart"
+          click_link "Add To Cart"
+          click_link "Add To Cart"
+        end
+
+        visit carts_path
+
+        within '#cart_total' do
+          expect(page).to have_content("$120.00")
+        end
+
+        within "#item-#{@item_1.id}" do
+          expect(page).to have_content(@item_1.name)
+          expect(page).to have_content(@item_1.user.name)
+          expect(page).to have_content(@item_1.price)
+          expect(page).to have_content(1)
+          expect(page).to have_content("$20.00")
+          find "img[src='https://kaaskraam.com/wp-content/uploads/2018/02/Gouda-Belegen.jpg']"
+        end
+
+        within "#item-#{@item_2.id}" do
+          expect(page).to have_content(@item_2.name)
+          expect(page).to have_content(@item_2.user.name)
+          expect(page).to have_content(@item_2.price)
+          expect(page).to have_content(2)
+          expect(page).to have_content("$40.00")
+          find "img[src='https://kaaskraam.com/wp-content/uploads/2018/02/Gouda-Belegen.jpg']"
+        end
+
+        within "#item-#{@item_3.id}" do
+          expect(page).to have_content(@item_3.name)
+          expect(page).to have_content(@item_3.user.name)
+          expect(page).to have_content(@item_3.price)
+          expect(page).to have_content(3)
+          expect(page).to have_content("$60.00")
+          find "img[src='https://kaaskraam.com/wp-content/uploads/2018/02/Gouda-Belegen.jpg']"
+        end
+
+        click_link "Clear Cart"
+
+        expect(page).to_not have_content(@item_1.name)
+        expect(page).to_not have_content(@item_2.name)
+        expect(page).to_not have_content(@item_3.name)
+        expect(page).to have_content("(0)")
+      end
+    end
+  end
+
+  describe 'when i have items in my card' do
     before :each do
-      @merchant = create(:user, name: "Merchant", role: 1)
-      @item_1 = create(:item, user: @merchant)
-      @item_2 = create(:item, user: @merchant)
-      @item_3 = create(:item, user: @merchant)
+      merchant_1 = create(:user)
+      merchant_2 = create(:user)
+      @item_1 = create(:item, user: merchant_1)
+      @item_2 = create(:item, user: merchant_1)
+      @item_3 = create(:item, user: merchant_1)
+      @item_4 = create(:item, user: merchant_2)
+      @item_5 = create(:item, user: merchant_2, active: false)
+      @item_6 = create(:item, user: merchant_2, active: false)
+      buyer_1 = create(:user)
+      buyer_2 = create(:user)
+      buyer_3 = create(:user)
+      buyer_4 = create(:user)
+      order_1 = create(:order, user: buyer_1)
+      order_2 = create(:order, user: buyer_1)
+      order_3 = create(:order, user: buyer_2)
+      order_4 = create(:order, user: buyer_2)
+      order_5 = create(:order, user: buyer_3)
+      order_6 = create(:order, user: buyer_3)
+      order_7 = create(:order, user: buyer_3)
+      order_8 = create(:order, user: buyer_2)
+      order_9 = create(:order, user: buyer_1)
+      order_10 = create(:order, user: buyer_3)
+      order_11 = create(:order, user: buyer_4)
+      OrderItem.create!(item: @item_1, order: order_1, quantity: 12, price: 1.99, fulfilled: true)
+      OrderItem.create!(item: @item_2, order: order_2, quantity: 3, price: 6.99, fulfilled: true)
+      OrderItem.create!(item: @item_3, order: order_3, quantity: 6, price: 11.99, fulfilled: true)
+      OrderItem.create!(item: @item_4, order: order_4, quantity: 7, price: 12.99, fulfilled: true)
+      OrderItem.create!(item: @item_5, order: order_5, quantity: 14, price: 13.99, fulfilled: true)
+      OrderItem.create!(item: @item_6, order: order_6, quantity: 5, price: 2.99, fulfilled: true)
+      OrderItem.create!(item: @item_1, order: order_7, quantity: 21, price: 9.99, fulfilled: true)
+      OrderItem.create!(item: @item_2, order: order_8, quantity: 31, price: 7.99, fulfilled: true)
+      OrderItem.create!(item: @item_3, order: order_9, quantity: 2, price: 12.99, fulfilled: false)
+      OrderItem.create!(item: @item_4, order: order_10, quantity: 3, price: 11.99, fulfilled: false)
+      OrderItem.create!(item: @item_5, order: order_11, quantity: 1, price: 21.99, fulfilled: false)
     end
 
-
-    it 'shows all items in my cart and allows user to clear cart' do
+    it 'has a remove item from cart' do
       visit items_path
+
 
       within "#item-#{@item_1.id}" do
         click_link "Add To Cart"
@@ -102,43 +187,105 @@ describe 'As a visitor or a registered user' do
 
       visit carts_path
 
-      within '#cart_total' do
-        expect(page).to have_content("$120.00")
-      end
-
       within "#item-#{@item_1.id}" do
-        expect(page).to have_content(@item_1.name)
-        expect(page).to have_content(@item_1.user.name)
-        expect(page).to have_content(@item_1.price)
-        expect(page).to have_content(1)
-        expect(page).to have_content("$20.00")
-        find "img[src='https://kaaskraam.com/wp-content/uploads/2018/02/Gouda-Belegen.jpg']"
+        expect(page).to have_link('Remove Item')
       end
 
       within "#item-#{@item_2.id}" do
-        expect(page).to have_content(@item_2.name)
-        expect(page).to have_content(@item_2.user.name)
-        expect(page).to have_content(@item_2.price)
-        expect(page).to have_content(2)
-        expect(page).to have_content("$40.00")
-        find "img[src='https://kaaskraam.com/wp-content/uploads/2018/02/Gouda-Belegen.jpg']"
+        expect(page).to have_link('Remove Item')
       end
 
       within "#item-#{@item_3.id}" do
-        expect(page).to have_content(@item_3.name)
-        expect(page).to have_content(@item_3.user.name)
-        expect(page).to have_content(@item_3.price)
-        expect(page).to have_content(3)
-        expect(page).to have_content("$60.00")
-        find "img[src='https://kaaskraam.com/wp-content/uploads/2018/02/Gouda-Belegen.jpg']"
+        expect(page).to have_link('Remove Item')
       end
 
-      click_link "Clear Cart"
+      within "#item-#{@item_1.id}" do
+        click_link "Remove Item"
+      end
 
       expect(page).to_not have_content(@item_1.name)
-      expect(page).to_not have_content(@item_2.name)
-      expect(page).to_not have_content(@item_3.name)
-      expect(page).to have_content("(0)")
+    end
+
+    it 'has a increment item on cart show' do
+      visit items_path
+
+
+      within "#item-#{@item_1.id}" do
+        click_link "Add To Cart"
+      end
+
+      within "#item-#{@item_2.id}" do
+        click_link "Add To Cart"
+        click_link "Add To Cart"
+      end
+
+      within "#item-#{@item_3.id}" do
+        click_link "Add To Cart"
+        click_link "Add To Cart"
+        click_link "Add To Cart"
+      end
+
+      visit carts_path
+
+      within "#item-#{@item_1.id}" do
+        expect(page).to have_link('Add One')
+      end
+
+      within "#item-#{@item_2.id}" do
+        expect(page).to have_link('Add One')
+      end
+
+      within "#item-#{@item_3.id}" do
+        expect(page).to have_link('Add One')
+      end
+
+      within "#item-#{@item_1.id}" do
+        click_link "Add One"
+        expect(page).to have_content(2)
+      end
+    end
+
+    it 'has a decrease item on cart show' do
+      visit items_path
+
+
+      within "#item-#{@item_1.id}" do
+        click_link "Add To Cart"
+        click_link "Add To Cart"
+      end
+
+      within "#item-#{@item_2.id}" do
+        click_link "Add To Cart"
+        click_link "Add To Cart"
+      end
+
+      within "#item-#{@item_3.id}" do
+        click_link "Add To Cart"
+        click_link "Add To Cart"
+        click_link "Add To Cart"
+      end
+
+      visit carts_path
+
+      within "#item-#{@item_1.id}" do
+        expect(page).to have_link('Remove One')
+      end
+
+      within "#item-#{@item_2.id}" do
+        expect(page).to have_link('Remove One')
+      end
+
+      within "#item-#{@item_3.id}" do
+        expect(page).to have_link('Remove One')
+      end
+
+      within "#item-#{@item_1.id}" do
+        click_link "Remove One"
+        expect(page).to have_content(1)
+        click_link "Remove One"
+      end
+
+      expect(page).to_not have_content(@item_1.name)
     end
   end
 end

@@ -29,5 +29,4 @@ class Cart
       oi.save
     end
   end
-
 end
