@@ -143,6 +143,8 @@ RSpec.describe 'As a merchant' do
       within "#item-#{@item_1.id}" do
         expect(page).to have_link('Enable this item')
       end
+      @item_1.reload
+      expect(@item_1.active).to eq(false)
     end
   end
 end
