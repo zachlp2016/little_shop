@@ -22,7 +22,7 @@
         <% if item.active == true %>
           <%= link_to "Disable this item", "/merchants/items/disable/#{item.id}", :method=> :patch %>
         <% else %>
-          <%= link_to "Enable this item" %>
+          <%= link_to "Enable this item", "/merchants/items/enable/#{item.id}", :method=> :patch %>
         <% end %>
       </div>
     </section>

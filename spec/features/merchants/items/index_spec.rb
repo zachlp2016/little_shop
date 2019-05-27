@@ -165,6 +165,23 @@ RSpec.describe 'As a merchant' do
       expect(page).to have_content("Item #{@item_1.id} is now deleted.")
       expect(page).to_not have_content("Item id: #{@item_1.id}")
     end
+
+    it 'Can enable an item' do
+      visit dashboard_items_path
+      within "#item-#{@item_3.id}" do
+
+        expect(page).to have_link('Enable this item')
+
+        click_link('Enable this item')
+      end
+
+      expect(page).to have_content('This item has been enabled.')
+      within "#item-#{@item_3.id}" do
+        expect(page).to have_link('Disable this item')
+      end
+      @item_3.reload
+      expect(@item_3.active).to eq(true)
+    end
   end
 end
 

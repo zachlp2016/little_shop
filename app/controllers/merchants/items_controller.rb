@@ -18,4 +18,12 @@ class Merchants::ItemsController < ApplicationController
     flash[:notice] = "Item #{@item.id} is now deleted."
     redirect_to dashboard_items_path
   end
+
+  def enable
+    @item = Item.find(params[:id])
+    @item.active = true
+    @item.save
+    flash[:notice] = "This item has been enabled."
+    redirect_to dashboard_items_path
+  end
 end
