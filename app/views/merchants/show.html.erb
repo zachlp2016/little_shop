@@ -9,6 +9,10 @@
 <p>State: <%= @user.state %></p>
 <p>Zip Code: <%= @user.zip %></p>
 
+<% if current_admin?  %>
+  <%= link_to "Downgrade to User", admin_merchant_edit_path({id: @user.id, request: :downgrade_to_user}), :method => :patch, class:"btn btn-primary" %>
+<% end %>
+
 <% @orders.each do |order| %>
 <section id="order-<%= order.id %>">
   <p>Order id: <%= link_to "#{order.id}", profile_order_path(order.id) %>
