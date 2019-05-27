@@ -81,5 +81,6 @@ RSpec.describe Order, type: :model do
       expect(@order_3.grand_total).to eq(19.98)
       expect(@order_4.grand_total).to eq(39.96)
     end
+
   end
 end
