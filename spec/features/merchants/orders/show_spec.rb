@@ -64,7 +64,7 @@ RSpec.describe 'As a merchant', type: :feature do
     end
 
     it 'Should not allow me to fulfill an item if the inventory is too low' do
-      @order_item_2.update(quantity: 11)
+      @order_item_2.update(quantity: 12)
       @order_item_2.reload
       visit dashboard_order_path(@order)
 
