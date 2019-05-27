@@ -5,6 +5,10 @@ class Merchants::ItemsController < ApplicationController
   end
 
   def disable
-
+    @item = Item.find(params[:id])
+    @item.active = false
+    @item.save
+    flash[:notice] = "This item has been disabled."
+    redirect_to dashboard_items_path
   end
 end

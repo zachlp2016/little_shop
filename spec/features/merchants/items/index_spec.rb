@@ -137,10 +137,11 @@ RSpec.describe 'As a merchant' do
         expect(page).to have_link('Disable this item')
 
         click_link('Disable this item')
+      end
 
+      expect(page).to have_content('This item has been disabled.')
+      within "#item-#{@item_1.id}" do
         expect(page).to have_link('Enable this item')
-
-        expect(@item_1.status).to eq('disabled')
       end
     end
   end
