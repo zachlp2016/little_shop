@@ -36,7 +36,7 @@ Rails.application.routes.draw do
 
   scope module: 'merchants', path: 'dashboard', as: :dashboard do
     resources :items, only: [:index, :new, :edit, :show, :destroy]
-    resources :orders, only: [:index, :show, :edit]
+    resources :orders, only: [:index, :show, :edit, :update]
   end
 
   namespace :admin do
