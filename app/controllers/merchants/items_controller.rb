@@ -10,11 +10,11 @@ class Merchants::ItemsController < ApplicationController
   end
 
   def create
-    if verify_price(params) != true
+    if verify_price(params) == false
       flash[:notice] = "The price for that item cannot be negative."
       redirect_to dashboard_items_path
-    elsif verify inventory_count(params) != true
-      flash[:notice] = "The price for that item cannot be negative."
+    elsif verify_inventory_count(params) == false
+      flash[:notice] = "The inventory for that item cannot be a negative number."
       redirect_to dashboard_items_path
     else
       verify_image(params)
@@ -42,7 +42,13 @@ class Merchants::ItemsController < ApplicationController
   end
 
   def verify_price(params)
-    if params["item"]["image"].to_i > 0
+    if params["item"]["price"].to_i < 0
+      return false
+    end
+  end
+
+  def verify_inventory_count(params)
+    if params["item"]["inventory"].to_i < 0
       return false
     end
   end

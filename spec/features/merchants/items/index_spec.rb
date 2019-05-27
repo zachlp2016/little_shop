@@ -248,14 +248,14 @@ RSpec.describe 'As a merchant' do
       fill_in 'Name', with: 'Velveeta'
       fill_in 'Description', with: 'Glorified Cheese Wizz.'
       fill_in 'Image', with: ''
-      fill_in 'Price', with: '-3.90'
+      fill_in 'Price', with: '3.90'
       fill_in 'Inventory', with: '-25'
 
       click_button 'Create Item'
 
       expect(current_path).to eq(dashboard_items_path)
       expect(page).to_not have_content('The item was created successfully.')
-      expect(page).to have_content('The inventory for that item cannot be negative.')
+      expect(page).to have_content('The inventory for that item cannot be a negative number.')
     end
   end
 end
