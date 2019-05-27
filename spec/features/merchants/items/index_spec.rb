@@ -259,11 +259,3 @@ RSpec.describe 'As a merchant' do
     end
   end
 end
-
-# - my current inventory count of this item which is 0 or greater
-#
-# When I submit valid information and save the form
-# I am taken back to my items page
-# I see a flash message indicating my new item is saved
-# I see the new item on the page, and it is enabled and available for sale
-# If I left the image field blank, I see a placeholder image for the thumbnail
