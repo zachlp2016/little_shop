@@ -26,7 +26,6 @@ Rails.application.routes.draw do
     # get '/profile/orders/:id', to: 'orders#show'
   end
 
-
   get '/dashboard', to: 'merchants#show'
   get '/merchants', to: 'merchants#index' # a link to see all merchants ("/merchants") -- User Story 2, Visitor Navigation
   patch 'merchant/enable/:id', to: 'merchants#enable'
@@ -36,7 +35,7 @@ Rails.application.routes.draw do
   patch 'merchants/items/disable/:id', to: 'merchants/items#disable'
 
   scope module: 'merchants', path: 'dashboard', as: :dashboard do
-    resources :items, only: [:index, :new, :edit, :show, :destroy]
+    resources :items, only: [:index, :new, :create, :edit, :show, :destroy]
     resources :orders, only: [:index, :show, :edit]
   end
 
