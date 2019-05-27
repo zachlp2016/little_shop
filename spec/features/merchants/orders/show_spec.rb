@@ -62,5 +62,16 @@ RSpec.describe 'As a merchant', type: :feature do
         expect(page).to have_content("You have already fulfilled this item!")
       end
     end
+
+    it 'Should not allow me to fulfill an item if the inventory is too low' do
+      @order_item_2.update(quantity: 11)
+      @order_item_2.reload
+      visit dashboard_order_path(@order)
+
+      within("#item-#{@item_2.id}") do
+        expect(page).to have_button("Fulfill Item", disabled: true)
+        expect(page).to have_content("You do not have enough inventory to fulfill this item!")
+      end
+    end
   end
 end
