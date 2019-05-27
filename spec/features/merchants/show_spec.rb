@@ -67,6 +67,11 @@ RSpec.describe 'Merchant show page', type: :feature do
         click_link('View My Items')
 
         expect(current_path).to eq(dashboard_items_path)
+
+        expect(page).to have_content("Item Id: #{@item_1.id}")
+        expect(page).to have_content("Item Id: #{@item_2.id}")
+        expect(page).to have_content("Item Id: #{@item_3.id}")
+        expect(page).to have_content("Item Id: #{@item_4.id}")
       end
     end
   end
