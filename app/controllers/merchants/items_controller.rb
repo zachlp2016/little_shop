@@ -13,6 +13,9 @@ class Merchants::ItemsController < ApplicationController
     if verify_price(params) != true
       flash[:notice] = "The price for that item cannot be negative."
       redirect_to dashboard_items_path
+    elsif verify inventory_count(params) != true
+      flash[:notice] = "The price for that item cannot be negative."
+      redirect_to dashboard_items_path
     else
       verify_image(params)
       @merchant = User.find(current_user.id)
