@@ -32,7 +32,7 @@ Rails.application.routes.draw do
   patch 'merchant/disable/:id', to: 'merchants#disable'
 
   scope module: 'merchants', path: 'dashboard', as: :dashboard do
-    resources :items, only: [:index, :new, :edit, :show]
+    resources :items, only: [:index, :new, :edit, :show, :destroy]
     resources :orders, only: [:index, :show, :edit]
   end
 

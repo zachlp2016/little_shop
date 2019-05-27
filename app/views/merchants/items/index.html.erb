@@ -17,7 +17,7 @@
         </ul>
         <%= link_to "Edit this item" %>
         <% if item.orders.empty? %>
-          <%= link_to "Delete this item" %>
+          <%= link_to "Delete this item", dashboard_item_path(item), method: :delete %>
         <% end %>
         <% if item.active == true %>
           <%= link_to "Disable this item" %>
