@@ -5,6 +5,9 @@ class Admin::UsersController < ApplicationController
 
   def show
     @user = User.find_by(id: params[:id])
+    if @user.role == "merchant"
+      redirect_to "/admin/merchants/#{@user.id}"
+    end
   end
 
   def dashboard
