@@ -36,6 +36,24 @@ RSpec.describe 'As a visitor' do
       expect(current_path).to eq(login_path)
 
     end
+
+    it 'doesnt have a checkout link with items in cart' do
+      merchant = create(:user, name: "Merchant", role: 1)
+      item_1 = create(:item, user: merchant)
+      item_2 = create(:item, user: merchant)
+      item_3 = create(:item, user: merchant)
+
+      visit items_path
+
+      within "#item-#{item_1.id}" do
+        click_link "Add To Cart"
+      end
+
+      visit carts_path
+
+      expect(page).to_not have_link("Checkout")
+
+    end
   end
 
   describe 'As a visitor or a registered user' do
@@ -272,5 +290,63 @@ RSpec.describe 'As a visitor' do
   end
 end
 
+describe 'As a registered user' do
+  describe 'when viewing my cart with items in it' do
+    before :each do
+      @user = create(:user, password: 'password')
+      @merchant = create(:user, name: "Merchant", role: 1)
+      @item_1 = create(:item, user: @merchant)
+      @item_2 = create(:item, user: @merchant)
+      @item_3 = create(:item, user: @merchant)
 
+      visit login_path
 
+      fill_in :email, with: @user.email
+      fill_in :password, with: 'password'
+      click_button 'Login'
+
+      visit items_path
+
+      within "#item-#{@item_1.id}" do
+        click_link "Add To Cart"
+      end
+
+      within "#item-#{@item_2.id}" do
+        click_link "Add To Cart"
+        click_link "Add To Cart"
+      end
+
+      within "#item-#{@item_3.id}" do
+        click_link "Add To Cart"
+        click_link "Add To Cart"
+        click_link "Add To Cart"
+      end
+
+      visit carts_path
+    end
+
+    it 'allows me to checkout' do
+      click_link 'Checkout'
+      order = Order.last
+      expect(order.status).to eq("pending")
+      expect(order.user).to eq(@user)
+      expect(current_path).to eq(profile_orders_path)
+      expect(page).to have_content("Your Order Was Created")
+    end
+
+    it 'shows my order on my orders page' do
+      click_link 'Checkout'
+      order = Order.last
+      within "#order-#{order.id}" do
+        expect(page).to have_link("Order ID: #{order.id}")
+      end
+    end
+
+    it 'clears my cart' do
+      click_link 'Checkout'
+      within '#navbarNav' do
+        expect(page).to have_content("(0)")
+      end
+    end
+  end
+end
