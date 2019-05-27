@@ -30,4 +30,13 @@ class Order < ApplicationRecord
       update(status: :packaged)
     end
   end
+  
+  def self.biggest_3
+    self.joins(:items)
+        .select('count(items.id), orders.*')
+        .where('orders.status=2')
+        .group(:id)
+        .order(count: :desc)
+        .limit(3)
+  end
 end

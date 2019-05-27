@@ -1,4 +1,48 @@
 <h1>Merchants</h1>
+
+<h4>Top 3</h4>
+<% @top_merchants.each do |merchant| %>
+  <section class ='most-sold'>
+    <p><%= merchant.name %></p>
+    <p>Revenue: <%= number_to_currency(merchant.revenue) %></p>
+  </section>
+<% end %>
+<h4>Fastest</h4>
+<% @fastest_merchants.each do |merchant| %>
+  <section class='fastest'>
+    <p><%= merchant.name %></p>
+    <p>Time Before Shipping: <%= (/.+?(?=days)/).match(merchant.fulfillment_time) %> Days</p>
+  </section>
+<% end %>
+<h4>Slowest</h4>
+<% @slowest_merchants.each do |merchant| %>
+  <section class='slowest'>
+    <p><%= merchant.name %></p>
+    <p>Time Before Shipping: <%= (/.+?(?=days)/).match(merchant.fulfillment_time) %> Days</p>
+  </section>
+<% end %>
+<h4>Most Ordered From States</h4>
+<% @top_3_states_by_order.each do |orders| %>
+  <section class='top-states'>
+    <p><%= orders.state %></p>
+    <p>Orders: <%= orders.count %></p>
+  </section>
+<% end %>
+<h4>Most Ordered From Cities</h4>
+<% @top_3_cities_by_order.each do |orders| %>
+  <section class='top-cities'>
+    <p><%= orders.city %>, <%= orders.state %></p>
+    <p>Orders: <%= orders.count %></p>
+  </section>
+<% end %>
+<h4>Biggest Orders</h4>
+<% @biggest_orders.each do |order| %>
+  <section class='top-orders'>
+    <p>Seller: <%= order.user.name %></p>
+    <p>Ship Date: <%= order.updated_at.strftime("%B %d, %Y") %></p>
+    <p>Item Count: <%= order.count %></p>
+  </section>
+<% end %>
 <section class="card-group">
   <% @merchants.each do |merchant| %>
     <section id="merchant-<%= merchant.id %>">
