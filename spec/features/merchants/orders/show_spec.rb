@@ -32,14 +32,14 @@ RSpec.describe 'As a merchant', type: :feature do
       visit dashboard_order_path(@order)
 
       within("#item-#{@item_1.id}") do
-        expect(page).to have_button(@item_1.name, href: item_path(@item_1))
+        expect(page).to have_link(@item_1.name, href: item_path(@item_1))
         find "img[src='https://kaaskraam.com/wp-content/uploads/2018/02/Gouda-Belegen.jpg']"
         expect(page).to have_content(@item_1.price)
         expect(page).to have_content(@order_item_1.quantity)
       end
 
       within("#item-#{@item_2.id}") do
-        expect(page).to have_button(@item_2.name, href: item_path(@item_1))
+        expect(page).to have_link(@item_2.name, href: item_path(@item_2))
         find "img[src='https://kaaskraam.com/wp-content/uploads/2018/02/Gouda-Belegen.jpg']"
         expect(page).to have_content(@item_2.price)
         expect(page).to have_content(@order_item_2.quantity)
