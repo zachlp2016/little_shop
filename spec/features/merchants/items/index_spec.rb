@@ -157,9 +157,10 @@ RSpec.describe 'As a merchant' do
 
       fill_in 'Name', with: 'Velveeta'
       fill_in 'Description', with: 'Glorified Cheese Wizz.'
-      fill_in 'Image url', with: 'https://kaaskraam.com/wp-content/uploads/2018/02/Gouda-Belegen.jpg'
+      fill_in 'Image', with: 'https://kaaskraam.com/wp-content/uploads/2018/02/Gouda-Belegen.jpg'
       fill_in 'Price', with: '3.90'
       fill_in 'Inventory', with: '25'
+
 
       click_button 'Create Item'
 
