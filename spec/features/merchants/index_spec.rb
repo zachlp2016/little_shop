@@ -74,7 +74,7 @@ RSpec.describe 'when visiting the merchants index page' do
         order_item_12 = OrderItem.create!(item: item_5, order: order_5, quantity: 12, price: item_6.price, fulfilled: false, updated_at: Time.now + (2*7*24*60*780))
 
         visit merchants_path
-        save_and_open_page
+
         expect(page.all(".most-sold")[0]).to have_content(@merchant_1.name)
         expect(page.all(".most-sold")[0]).to have_content("700")
         expect(page.all(".most-sold")[1]).to have_content(@merchant_2.name)

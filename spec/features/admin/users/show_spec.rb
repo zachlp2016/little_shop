@@ -46,5 +46,9 @@ RSpec.describe 'As an admin user' do
         expect(page).to have_content("User #{@user_1.name} has been promoted to Merchant")
       end
     end
+    it 'redirects from merchants show to users show' do
+      visit "/admin/merchants/#{@user_1.id}"
+      expect(current_path).to eq(admin_user_path(@user_1.id))
+    end
   end
 end

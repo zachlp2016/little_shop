@@ -42,5 +42,11 @@ RSpec.describe 'As an admin user' do
         expect(page).to have_content("User #{@merchant_1.name} has been demoted to Default")
       end
     end
+
+    it 'redirects from users show to merchants show' do
+      visit admin_user_path(@merchant_1.id)
+
+      expect(current_path).to eq("/admin/merchants/#{@merchant_1.id}")
+    end
   end
 end
