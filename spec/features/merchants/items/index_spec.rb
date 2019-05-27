@@ -126,7 +126,25 @@ RSpec.describe 'As a merchant' do
 
         expect(page).to_not have_link('Disable this item')
         find "img[src='https://kaaskraam.com/wp-content/uploads/2018/02/Gouda-Belegen.jpg']"
+
       end
+    end
+
+    it 'Can disable an item' do
+      visit dashboard_items_path
+      within "#item-#{@item_1.id}" do
+
+        expect(page).to have_link('Disable this item')
+
+        click_link('Disable this item')
+      end
+
+      expect(page).to have_content('This item has been disabled.')
+      within "#item-#{@item_1.id}" do
+        expect(page).to have_link('Enable this item')
+      end
+      @item_1.reload
+      expect(@item_1.active).to eq(false)
     end
 
     it 'can delete an item' do
@@ -166,3 +184,4 @@ RSpec.describe 'As a merchant' do
     end
   end
 end
+
