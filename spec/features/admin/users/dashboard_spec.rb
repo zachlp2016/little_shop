@@ -79,6 +79,7 @@ RSpec.describe 'As an admin user' do
       end
 
       expect(current_path).to eq(admin_dashboard_path)
+      @o1.reload
 
       within "#order-#{@o1.id}" do
         expect(page).to have_content("Shipped")
