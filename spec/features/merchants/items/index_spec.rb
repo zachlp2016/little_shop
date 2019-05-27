@@ -126,10 +126,28 @@ RSpec.describe 'As a merchant' do
 
         expect(page).to_not have_link('Disable this item')
         find "img[src='https://kaaskraam.com/wp-content/uploads/2018/02/Gouda-Belegen.jpg']"
+
+      end
+    end
+
+    it 'Can disable an item' do
+      visit dashboard_items_path
+      within "#item-#{@item_1.id}" do
+
+        expect(page).to have_link('Disable this item')
+
+        click_link('Disable this item')
+
+        expect(page).to have_link('Enable this item')
+
+        expect(@item_1.status).to eq('disabled')
       end
     end
   end
 end
-
-# If the item is enabled, I see a button or link to disable the item
-# If the item is disabled, I see a button or link to enable the item
+# As a merchant
+# When I visit my items page
+# And I click on a "disable" button or link for an item
+# I am returned to my items page
+# I see a flash message indicating this item is no longer for sale
+# I see the item is now disabled
