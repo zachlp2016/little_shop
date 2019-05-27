@@ -30,7 +30,21 @@ RSpec.describe 'As an admin user' do
 
       expect(page).to_not have_content(@user_1.password_digest)
       expect(page).to_not have_link("Edit Profile")
+    end
 
+    it 'has an upgrade link for a user' do
+      visit admin_user_path(@user_1.id)
+      
+      expect(current_path).to eq(admin_user_path(@user_1.id))
+      expect(page).to have_link("Upgrade to Merchant")
+
+      click_on("Upgrade to Merchant")
+
+      expect(current_path).to eq("/admin/merchants/#{@user_1.id}")
+      expect(@user_1.reload.role).to eq("merchant")
+      within("#flash-message") do
+        expect(page).to have_content("User #{@user_1.name} has been promoted to Merchant")
+      end
     end
   end
 end
