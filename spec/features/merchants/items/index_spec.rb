@@ -295,7 +295,7 @@ RSpec.describe 'As a merchant' do
       expect(page).to have_content('The inventory for that item cannot be a negative number.')
     end
 
-    it 'I can edit an item' do
+    it 'Can go to the edit page link' do
       visit dashboard_items_path
 
 
@@ -304,8 +304,20 @@ RSpec.describe 'As a merchant' do
       end
 
       expect(current_path).to eq("/dashboard/items/#{@item_1.id}/edit")
+    end
 
-    
+    it 'Has a form to modify the item information' do
+      visit "/dashboard/items/#{@item_1.id}/edit"
+
+      expect(page).to have_content("Edit #{@item_1.name}'s Information")
+
+      expect(page).to have_field("Name")
+      expect(page).to have_field("Description")
+      expect(page).to have_field("Image")
+      expect(page).to have_field("Price")
+      expect(page).to have_field("Inventory")
+
+      expect(page).to have_button("Edit Item")
     end
   end
 end
