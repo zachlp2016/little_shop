@@ -4,6 +4,10 @@ class Merchants::ItemsController < ApplicationController
     @merchant = User.find(current_user.id)
   end
 
+  def new
+    @item = Item.new
+  end
+
   def destroy
     @item = Item.destroy(params[:id])
     flash[:notice] = "Item #{@item.id} is now deleted."
