@@ -102,6 +102,7 @@ RSpec.describe Order, type: :model do
       order_1.reload
       expect(order_1.status).to eq("pending")
 
+      travel_to Time.zone.local(2044, 04, 12, 8, 00, 00)
       order_item_3.update!(fulfilled: true)
       order_item_3.reload
       order_1.reload
