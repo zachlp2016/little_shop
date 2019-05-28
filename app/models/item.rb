@@ -1,4 +1,5 @@
 class Item < ApplicationRecord
+  before_validation :absolute_price, :absolute_inventory
   belongs_to :user
   has_many :order_items
   has_many :orders, through: :order_items
@@ -31,5 +32,15 @@ class Item < ApplicationRecord
 
   def average_days_to_fulfill
     order_items.where(fulfilled: true).average("order_items.updated_at - order_items.created_at")
+  end
+
+  private
+  
+  def absolute_inventory
+    write_attribute(:inventory, self.inventory.abs) unless self.inventory == nil
+  end
+
+  def absolute_price
+    write_attribute(:price, self.price.abs) unless self.price == nil
   end
 end

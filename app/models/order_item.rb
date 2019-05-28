@@ -5,7 +5,7 @@ class OrderItem < ApplicationRecord
   validates_presence_of :quantity, :price
   validates_inclusion_of :fulfilled, in: [true, false]
 
-  after_save :update_inventory, :check_order
+  after_save :update_inventory, :check_order, unless: :just_created?
 
   def sub_total
     quantity * price
@@ -32,5 +32,9 @@ class OrderItem < ApplicationRecord
         order.check_fulfillments
       end
     end
+  end
+
+  def just_created?
+    created_at == updated_at
   end
 end

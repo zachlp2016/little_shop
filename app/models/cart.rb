@@ -21,4 +21,12 @@ class Cart
   def total_price
     ids_to_items.sum{|item, qty| item.price * qty}
   end
+
+  def create_order(buyer_id)
+    order = Order.create(user_id: buyer_id, status: 1)
+    ids_to_items.each do |item, qty|
+      oi = OrderItem.new(item: item, order: order, quantity: qty, price: item.price, fulfilled: false )
+      oi.save
+    end
+  end
 end

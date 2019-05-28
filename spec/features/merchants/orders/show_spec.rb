@@ -47,5 +47,53 @@ RSpec.describe 'As a merchant', type: :feature do
 
       expect(page).to_not have_css("#item-#{@item_3.id}")
     end
+
+    it 'Should have a Fulfill button on unfulfilled items, and a disabled button on fulfilled items' do
+      @order_item_2.update(fulfilled: true)
+      @order_item_2.reload
+      visit dashboard_order_path(@order)
+
+      within("#item-#{@item_1.id}") do
+        expect(page).to have_button("Fulfill Item")
+      end
+
+      within("#item-#{@item_2.id}") do
+        expect(page).to have_button("Fulfill Item", disabled: true)
+        expect(page).to have_content("You have already fulfilled this item!")
+      end
+    end
+
+    it 'Should not allow me to fulfill an item if the inventory is too low' do
+      @order_item_2.update(quantity: 12)
+      @order_item_2.reload
+      visit dashboard_order_path(@order)
+
+      within("#item-#{@item_2.id}") do
+        expect(page).to have_button("Fulfill Item", disabled: true)
+        expect(page).to have_content("You do not have enough inventory to fulfill this item!")
+      end
+    end
+
+    it 'When I fulfill the Item, I see a flash notice, can no longer fulfill the Item, and the Item inventory is reduced' do
+      original_inventory = @item_1.inventory
+      visit dashboard_order_path(@order)
+
+      within("#item-#{@item_1.id}") do
+        click_button "Fulfill Item"
+      end
+
+      @item_1.reload
+
+      expect(current_path).to eq(dashboard_order_path(@order))
+
+      expect(page).to have_content("Item '#{@item_1.name}' fulfilled.")
+
+      within("#item-#{@item_1.id}") do
+        expect(page).to have_button("Fulfill Item", disabled: true)
+        expect(page).to have_content("You have already fulfilled this item!")
+      end
+
+      expect(@item_1.inventory).to eq(original_inventory - @order_item_1.quantity)
+    end
   end
 end

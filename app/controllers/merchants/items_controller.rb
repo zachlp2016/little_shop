@@ -1,5 +1,4 @@
 class Merchants::ItemsController < ApplicationController
-
   def index
     @merchant = User.find(current_user.id)
   end
@@ -12,22 +11,14 @@ class Merchants::ItemsController < ApplicationController
 
 
   def create
-    if verify_price(params) == false
-      flash[:notice] = "The price for that item cannot be negative."
-      redirect_to dashboard_items_path
-    elsif verify_inventory_count(params) == false
-      flash[:notice] = "The inventory for that item cannot be a negative number."
+    verify_image(params)
+    @merchant = User.find(current_user.id)
+    @item = @merchant.items.new(items_params)
+    if @item.save
+      flash[:notice] = "The item was created successfully."
       redirect_to dashboard_items_path
     else
-      verify_image(params)
-      @merchant = User.find(current_user.id)
-      @item = @merchant.items.create!(items_params)
-      if @item.save
-        flash[:notice] = "The item was created successfully."
-        redirect_to dashboard_items_path
-      else
-        render :new
-      end
+      render :new
     end
   end
 
@@ -75,18 +66,6 @@ class Merchants::ItemsController < ApplicationController
 
   def items_params
     params.require(:item).permit(:name, :price, :description, :image, :inventory )
-  end
-
-  def verify_price(params)
-    if params["item"]["price"].to_i < 0
-      return false
-    end
-  end
-
-  def verify_inventory_count(params)
-    if params["item"]["inventory"].to_i < 0
-      return false
-    end
   end
 
   def verify_image(params)
