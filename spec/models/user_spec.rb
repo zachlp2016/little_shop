@@ -278,11 +278,27 @@ RSpec.describe User, type: :model do
       expect(@merchant.top_items_sold(2).first.id).to eq(@item_3.id)
       expect(@merchant.top_items_sold(2).last.id).to eq(@item_1.id)
     end
+
+    # - total quantity of items I've sold, and as a percentage against my sold units plus remaining
+    # inventory (eg, if I have sold 1,000 things and still have 9,000 things in inventory, the message
+    # would say something like "Sold 1,000 items, which is 10% of your total inventory")
+    it 'items_sold_percentage' do
+      expect(@merchant.items_sold_percentage).to eq(48 / 448)
+    end
+
+    it 'items_sold' do
+      expect(@merchant.items_sold).to eq(48)
+    end
+
+    it 'total_items_count' do
+      expect(@merchant.total_items_count).to eq(448)
+    end
+
+    it '#top_3_states' do
+
+    end
   end
 end
-# - total quantity of items I've sold, and as a percentage against my sold units plus remaining
-# inventory (eg, if I have sold 1,000 things and still have 9,000 things in inventory, the message
-# would say something like "Sold 1,000 items, which is 10% of your total inventory")
 # - top 3 states where my items were shipped, and their quantities
 # - top 3 city/state where my items were shipped, and their quantities (Springfield, MI should not be
 # grouped with Springfield, CO)

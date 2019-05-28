@@ -19,6 +19,34 @@ class User < ApplicationRecord
         .limit(limit)
   end
 
+  def items_sold
+    User.joins(items: :orders)
+        .where("orders.status = 2 AND items.user_id = #{self.id}")
+        .select("users.*, sum(order_items.quantity) AS total_ordered, sum(items.inventory) AS total_inventory")
+        .group("users.id")
+        .first
+        .total_ordered
+  end
+
+  def total_items_count
+    User.joins(items: :orders)
+        .where("orders.status = 2 AND items.user_id = #{self.id}")
+        .select("users.*, sum(order_items.quantity) AS total_ordered, sum(items.inventory) AS total_inventory")
+        .group("users.id")
+        .first
+        .total_inventory + self.items_sold
+  end
+
+  def items_sold_percentage
+    stats = User.joins(items: :orders)
+        .where("orders.status = 2 AND items.user_id = #{self.id}")
+        .select("users.*, sum(order_items.quantity) AS total_ordered, sum(items.inventory) AS total_inventory")
+        .group("users.id")
+    ordered = stats.first.total_ordered
+    inventory = stats.first.total_inventory + stats.first.total_ordered
+    ordered / inventory
+  end
+
   def self.email_string
     pluck(:email)
   end
