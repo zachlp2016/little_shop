@@ -1,0 +1,22 @@
+<%= form_for [@merchant, @item], :url => dashboard_item_path(@item.id), method: :patch  do |f| %>
+
+<h2>Edit <%= @item.name %>'s Information</h2>
+
+<p><%= f.label :name %></p>
+<%= f.text_field :name %>
+
+<p><%= f.label :description %></p>
+<%= f.text_field :description %>
+
+<p><%= f.label :image %></p>
+<%= f.text_field :image %>
+
+<p><%= f.label :price %></p>
+<%= f.number_field :price, min: 0 %>
+
+<p><%= f.label :inventory %></p>
+<%= f.number_field :inventory, min: 0 %>
+
+<%= f.submit "Edit Item" %>
+
+<% end %>

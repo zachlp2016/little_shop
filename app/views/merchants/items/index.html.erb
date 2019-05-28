@@ -15,7 +15,7 @@
           <li class="list-group-item">Inventory: <%= item.inventory %></li>
           <li class="list-group-item">Price: $<%= item.price %><br></li>
         </ul>
-        <%= link_to "Edit this item" %>
+        <%= link_to "Edit this item", edit_dashboard_item_path(item.id) %>
         <% if item.orders.empty? %>
           <%= link_to "Delete this item", dashboard_item_path(item), method: :delete %>
         <% end %>

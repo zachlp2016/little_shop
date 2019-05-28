@@ -8,12 +8,32 @@ class Merchants::ItemsController < ApplicationController
     @item = @merchant.items.new
   end
 
+
+
   def create
     verify_image(params)
     @merchant = User.find(current_user.id)
     @item = @merchant.items.new(items_params)
     if @item.save
       flash[:notice] = "The item was created successfully."
+      redirect_to dashboard_items_path
+    else
+      render :new
+    end
+  end
+
+  def edit
+    @merchant = current_user
+    @item = @merchant.items.find(params[:id])
+  end
+
+  def update
+    verify_image(params)
+    @merchant = current_user
+    @item = @merchant.items.find(params[:id])
+    @item.update(items_params)
+    if @item.save!
+      flash[:notice] = "The item was updated."
       redirect_to dashboard_items_path
     else
       render :new

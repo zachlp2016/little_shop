@@ -54,7 +54,7 @@ RSpec.describe 'As a merchant' do
     end
   end
 
-  describe 'When I visit my items page, delete item only shows if a buyer isnt found' do
+  describe 'When I visit my items page' do
 
     before :each do
       @merchant_1 = create(:user, role: 1)
@@ -250,6 +250,128 @@ RSpec.describe 'As a merchant' do
 
         expect(page).to have_link('Disable this item')
         expect(page).to have_link('Delete this item')
+        find "img[src='https://kaaskraam.com/wp-content/uploads/2018/02/Gouda-Belegen.jpg']"
+      end
+    end
+
+    it 'Wont allow prices below 0' do
+      visit dashboard_items_path
+
+      click_link('Add a new item')
+
+      expect(current_path).to eq('/dashboard/items/new')
+
+      fill_in 'Name', with: 'Velveeta'
+      fill_in 'Description', with: 'Glorified Cheese Wizz.'
+      fill_in 'Image', with: ''
+      fill_in 'Price', with: '-3.90'
+      fill_in 'Inventory', with: '25'
+
+      click_button 'Create Item'
+
+
+      expect(current_path).to eq(dashboard_items_path)
+      expect(page).to_not have_content('The item was created successfully.')
+      expect(page).to have_content('The price for that item cannot be negative.')
+    end
+
+    it 'Wont allow inventory below 0' do
+      visit dashboard_items_path
+
+      click_link('Add a new item')
+
+      expect(current_path).to eq('/dashboard/items/new')
+
+      fill_in 'Name', with: 'Velveeta'
+      fill_in 'Description', with: 'Glorified Cheese Wizz.'
+      fill_in 'Image', with: ''
+      fill_in 'Price', with: '3.90'
+      fill_in 'Inventory', with: '-25'
+
+      click_button 'Create Item'
+
+      expect(current_path).to eq(dashboard_items_path)
+      expect(page).to_not have_content('The item was created successfully.')
+      expect(page).to have_content('The inventory for that item cannot be a negative number.')
+    end
+
+    it 'Can go to the edit page link' do
+      visit dashboard_items_path
+
+
+      within "#item-#{@item_1.id}" do
+        click_link('Edit this item')
+      end
+
+      expect(current_path).to eq("/dashboard/items/#{@item_1.id}/edit")
+    end
+
+    it 'Has a form to modify the item information' do
+      visit "/dashboard/items/#{@item_1.id}/edit"
+
+      expect(page).to have_content("Edit #{@item_1.name}'s Information")
+
+      expect(page).to have_field("Name")
+      expect(page).to have_field("Description")
+      expect(page).to have_field("Image")
+      expect(page).to have_field("Price")
+      expect(page).to have_field("Inventory")
+
+      expect(page).to have_button("Edit Item")
+    end
+
+    it 'Has a form to modify the item information' do
+      visit "/dashboard/items/#{@item_1.id}/edit"
+
+      expect(page).to have_content("Edit #{@item_1.name}'s Information")
+
+      expect(page).to have_field("Name")
+      expect(page).to have_field("Description")
+      expect(page).to have_field("Image")
+      expect(page).to have_field("Price")
+      expect(page).to have_field("Inventory")
+
+      expect(page).to have_button("Edit Item")
+    end
+
+    it 'Form fields are pre-populated with prior information' do
+      visit "/dashboard/items/#{@item_1.id}/edit"
+      expect(page).to have_field("Name", with: "#{@item_1.name}")
+      expect(page).to have_field("Description", with: "#{@item_1.description}")
+      expect(page).to have_field("Image", with: "#{@item_1.image}")
+      expect(page).to have_field("Price", with: "#{@item_1.price}")
+      expect(page).to have_field("Inventory", with: "#{@item_1.inventory}")
+    end
+
+    it 'Edit information' do
+      visit edit_dashboard_item_path(@item_1)
+
+      fill_in 'Name', with: 'Velveeta'
+      fill_in 'Description', with: 'Glorified Cheese Wizz.'
+      fill_in 'Image', with: 'https://kaaskraam.com/wp-content/uploads/2018/02/Gouda-Belegen.jpg'
+      fill_in 'Price', with: '5.50'
+      fill_in 'Inventory', with: '32'
+
+      click_button 'Edit Item'
+
+      expect(current_path).to eq(dashboard_items_path)
+      expect(page).to have_content('The item was updated.')
+    end
+
+    it 'Retains its prior enabled/disabled state and thumbnail image is replaced' do
+      visit edit_dashboard_item_path(@item_1)
+
+      fill_in 'Name', with: 'Velveeta'
+      fill_in 'Description', with: 'Glorified Cheese Wizz.'
+      fill_in 'Image', with: ''
+      fill_in 'Price', with: '5.50'
+      fill_in 'Inventory', with: '32'
+
+      click_button 'Edit Item'
+
+      expect(@item_1.active).to eq(true)
+      expect(page).to have_content('The item was updated.')
+      within "#item-#{@item_1.id}" do
         find "img[src='https://kaaskraam.com/wp-content/uploads/2018/02/Gouda-Belegen.jpg']"
       end
     end
