@@ -1,0 +1,24 @@
+<% @item.errors.full_messages.each do |msg| %>
+<%= msg %>
+<% end %>
+
+<%= form_for [@merchant, @item], :url => '/dashboard/items' do |f| %>
+
+<%= f.label :name %>
+<%= f.text_field :name %>
+
+<%= f.label :description %>
+<%= f.text_area :description %>
+
+<%= f.label :image %>
+<%= f.text_field :image %>
+
+<%= f.label :price %>
+<%= f.number_field :price, min: 0 %>
+
+<%= f.label :inventory %>
+<%= f.text_field :inventory, min: 0  %>
+
+<%= f.submit %>
+
+<% end %>

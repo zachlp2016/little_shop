@@ -16,7 +16,7 @@
       <th scope="col">Seller</th>
       <th scope="col">Price</th>
       <th scope="col">Item Total</th>
-      <th scope="col"></th>
+      <th scope="col" colspan="4"></th>
     </tr>
   </thead>
   <tbody>
@@ -27,22 +27,30 @@
         <section id='item-<%= item.id %>'>
           <tr class="text-center">
             <td class='align-middle'><%= item.name %></td>
-            <td class='align-middle'><%= qty %></td>
+            <td class='align-middle'>
+              <%= qty %>
+            </td>
             <td class='align-middle'><%= item.user.name %></td>
             <td class='align-middle'><%= number_to_currency(item.price) %></td>
             <td class='align-middle'><%= number_to_currency(item.price * qty) %></td>
+            <td class='align-middle'><%= link_to "Remove Item", carts_path({id: item.id, request: :remove_item}), method: :patch %>
+            <td class='align-middle'><%= link_to "Add One", carts_path({id: item.id, request: :add_one}), method: :patch %>
+            <td class='align-middle'><%= link_to "Remove One", carts_path({id: item.id, request: :remove_one}), method: :patch %>
             <td class='align-middle'><img class='cart-img' src='<%= item.image %>'></td>
           </tr>
         </section>
       <% end %>
     <% end %>
       <tr class='text-center' id='cart_total'>
+        <td></td>
+        <td></td>
+        <td></td>
         <td>Total: </td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td><%= number_to_currency(@cart_price_total) %></td>
+        <td colspan="5"><%= number_to_currency(@cart_price_total) %></td>
       </tr>
   </tbody>
 </table>
+<% if !current_user.nil? && !current_admin? && !current_merchant? %>
+  <h5 class='text-center'><%= link_to "Checkout", profile_orders_path, method: :post, style:"font-size:35px;" %></h5>
+<% end %>
 <h5 class='text-center'><%= link_to "Clear Cart", carts_path, method: :delete %></h5>

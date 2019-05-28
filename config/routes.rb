@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   get '/carts', to: 'carts#show'
   post '/carts', to: 'carts#add'
+  patch '/carts', to: 'carts#update'
   delete '/carts', to: 'carts#clear'
 
   get '/register', to: 'users#new'
@@ -20,11 +21,10 @@ Rails.application.routes.draw do
   patch '/profile/edit', to: 'users#update'
   scope :profile do
     # resources :users, only: [:show, :edit, :update], as: :profile
-    resources :orders, only: [:show, :index, :destroy], as: :profile_orders
+    resources :orders, only: [:create, :show, :index, :destroy], as: :profile_orders
     # get '/profile/orders', to: 'orders#index'
     # get '/profile/orders/:id', to: 'orders#show'
   end
-
 
   get '/dashboard', to: 'merchants#show'
   get '/merchants', to: 'merchants#index' # a link to see all merchants ("/merchants") -- User Story 2, Visitor Navigation
