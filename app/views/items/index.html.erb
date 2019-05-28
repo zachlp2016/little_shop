@@ -40,7 +40,9 @@
           <li class="list-group-item">Inventory: <%= item.inventory %></li>
           <li class="list-group-item">Price: $<%= item.price %><br></li>
         </ul>
-        <button class="btn btn-primary"><%= link_to "Add To Cart", carts_path(item_id: item.id), method: :post, style:"color:white;" %></button>
+        <% if !current_admin? && !current_merchant? %>
+          <button class="btn btn-primary"><%= link_to "Add To Cart", carts_path(item_id: item.id), method: :post, style:"color:white;" %></button>
+        <% end %>
       </div>
     </section>
   <% end %>
