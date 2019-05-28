@@ -38,7 +38,7 @@
 <h4>Biggest Orders</h4>
 <% @biggest_orders.each do |order| %>
   <section class='top-orders'>
-    <p>Seller: <%= order.user.name %></p>
+    <p>Buyer: <%= order.user.name %></p>
     <p>Ship Date: <%= order.updated_at.strftime("%B %d, %Y") %></p>
     <p>Item Count: <%= order.count %></p>
   </section>
@@ -67,6 +67,3 @@
     </section>
   <% end %>
 </section>
-
-
-
