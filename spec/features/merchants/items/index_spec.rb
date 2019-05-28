@@ -54,7 +54,7 @@ RSpec.describe 'As a merchant' do
     end
   end
 
-  describe 'When I visit my items page, delete item only shows if a buyer isnt found' do
+  describe 'When I visit my items page' do
 
     before :each do
       @merchant_1 = create(:user, role: 1)
@@ -357,17 +357,23 @@ RSpec.describe 'As a merchant' do
       expect(current_path).to eq(dashboard_items_path)
       expect(page).to have_content('The item was updated.')
     end
+
+    it 'Retains its prior enabled/disabled state and thumbnail image is replaced' do
+      visit edit_dashboard_item_path(@item_1)
+
+      fill_in 'Name', with: 'Velveeta'
+      fill_in 'Description', with: 'Glorified Cheese Wizz.'
+      fill_in 'Image', with: ''
+      fill_in 'Price', with: '5.50'
+      fill_in 'Inventory', with: '32'
+
+      click_button 'Edit Item'
+
+      expect(@item_1.active).to eq(true)
+      expect(page).to have_content('The item was updated.')
+      within "#item-#{@item_1.id}" do
+        find "img[src='https://kaaskraam.com/wp-content/uploads/2018/02/Gouda-Belegen.jpg']"
+      end
+    end
   end
 end
-
-
-# I can change any information, but all of the rules for adding a new item still apply:
-# - name and description cannot be blank
-# - price cannot be less than $0.00
-# - inventory must be 0 or greater
-#
-# When I submit the form
-# I am taken back to my items page
-# I see a flash message indicating my item is updated
-# I see the item's new information on the page, and it maintains its previous enabled/disabled state
-# If I left the image field blank, I see a placeholder image for the thumbnail
