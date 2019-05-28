@@ -37,9 +37,15 @@ class Merchants::ItemsController < ApplicationController
   end
 
   def update
-    binding.pry
     @merchant = current_user
     @item = @merchant.items.find(params[:id])
+    @item.update(items_params)
+    if @item.save
+      flash[:notice] = "The item was updated."
+      redirect_to dashboard_items_path
+    else
+      render :new
+    end
   end
 
   def disable
