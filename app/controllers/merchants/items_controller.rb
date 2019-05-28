@@ -9,6 +9,8 @@ class Merchants::ItemsController < ApplicationController
     @item = @merchant.items.new
   end
 
+
+
   def create
     if verify_price(params) == false
       flash[:notice] = "The price for that item cannot be negative."
@@ -30,7 +32,14 @@ class Merchants::ItemsController < ApplicationController
   end
 
   def edit
-    @item = Item.find(params[:id])
+    @merchant = current_user
+    @item = @merchant.items.find(params[:id])
+  end
+
+  def update
+    binding.pry
+    @merchant = current_user
+    @item = @merchant.items.find(params[:id])
   end
 
   def disable

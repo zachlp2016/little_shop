@@ -342,6 +342,21 @@ RSpec.describe 'As a merchant' do
       expect(page).to have_field("Price", with: "#{@item_1.price}")
       expect(page).to have_field("Inventory", with: "#{@item_1.inventory}")
     end
+
+    it 'Edit information' do
+      visit edit_dashboard_item_path(@item_1)
+
+      fill_in 'Name', with: 'Velveeta'
+      fill_in 'Description', with: 'Glorified Cheese Wizz.'
+      fill_in 'Image', with: 'https://kaaskraam.com/wp-content/uploads/2018/02/Gouda-Belegen.jpg'
+      fill_in 'Price', with: '5.50'
+      fill_in 'Inventory', with: '32'
+
+      click_button 'Edit Item'
+
+      expect(current_path).to eq(dashboard_items_path)
+      expect(page).to have_content('The item was updated.')
+    end
   end
 end
 
