@@ -272,7 +272,7 @@ RSpec.describe 'As a merchant' do
 
       expect(current_path).to eq(dashboard_items_path)
       expect(page).to_not have_content('The item was created successfully.')
-      expect(page).to have_content('The price for that item cannot be negative.')
+      expect(page).to have_content('Price must be greater than 0')
     end
 
     it 'Wont allow inventory below 0' do
@@ -292,7 +292,7 @@ RSpec.describe 'As a merchant' do
 
       expect(current_path).to eq(dashboard_items_path)
       expect(page).to_not have_content('The item was created successfully.')
-      expect(page).to have_content('The inventory for that item cannot be a negative number.')
+      expect(page).to have_content('Inventory must be greater than 0')
     end
 
     it 'Can go to the edit page link' do

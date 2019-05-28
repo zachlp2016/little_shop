@@ -2,7 +2,7 @@
   <%= msg %><br>
 <% end %>
 
-<%= form_for [@merchant, @item], :url => "/dashboard/items/#{@item.id}" do |f| %>
+<%= form_for [@merchant, @item], :url => "/dashboard/items" do |f| %>
 
 <%= f.label :name %>
 <%= f.text_field :name %>
