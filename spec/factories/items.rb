@@ -8,6 +8,6 @@ FactoryBot.define do
     price { 20 }
     description { "MyText" }
     image { "https://kaaskraam.com/wp-content/uploads/2018/02/Gouda-Belegen.jpg" }
-    inventory { 10 }
+    inventory { 100 }
   end
 end
