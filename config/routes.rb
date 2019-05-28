@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   patch '/profile/edit', to: 'users#update'
   scope :profile do
     # resources :users, only: [:show, :edit, :update], as: :profile
-    resources :orders, only: [:show, :index, :destroy], as: :profile_orders
+    resources :orders, only: [:create, :show, :index, :destroy], as: :profile_orders
     # get '/profile/orders', to: 'orders#index'
     # get '/profile/orders/:id', to: 'orders#show'
   end
@@ -35,7 +35,8 @@ Rails.application.routes.draw do
   patch 'merchants/items/disable/:id', to: 'merchants/items#disable'
 
   scope module: 'merchants', path: 'dashboard', as: :dashboard do
-    resources :items, only: [:index, :new, :create, :edit, :show, :destroy]
+    resources :items, only: [:index, :new, :create, :edit, :update, :show, :destroy]
+    resources :order_items, only: [:update]
     resources :orders, only: [:index, :show, :edit]
   end
 

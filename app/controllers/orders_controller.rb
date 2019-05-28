@@ -19,4 +19,12 @@ class OrdersController < ApplicationController
 
     redirect_to profile_orders_path
   end
+
+  def create
+    cart = Cart.new(session[:cart])
+    cart.create_order(current_user.id)
+    session[:cart] = {}
+    flash.notice = "Your Order Was Created"
+    redirect_to profile_orders_path
+  end
 end

@@ -11,15 +11,11 @@ class UsersController < ApplicationController
     if password_confirmation != true
       flash.now[:notice] = "Those passwords don't match."
       render :new
-    elsif email_confirmation == true
-      flash.now[:notice] = "That email address is already taken."
-      render :new
     elsif @user.save
       session[:user_id] = @user.id
       flash[:notice] = "You are now registered and logged in."
       redirect_to profile_path
     else
-      flash.now[:notice] = "That didn't work, please try again."
       render :new
     end
   end
@@ -38,13 +34,12 @@ class UsersController < ApplicationController
       flash.now[:notice] = "Those passwords don't match."
       render :edit
     elsif email_confirmation(@user.email) == true
-      flash.now[:notice] = "That email address is already taken."
+      flash[:notice] = "Email has already been taken"
       render :edit
-    elsif @user.update!(user_params)
+    elsif @user.update(user_params)
       flash[:notice] = "Your information has been updated!"
       redirect_to profile_path
     else
-      flash.now[:notice] = "That didn't work, please try again."
       render :edit
     end
   end
