@@ -10,7 +10,7 @@
     <img src=<%= item.image %> alt="<%= item.name %> Image">
     <p><%= item.price %></p>
     <p><%= order_item.quantity %></p>
-    <%= button_to "Fulfill Item", dashboard_order_item_path(order_item), disabled: (order_item.fulfilled? || order_item.quantity > item.inventory) %>
+    <%= button_to "Fulfill Item", dashboard_order_item_path(order_item), method: :patch, disabled: (order_item.fulfilled? || order_item.quantity > item.inventory) %>
     <% if order_item.fulfilled? %>
       <p>You have already fulfilled this item!</p>
     <% elsif order_item.quantity > item.inventory %>
