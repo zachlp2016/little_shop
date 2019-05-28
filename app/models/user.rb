@@ -11,9 +11,12 @@ class User < ApplicationRecord
   enum role: ["default", "merchant", "admin"]
 
   def top_items_sold(limit)
-    require 'pry'; binding.pry
-    # items.joins(:order_items, :orders).where("orders.status = 2").select('items.*, SUM(order_items.quantity) AS total_sold').group("items.id").order('total_sold DESC, items.name ASC').limit(limit)
-    # Item.joins(:user, :orders).where("orders.status = 1 AND items.user_id = #{self.id}").select("items.*, sum(order_items.quantity) AS total_ordered").group("items.id")
+    Item.joins(:user, :orders)
+        .where("orders.status = 2 AND items.user_id = #{self.id}")
+        .select("items.*, sum(order_items.quantity) AS total_ordered")
+        .group("items.id")
+        .order('total_ordered DESC')
+        .limit(limit)
   end
 
   def self.email_string
@@ -29,7 +32,7 @@ class User < ApplicationRecord
           where("items.user_id = #{self.id} AND orders.status = 1").
           distinct(:orders)
   end
-  
+
   def self.top_3_merchants_by_sales
     self.joins(items: :order_items)
         .joins('JOIN orders ON order_items.order_id=orders.id')

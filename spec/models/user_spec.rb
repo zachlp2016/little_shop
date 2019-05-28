@@ -280,13 +280,13 @@ RSpec.describe User, type: :model do
     end
   end
 end
-# - total quantity of items I've sold, and as a percentage against my sold units plus remaining 
-# inventory (eg, if I have sold 1,000 things and still have 9,000 things in inventory, the message 
+# - total quantity of items I've sold, and as a percentage against my sold units plus remaining
+# inventory (eg, if I have sold 1,000 things and still have 9,000 things in inventory, the message
 # would say something like "Sold 1,000 items, which is 10% of your total inventory")
 # - top 3 states where my items were shipped, and their quantities
-# - top 3 city/state where my items were shipped, and their quantities (Springfield, MI should not be 
+# - top 3 city/state where my items were shipped, and their quantities (Springfield, MI should not be
 # grouped with Springfield, CO)
 # - name of the user with the most orders from me (pick one if there's a tie), and number of orders
-# - name of the user who bought the most total items from me (pick one if there's a tie), and the 
+# - name of the user who bought the most total items from me (pick one if there's a tie), and the
 # total quantity
 # - top 3 users who have spent the most money on my items, and the total amount they've spent
