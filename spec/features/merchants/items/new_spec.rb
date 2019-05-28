@@ -67,7 +67,7 @@ RSpec.describe 'As a merchant' do
         expect(page).to have_content("Name can't be blank")
       end
 
-      it 'negative numbers or inventory, and creates item with positive values for such' do
+      it 'negative numbers or inventory' do
         visit dashboard_items_path
 
         click_link('Add a new item')
@@ -80,15 +80,25 @@ RSpec.describe 'As a merchant' do
 
         click_button "Create Item"
 
-        item = Item.last
-        expect(current_path).to eq(dashboard_items_path)
-        within "#item-#{item.id}" do
-          expect(page).to have_content(item.id)
-          expect(page).to have_content(item.inventory)
-          expect(page).to have_content(item.price)
-        end
+        expect(page).to have_content("Price must be greater than 0")
+        expect(page).to have_content("Inventory must be greater than 0")
+
       end
 
+    end
+
+    it 'displays ALL error messages' do
+      visit dashboard_items_path
+
+      click_link('Add a new item')
+      click_button "Create Item"
+
+      expect(page).to have_content("Name can't be blank")
+      expect(page).to have_content("Price can't be blank")
+      expect(page).to have_content("Price is not a number")
+      expect(page).to have_content("Description can't be blank")
+      expect(page).to have_content("Inventory can't be blank")
+      expect(page).to have_content("Inventory is not a number")
     end
 
   end
