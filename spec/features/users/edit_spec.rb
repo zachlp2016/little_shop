@@ -108,9 +108,35 @@ RSpec.describe 'As a registered User', type: :feature do
         click_button "Edit User"
 
         expect(current_path).to eq(profile_edit_path)
-        expect(page).to have_content("That email address is already taken.")
+        expect(page).to have_content("Email has already been taken")
 
         expect(page).to have_field("Email", with: "test@test.com")
+      end
+
+      it 'Will not allow not matching passwords' do
+        visit profile_edit_path
+
+        fill_in 'Password', with: 'password'
+        fill_in 'Confirm Password', with: 'password3'
+
+        click_button "Edit User"
+
+        expect(current_path).to eq(profile_edit_path)
+        expect(page).to have_content("Those passwords don't match.")
+      end
+
+      it 'Will not allow blank fields' do
+        visit profile_edit_path
+
+        fill_in 'Name', with: ''
+        fill_in 'Email', with: ''
+
+        click_button "Edit User"
+
+
+        expect(current_path).to eq(profile_edit_path)
+        expect(page).to have_content("Email can't be blank")
+        expect(page).to have_content("Name can't be blank")
       end
     end
   end
