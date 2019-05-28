@@ -10,6 +10,12 @@ class User < ApplicationRecord
 
   enum role: ["default", "merchant", "admin"]
 
+  def top_items_sold(limit)
+    require 'pry'; binding.pry
+    # items.joins(:order_items, :orders).where("orders.status = 2").select('items.*, SUM(order_items.quantity) AS total_sold').group("items.id").order('total_sold DESC, items.name ASC').limit(limit)
+    # Item.joins(:user, :orders).where("orders.status = 1 AND items.user_id = #{self.id}").select("items.*, sum(order_items.quantity) AS total_ordered").group("items.id")
+  end
+
   def self.email_string
     pluck(:email)
   end

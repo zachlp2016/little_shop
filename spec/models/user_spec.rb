@@ -245,4 +245,48 @@ RSpec.describe User, type: :model do
       expect(@merchant.pending_orders).to eq(orders)
     end
   end
+
+  describe 'instance_methods_us36' do
+
+    before :each do
+      @merchant = create(:user, role: 1)
+      @item_1 = create(:item, user: @merchant)
+      @item_2 = create(:item, user: @merchant)
+      @item_3 = create(:item, user: @merchant)
+      @item_4 = create(:item, user: @merchant)
+      @user_1 = create(:user)
+      @user_2 = create(:user)
+      @user_3 = create(:user)
+      @order_1 = create(:order, user: @user_1, status: 2)
+      @order_2 = create(:order, user: @user_2, status: 2)
+      @order_3 = create(:order, user: @user_3, status: 2)
+      @order_4 = create(:order, user: @user_3, status: 2)
+      @order_5 = create(:order, user: @user_3, status: 1)
+      @order_6 = create(:order, user: @user_3, status: 0)
+      OrderItem.create!(item: @item_1, order: @order_1, quantity: 12, price: 1.99, fulfilled: false)
+      OrderItem.create!(item: @item_2, order: @order_2, quantity: 12, price: 1.99, fulfilled: false)
+      OrderItem.create!(item: @item_3, order: @order_3, quantity: 12, price: 1.99, fulfilled: false)
+      OrderItem.create!(item: @item_3, order: @order_4, quantity: 12, price: 1.99, fulfilled: false)
+      OrderItem.create!(item: @item_2, order: @order_5, quantity: 500, price: 1.99, fulfilled: false)
+      OrderItem.create!(item: @item_2, order: @order_6, quantity: 500, price: 1.99, fulfilled: false)
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant)
+    end
+
+    it 'top_items_sold(n)' do
+      expect(@merchant.top_items_sold(1).first.id).to eq(@item_3.id)
+      expect(@merchant.top_items_sold(2).first.id).to eq(@item_3.id)
+      expect(@merchant.top_items_sold(2).last.id).to eq(@item_1.id)
+    end
+  end
 end
+# - total quantity of items I've sold, and as a percentage against my sold units plus remaining 
+# inventory (eg, if I have sold 1,000 things and still have 9,000 things in inventory, the message 
+# would say something like "Sold 1,000 items, which is 10% of your total inventory")
+# - top 3 states where my items were shipped, and their quantities
+# - top 3 city/state where my items were shipped, and their quantities (Springfield, MI should not be 
+# grouped with Springfield, CO)
+# - name of the user with the most orders from me (pick one if there's a tie), and number of orders
+# - name of the user who bought the most total items from me (pick one if there's a tie), and the 
+# total quantity
+# - top 3 users who have spent the most money on my items, and the total amount they've spent
