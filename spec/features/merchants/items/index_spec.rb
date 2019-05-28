@@ -319,11 +319,33 @@ RSpec.describe 'As a merchant' do
 
       expect(page).to have_button("Edit Item")
     end
+
+    it 'Has a form to modify the item information' do
+      visit "/dashboard/items/#{@item_1.id}/edit"
+
+      expect(page).to have_content("Edit #{@item_1.name}'s Information")
+
+      expect(page).to have_field("Name")
+      expect(page).to have_field("Description")
+      expect(page).to have_field("Image")
+      expect(page).to have_field("Price")
+      expect(page).to have_field("Inventory")
+
+      expect(page).to have_button("Edit Item")
+    end
+
+    it 'Form fields are pre-populated with prior information' do
+      visit "/dashboard/items/#{@item_1.id}/edit"
+      expect(page).to have_field("Name", with: "#{@item_1.name}")
+      expect(page).to have_field("Description", with: "#{@item_1.description}")
+      expect(page).to have_field("Image", with: "#{@item_1.image}")
+      expect(page).to have_field("Price", with: "#{@item_1.price}")
+      expect(page).to have_field("Inventory", with: "#{@item_1.inventory}")
+    end
   end
 end
 
 
-# The form is re-populated with all of this item's information
 # I can change any information, but all of the rules for adding a new item still apply:
 # - name and description cannot be blank
 # - price cannot be less than $0.00

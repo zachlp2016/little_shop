@@ -29,6 +29,10 @@ class Merchants::ItemsController < ApplicationController
     end
   end
 
+  def edit
+    @item = Item.find(params[:id])
+  end
+
   def disable
     @item = Item.find(params[:id])
     @item.active = false
@@ -36,7 +40,7 @@ class Merchants::ItemsController < ApplicationController
     flash[:notice] = "This item has been disabled."
     redirect_to dashboard_items_path
   end
-    
+
   def enable
     @item = Item.find(params[:id])
     @item.active = true
