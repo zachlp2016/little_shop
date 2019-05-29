@@ -10,7 +10,7 @@ class User < ApplicationRecord
 
   enum role: ["default", "merchant", "admin"]
 
-  def top_3_cities
+  def top_3_city_state
     self.items
         .joins(:orders)
         .joins("JOIN users ON users.id = orders.user_id")
@@ -19,6 +19,7 @@ class User < ApplicationRecord
         .group("users.state")
         .group("users.city")
         .order("count desc")
+        .limit(3)
   end
  
  def top_3_states

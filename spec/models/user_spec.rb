@@ -302,11 +302,21 @@ RSpec.describe User, type: :model do
     it '#top_3_states' do
       expect(@merchant.top_3_states.length).to eq(3)
       expect(@merchant.top_3_states.first.state).to eq("IL")
+      expect(@merchant.top_3_states.second.state).to eq("CA")
+      expect(@merchant.top_3_states.third.state).to eq("CO")
+    end
+
+    it '#top_3_city_state' do
+      expect(@merchant.top_3_city_state.length).to eq(3)
+      expect(@merchant.top_3_city_state.first.state).to eq("IL")
+      expect(@merchant.top_3_city_state.first.city).to eq("one")
+      expect(@merchant.top_3_city_state.second.state).to eq("CA")
+      expect(@merchant.top_3_city_state.second.city).to eq("one")
+      expect(@merchant.top_3_city_state.third.state).to eq("CO")
+      expect(@merchant.top_3_city_state.third.city).to eq("one")
     end
   end
 end
-# - top 3 city/state where my items were shipped, and their quantities (Springfield, MI should not be
-# grouped with Springfield, CO)
 # - name of the user with the most orders from me (pick one if there's a tie), and number of orders
 # - name of the user who bought the most total items from me (pick one if there's a tie), and the
 # total quantity
