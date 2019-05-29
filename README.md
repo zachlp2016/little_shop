@@ -1,60 +1,32 @@
-# Little Shop of Orders, v2
-BE Mod 2 Week 4/5 Group Project
+# Cheese Shop
 
-## Background and Description
+### Overview
+This app is a shop for cheese. You can see all cheeses and and them to your cart, and can checkout if you are a registered user. 'Checking Out' creates an 'Order' that you can then see on your profile page.
+- Types of users
+  - Buyer
+  - Merchant
+  - Admin
 
-"Little Shop of Orders" is a fictitious e-commerce platform where users can register to place items into a shopping cart and 'check out'. Merchant users can mark their items as 'fulfilled'; the last merchant to mark items in an order as 'fulfilled' will automatically set the order status to "shipped". Each user role will have access to some or all CRUD functionality for application models.
+A Merchant can add their items which include a price for that item, an inventory amount, and a picture. They can disable, enable, and delete their items as they please. Any item that a merchant makes and that is enabled will show on the main 'cheeses' page for buyers to view. As each of a merchants items are ordered, the merchant can then 'fulfill' of their items on an order. Once all items on an order are fulfilled, an order's status will change from 'pending' to 'packaged'. Only an item can change an order's status from 'packaged' to 'shipped'. Once the order is shipped, all of it's items are considered to be sold, and are subtracted from it's inventory.
 
-Students will be put into 3 or 4 person groups to complete the project.
+Statistics for Merchants and Items on the site are visible on their respectable pages, and only show statistics for items that have been sold.
 
-## Learning Goals
-- Advanced Rails routing (nested resources and namespacing)
-- Advanced ActiveRecord for calculating statistics
-- Average HTML/CSS layout and design for UX/UI
-- Session management and use of POROs for shopping cart
-- Authentication, Authorization, separation of user roles and permissions
+#### Versions
+- Ruby: 2.4.1
+- Rails: 5.1.7
 
-## Requirements
-- must use Rails 5.1.x
-- must use PostgreSQL
-- must use 'bcrypt' for authentication
-- all controller and model code must be tested via feature tests and model tests, respectively
-- must use good GitHub branching, team code reviews via GitHub comments, and use of a project planning tool like waffle.io
-- must include a thorough README to describe their project
+#### Configuration:
+- clone repo
+- run `bundle install`
+- run `rails db:{create,migrate,seed}`
+- run `rails server`
+- Open a browser and type `localhost:3000`
 
-## Permitted
-- use any gems we've used in class (pry, launchy, shoulda-matchers, etc)
-- use FactoryBot to speed up your test development
-- use "rails generators" to speed up your app development
+#### Testing
+- run `rspec` to execute all feature and model tests
 
-## Not Permitted
-- do not use JavaScript for pagination or sorting controls
+* Services (job queues, cache servers, search engines, etc.)
 
-## Permission
-- if there is a specific gem you'd like to use in the project, please get permission from your instructors first
+* Deployment instructions
 
-## Schema
-
-You should use this schema:
-
-![Imgur](https://i.imgur.com/kEcAZdw.png)
-
-## User Stories
-
-Your team may not be able to work on these stories in numeric order. Work together to determine the best starting place and work from there.
-
-- [Little Shop v2 stories](stories.md)
-
-
-## Rubric, Evaluations, and final Assessment
-
-Each team will meet with an instructor at least two times before the project is due.
-
-- At first team progress check-in, about 33% of the work is expected to be completed satisfactorily
-- At second team progress check-in, about 66% of the work is expected to be completed satisfactorily
-- Final submission will expect 100% completion
-
-Each team will have a rubric uploaded to [https://github.com/turingschool/ruby-submissions](https://github.com/turingschool/ruby-submissions)
-
-
-View the [Little Shop Rubric](LittleShopRubric.pdf)
+* ...
