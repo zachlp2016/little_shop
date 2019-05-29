@@ -157,8 +157,6 @@ RSpec.describe 'as a visitor' do
       visit items_path
 
       expect(page).to_not have_content('Add to Cart')
-
-      save_and_open_page
     end
 
     it 'doesnt allow merchants to add to cart' do
