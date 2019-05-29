@@ -2,19 +2,6 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'welcome#index'
 
-# 404
-# - if visitors try to navigate to any /profile path
-# - if visitors try to navigate to any /dashboard path
-# - if visitors try to navigate to any /admin path
-# - if registered users try to navigate to any /dashboard path
-# - if registered users try to navigate to any /admin path
-# - if merchants try to navigate to any /profile path
-# - if merchants try to navigate to any /admin path
-# - if merchants try to navigate to any /cart path
-# - if admin users try to navigate to any /profile path
-# - if admin users try to navigate to any /dashboard path
-# - if admin users try to navigate to any /cart path
-
   resources :items, only: [:index, :show]
 
   get '/carts', to: 'carts#show'
@@ -37,22 +24,22 @@ Rails.application.routes.draw do
   end
 
 
-  get '/merchants', to: 'merchants#index' # a link to see all merchants ("/merchants") -- User Story 2, Visitor Navigation
+  get '/merchants', to: 'merchants#index'
 
   patch 'merchants/items/enable/:id', to: 'merchants/items#enable'
   patch 'merchants/items/disable/:id', to: 'merchants/items#disable'
 
   get '/dashboard', to: 'merchants/orders#index'
   scope module: 'merchants', path: 'dashboard', as: :dashboard do
-    resources :items, only: [:index, :new, :create, :edit, :update, :show, :destroy]
+    resources :items, only: [:index, :new, :create, :edit, :update, :destroy]
     resources :order_items, only: [:update]
-    resources :orders, only: [:show, :edit]
+    resources :orders, only: [:show]
   end
 
   namespace :admin do
     resources :users, only: [:index, :show]
     get '/dashboard', to: 'users#dashboard'
-    get '/merchants/:id', to: 'merchants#show'
+    get '/merchants/:id', to: 'merchants#show', as: :merchant
     patch '/merchant/edit', to: 'merchants#edit'
     patch '/merchant/enable/:id', to: 'merchants#enable'
     patch '/merchant/disable/:id', to: 'merchants#disable'
