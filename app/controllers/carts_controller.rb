@@ -1,4 +1,7 @@
 class CartsController < ApplicationController
+
+  before_action :cart_user?
+
   def show
     @user = current_user
     cart = Cart.new(session[:cart])
@@ -34,5 +37,11 @@ class CartsController < ApplicationController
   def clear
     session[:cart] = {}
     redirect_to carts_path
+  end
+
+  private
+
+  def cart_user?
+    render file: "/public/404" unless !current_admin? && !current_merchant?
   end
 end
