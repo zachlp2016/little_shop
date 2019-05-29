@@ -249,7 +249,7 @@ RSpec.describe User, type: :model do
   describe 'instance_methods_us36' do
 
     before :each do
-      @merchant = create(:user, role: 1)
+      @merchant = create(:user, name: 'merchant', role: 1)
       @item_1 = create(:item, user: @merchant)
       @item_2 = create(:item, user: @merchant)
       @item_3 = create(:item, user: @merchant)
@@ -317,16 +317,19 @@ RSpec.describe User, type: :model do
     end
 
     it '#best_customer_items' do
+
       expect(@merchant.best_customer_items.length).to eq(1)
-      expect(@merchant.best_customer_items[0]).to eq(@user_3)
+      expect(@merchant.best_customer_items[0].user).to eq(@user_3)
       expect(@merchant.best_customer_items[0].total_ordered).to eq(512)
     end
 
     it '#best_customer_orders' do
       order = create(:order, user: @user_2, status: 2)
+      OrderItem.create!(item: @item_1, order: order, quantity: 12, price: 1.99, fulfilled: false)
+
       expect(@merchant.best_customer_orders.length).to eq(1)
-      expect(@merchant.best_customer_orders[0]).to eq(@user_2)
-      expect(@merchant.best_customer_orders[0].total_orders).to eq(2)
+      expect(@merchant.best_customer_orders[0].user).to eq(@user_2)
+      expect(@merchant.best_customer_orders[0].order_count).to eq(2)
     end
   end
 end
