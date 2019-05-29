@@ -10,6 +10,15 @@ class User < ApplicationRecord
 
   enum role: ["default", "merchant", "admin"]
 
+  def best_customer
+    User.select("users.*, sum(order_items.quantity) AS total_ordered")
+      .joins(orders: :items)
+      .where("orders.status = 2 AND items.user_id = #{self.id} ")
+      .group("users.id")
+      .order("total_ordered DESC, users.id ASC")
+      .limit(1)
+  end
+
   def top_3_city_state
     self.items
         .joins(:orders)

@@ -315,6 +315,12 @@ RSpec.describe User, type: :model do
       expect(@merchant.top_3_city_state.third.state).to eq("CO")
       expect(@merchant.top_3_city_state.third.city).to eq("one")
     end
+
+    it '#best_customer' do
+      expect(@merchant.best_customer.length).to eq(1)
+      expect(@merchant.best_customer[0]).to eq(@user_3)
+      expect(@merchant.best_customer[0].total_ordered).to eq(512)
+    end
   end
 end
 # - name of the user with the most orders from me (pick one if there's a tie), and number of orders
