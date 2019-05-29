@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   get '/login', to: 'sessions#new', as: :login
   post '/login', to: 'sessions#create'
   get '/logout', to: 'sessions#logout'
-  
+
   get '/profile', to: 'default/users#show'
   get '/profile/edit', to: 'default/users#edit'
   patch '/profile/edit', to: 'default/users#update'
@@ -36,18 +36,17 @@ Rails.application.routes.draw do
     resources :orders, only: [:create, :show, :index, :destroy], as: :profile_orders
   end
 
-  get '/dashboard', to: 'merchants#show'
+
   get '/merchants', to: 'merchants#index' # a link to see all merchants ("/merchants") -- User Story 2, Visitor Navigation
-  patch 'merchant/enable/:id', to: 'merchants#enable'
-  patch 'merchant/disable/:id', to: 'merchants#disable'
 
   patch 'merchants/items/enable/:id', to: 'merchants/items#enable'
   patch 'merchants/items/disable/:id', to: 'merchants/items#disable'
 
+  get '/dashboard', to: 'merchants/orders#index'
   scope module: 'merchants', path: 'dashboard', as: :dashboard do
     resources :items, only: [:index, :new, :create, :edit, :update, :show, :destroy]
     resources :order_items, only: [:update]
-    resources :orders, only: [:index, :show, :edit]
+    resources :orders, only: [:show, :edit]
   end
 
   namespace :admin do
@@ -55,6 +54,8 @@ Rails.application.routes.draw do
     get '/dashboard', to: 'users#dashboard'
     get '/merchants/:id', to: 'merchants#show'
     patch '/merchant/edit', to: 'merchants#edit'
+    patch '/merchant/enable/:id', to: 'merchants#enable'
+    patch '/merchant/disable/:id', to: 'merchants#disable'
     resources :orders, only: [:update]
   end
 end
