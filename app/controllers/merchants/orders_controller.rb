@@ -1,4 +1,4 @@
-class Merchants::OrdersController <ApplicationController
+class Merchants::OrdersController < Merchants::BaseController
   def show
     @merchant = current_user
     @order = Order.find(params[:id])
