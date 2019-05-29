@@ -1,9 +1,7 @@
 class UsersController < ApplicationController
 
-
   def new
     @user = User.new
-
   end
 
   def create
@@ -17,30 +15,6 @@ class UsersController < ApplicationController
       redirect_to profile_path
     else
       render :new
-    end
-  end
-
-  def show
-    @user = current_user
-  end
-
-  def edit
-    @user = current_user
-  end
-
-  def update
-    @user = current_user
-    if password_confirmation != true
-      flash.now[:notice] = "Those passwords don't match."
-      render :edit
-    elsif email_confirmation(@user.email) == true
-      flash[:notice] = "Email has already been taken"
-      render :edit
-    elsif @user.update(user_params)
-      flash[:notice] = "Your information has been updated!"
-      redirect_to profile_path
-    else
-      render :edit
     end
   end
 
