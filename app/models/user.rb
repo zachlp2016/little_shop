@@ -11,12 +11,14 @@ class User < ApplicationRecord
   enum role: ["default", "merchant", "admin"]
 
   def best_customer_items
-    User.select("users.*, sum(order_items.quantity) AS total_ordered")
-      .joins(orders: :items)
-      .where("orders.status = 2 AND items.user_id = #{self.id} ")
-      .group("users.id")
-      .order("total_ordered DESC, users.id ASC")
-      .limit(1)
+    OrderItem.joins("JOIN orders ON orders.id=order_items.order_id")
+             .joins('JOIN users ON users.id=orders.user_id')
+             .joins('JOIN items ON items.id=order_items.item_id')
+             .where("orders.status=2 AND items.user_id=#{self.id}")
+             .select('sum(order_items.quantity) AS total_bought, users.id AS user_id')
+             .group('users.id')
+             .order('total_bought desc')
+             .limit(1)
   end
 
   def best_customer_orders
