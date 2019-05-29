@@ -2,6 +2,19 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'welcome#index'
 
+# 404
+# - if visitors try to navigate to any /profile path
+# - if visitors try to navigate to any /dashboard path
+# - if visitors try to navigate to any /admin path
+# - if registered users try to navigate to any /dashboard path
+# - if registered users try to navigate to any /admin path
+# - if merchants try to navigate to any /profile path
+# - if merchants try to navigate to any /admin path
+# - if merchants try to navigate to any /cart path
+# - if admin users try to navigate to any /profile path
+# - if admin users try to navigate to any /dashboard path
+# - if admin users try to navigate to any /cart path
+
   resources :items, only: [:index, :show]
 
   get '/carts', to: 'carts#show'
@@ -14,16 +27,13 @@ Rails.application.routes.draw do
 
   get '/login', to: 'sessions#new', as: :login
   post '/login', to: 'sessions#create'
-  get '/logout', to: 'sessions#logout' #add logout to pass navigation - User Sotry 3, User Navigation
-
-  get '/profile', to: 'users#show'
-  get '/profile/edit', to: 'users#edit'
-  patch '/profile/edit', to: 'users#update'
-  scope :profile do
-    # resources :users, only: [:show, :edit, :update], as: :profile
+  get '/logout', to: 'sessions#logout'
+  
+  get '/profile', to: 'default/users#show'
+  get '/profile/edit', to: 'default/users#edit'
+  patch '/profile/edit', to: 'default/users#update'
+  scope module: :default, path: :profile do
     resources :orders, only: [:create, :show, :index, :destroy], as: :profile_orders
-    # get '/profile/orders', to: 'orders#index'
-    # get '/profile/orders/:id', to: 'orders#show'
   end
 
   get '/dashboard', to: 'merchants#show'
