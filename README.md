@@ -25,8 +25,8 @@ Statistics for Merchants and Items on the site are visible on their respectable 
 #### Testing
 - run `rspec` to execute all feature and model tests
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+#### Contributors
+- Brennan Ayers
+- Billy Homer
+- Zach Leach
+- Vince Carollo
