@@ -375,5 +375,38 @@ RSpec.describe 'As a merchant' do
         find "img[src='https://kaaskraam.com/wp-content/uploads/2018/02/Gouda-Belegen.jpg']"
       end
     end
+
+    it 'Has error messages if unable to save.' do
+      visit edit_dashboard_item_path(@item_1)
+
+      fill_in 'Name', with: ''
+      fill_in 'Description', with: ''
+      fill_in 'Image', with: ''
+      fill_in 'Price', with: '-5.50'
+      fill_in 'Inventory', with: '-3.20'
+
+      click_button 'Edit Item'
+
+      expect(@item_1.active).to eq(true)
+      expect(page).to have_content("Name can't be blank")
+      expect(page).to have_content("Description can't be blank")
+      expect(page).to have_content("Price must be greater than 0")
+      expect(page).to have_content("Inventory must be greater than 0")
+
+    end
   end
 end
+
+
+
+# The form is re-populated with all of this item's information
+# I can change any information, but all of the rules for adding a new item still apply:
+# - name and description cannot be blank
+# - price cannot be less than $0.00
+# - inventory must be 0 or greater
+#
+# When I submit the form
+# I am taken back to my items page
+# I see a flash message indicating my item is updated
+# I see the item's new information on the page, and it maintains its previous enabled/disabled state
+# If I left the image field blank, I see a placeholder image for the thumbnail
