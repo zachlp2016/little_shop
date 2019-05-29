@@ -20,10 +20,6 @@ class UsersController < ApplicationController
 
   private
 
-  def email_confirmation(user_email = nil)
-    (User.email_string - [user_email]).include?(params[:user][:email])
-  end
-
   def password_confirmation
     if params["user"]["password"] == params["user"]["confirm_password"]
       true
