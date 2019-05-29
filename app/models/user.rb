@@ -10,13 +10,19 @@ class User < ApplicationRecord
 
   enum role: ["default", "merchant", "admin"]
 
-  def best_customer
+  def best_customer_items
     User.select("users.*, sum(order_items.quantity) AS total_ordered")
       .joins(orders: :items)
       .where("orders.status = 2 AND items.user_id = #{self.id} ")
       .group("users.id")
       .order("total_ordered DESC, users.id ASC")
       .limit(1)
+  end
+
+  def best_customer_orders
+    require 'pry'; binding.pry
+    User.joins(orders: :items).where("orders.status = 2 AND items.user_id = #{self.id} ").distinct("users.id, orders.id").select("users.*, count(orders.id) AS total_orders").group("users.id").order("total_orders DESC, users.id ASC").limit(1)
+    User.joins(orders: :items).where("orders.status = 2 AND items.user_id = #{self.id} ").distinct("users.id").select("users.*, count(orders.id) AS total_orders").group("users.id").order("total_orders DESC, users.id ASC").limit(1)
   end
 
   def top_3_city_state

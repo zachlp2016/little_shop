@@ -316,14 +316,18 @@ RSpec.describe User, type: :model do
       expect(@merchant.top_3_city_state.third.city).to eq("one")
     end
 
-    it '#best_customer' do
-      expect(@merchant.best_customer.length).to eq(1)
-      expect(@merchant.best_customer[0]).to eq(@user_3)
-      expect(@merchant.best_customer[0].total_ordered).to eq(512)
+    it '#best_customer_items' do
+      expect(@merchant.best_customer_items.length).to eq(1)
+      expect(@merchant.best_customer_items[0]).to eq(@user_3)
+      expect(@merchant.best_customer_items[0].total_ordered).to eq(512)
+    end
+
+    it '#best_customer_orders' do
+      order = create(:order, user: @user_2, status: 2)
+      expect(@merchant.best_customer_orders.length).to eq(1)
+      expect(@merchant.best_customer_orders[0]).to eq(@user_2)
+      expect(@merchant.best_customer_orders[0].total_orders).to eq(2)
     end
   end
 end
-# - name of the user with the most orders from me (pick one if there's a tie), and number of orders
-# - name of the user who bought the most total items from me (pick one if there's a tie), and the
-# total quantity
-# - top 3 users who have spent the most money on my items, and the total amount they've spent
+
