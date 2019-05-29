@@ -319,7 +319,6 @@ RSpec.describe User, type: :model do
     #total items from me (pick one if there's a tie),
     # and the total quantity
     it '#best_customer_items' do
-
       expect(@merchant.best_customer_items.length).to eq(1)
       expect(@merchant.best_customer_items[0].user_id).to eq(@user_3.id)
       expect(@merchant.best_customer_items[0].total_bought).to eq(512)

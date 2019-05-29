@@ -11,11 +11,11 @@ class User < ApplicationRecord
   enum role: ["default", "merchant", "admin"]
 
   def best_customer_items
-    OrderItem.joins("JOIN orders ON orders.id=order_items.order_id")
+    order = OrderItem.joins("JOIN orders ON orders.id=order_items.order_id")
              .joins(('JOIN users ON users.id=orders.user_id'))
              .joins('JOIN items ON items.id=order_items.item_id')
              .where("orders.status=2 AND items.user_id=#{self.id}")
-             .select('sum(order_items.quantity) AS total_bought, users.id AS user_id')
+             .select('sum(order_items.quantity) AS total_bought, users.id as user_id, users.*')
              .group('users.id')
              .order('total_bought desc')
              .limit(1)
