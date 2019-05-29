@@ -10,6 +10,26 @@ class User < ApplicationRecord
 
   enum role: ["default", "merchant", "admin"]
 
+  def top_3_cities
+    self.items
+        .joins(:orders)
+        .joins("JOIN users ON users.id = orders.user_id")
+        .where("orders.status=2")
+        .select("count(order_items.id), users.state, users.city")
+        .group("users.state")
+        .group("users.city")
+        .order("count desc")
+  end
+ 
+ def top_3_states
+    User.select("users.state, sum(order_items.quantity) AS total_ordered")
+    .joins(orders: :items)
+    .where("orders.status = 2 AND items.user_id = #{self.id} ")
+    .group("users.state")
+    .order("total_ordered DESC")
+    .limit(3)
+  end
+
   def top_items_sold(limit)
     Item.joins(:user, :orders)
         .where("orders.status = 2 AND items.user_id = #{self.id}")
@@ -29,12 +49,7 @@ class User < ApplicationRecord
   end
 
   def total_items_count
-    User.joins(items: :orders)
-        .where("orders.status = 2 AND items.user_id = #{self.id}")
-        .select("users.*, sum(order_items.quantity) AS total_ordered, sum(items.inventory) AS total_inventory")
-        .group("users.id")
-        .first
-        .total_inventory + self.items_sold
+    items.sum(:inventory) + self.items_sold
   end
 
   def items_sold_percentage
