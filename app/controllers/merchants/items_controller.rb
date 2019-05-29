@@ -32,7 +32,7 @@ class Merchants::ItemsController < ApplicationController
     @merchant = current_user
     @item = @merchant.items.find(params[:id])
     @item.update(items_params)
-    if @item.save!
+    if @item.save
       flash[:notice] = "The item was updated."
       redirect_to dashboard_items_path
     else
