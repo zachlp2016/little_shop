@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 20190520224827) do
     t.string "email"
     t.string "password_digest"
     t.integer "role", default: 0
-    t.boolean "active"
+    t.boolean "active", default: true
     t.string "name"
     t.string "address"
     t.string "city"
