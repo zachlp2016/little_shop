@@ -36,7 +36,7 @@ class User < ApplicationRecord
         .order("count desc")
         .limit(3)
   end
- 
+
  def top_3_states
     User.select("users.state, sum(order_items.quantity) AS total_ordered")
     .joins(orders: :items)
@@ -141,5 +141,15 @@ class User < ApplicationRecord
         .group(:city)
         .order(count: :desc)
         .limit(3)
+  end
+
+  def top_users
+OrderItem.joins('JOIN orders ON orders.id=order_items.order_id')
+         .joins('JOIN items ON items.id=order_items.item_id')
+         .joins('JOIN users ON users.id=orders.user_id')
+         .where("orders.status=2 AND items.user_id=#{self.id}")
+         .select('sum(order_items.quantity * order_items.price) AS total_spent, users.name, users.id')
+         .group('users.id')
+         .order('total_spent desc')
   end
 end
