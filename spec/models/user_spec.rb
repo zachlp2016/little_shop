@@ -254,11 +254,11 @@ RSpec.describe User, type: :model do
       @item_2 = create(:item, user: @merchant)
       @item_3 = create(:item, user: @merchant)
       @item_4 = create(:item, user: @merchant)
-      @user_1 = create(:user, state: 'CO', city: 'one')
-      @user_2 = create(:user, state: 'CO', city: 'two')
-      @user_3 = create(:user, state: 'IL', city: 'one')
-      @user_4 = create(:user, state: 'IL', city: 'one')
-      @user_5 = create(:user, state: 'CA', city: 'one')
+      @user_1 = create(:user, state: 'CO', city: 'one', name: 'user_1')
+      @user_2 = create(:user, state: 'CO', city: 'two', name: 'user_2')
+      @user_3 = create(:user, state: 'IL', city: 'one', name: 'user_3')
+      @user_4 = create(:user, state: 'IL', city: 'one', name: 'user_4')
+      @user_5 = create(:user, state: 'CA', city: 'one', name: 'user_5')
       @order_1 = create(:order, user: @user_1, status: 2)
       @order_2 = create(:order, user: @user_2, status: 2)
       @order_3 = create(:order, user: @user_3, status: 2)
@@ -325,9 +325,15 @@ RSpec.describe User, type: :model do
     it '#best_customer_orders' do
       order = create(:order, user: @user_2, status: 2)
       expect(@merchant.best_customer_orders.length).to eq(1)
-      expect(@merchant.best_customer_orders[0]).to eq(@user_2)
+      expect(@merchant.best_customer_orders[0]).to eq(@user_3)
       expect(@merchant.best_customer_orders[0].total_orders).to eq(2)
+    end
+
+    # - top 3 users who have spent the most money on my items, and the total amount they've spent
+    it '#top_users' do
+      expect(@merchant.top_users[0].name).to eq(@user_3.name)
+      expect(@merchant.top_users[1].name).to eq(@user_4.name)
+      expect(@merchant.top_users[2].name).to eq(@user_5.name)
     end
   end
 end
-
