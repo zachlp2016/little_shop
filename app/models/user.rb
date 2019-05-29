@@ -12,7 +12,7 @@ class User < ApplicationRecord
 
   def best_customer_items
     OrderItem.joins("JOIN orders ON orders.id=order_items.order_id")
-             .joins('JOIN users ON users.id=orders.user_id')
+             .joins(('JOIN users ON users.id=orders.user_id'))
              .joins('JOIN items ON items.id=order_items.item_id')
              .where("orders.status=2 AND items.user_id=#{self.id}")
              .select('sum(order_items.quantity) AS total_bought, users.id AS user_id')
@@ -22,8 +22,14 @@ class User < ApplicationRecord
   end
 
   def best_customer_orders
-    User.joins(orders: :items).where("orders.status = 2 AND items.user_id = #{self.id} ").distinct("users.id, orders.id").select("users.*, count(orders.id) AS total_orders").group("users.id").order("total_orders DESC, users.id ASC").limit(1)
-    User.joins(orders: :items).where("orders.status = 2 AND items.user_id = #{self.id} ").distinct("users.id").select("users.*, count(orders.id) AS total_orders").group("users.id").order("total_orders DESC, users.id ASC").limit(1)
+    Order.where("orders.status = 2")
+      .joins(items: :order_items)
+      .joins(:user)
+      .where("items.user_id = ?", self.id)
+      .select("orders.user_id, COUNT(DISTINCT(order_items.order_id)) AS order_count")
+      .group("orders.user_id")
+      .order("order_count DESC")
+      .limit(1)
   end
 
   def top_3_city_state
