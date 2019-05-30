@@ -14,7 +14,7 @@
 <%= f.text_field :image %>
 
 <%= f.label :price %>
-<%= f.number_field :price, min: 0 %>
+<%= f.number_field :price, min: 0, step: 0.01 %>
 
 <%= f.label :inventory %>
 <%= f.number_field :inventory, min: 0  %>
