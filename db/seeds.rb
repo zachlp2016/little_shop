@@ -13,6 +13,11 @@ User.destroy_all
 
 merchant_1 = User.create!(email: "ron@gmail.com", password: "12345", role: 1, active: true, name: "Ron", address: "1234 Test Rd", city: "Kansas City", state: "MO", zip: '64086')
 merchant_2 = User.create!(email: "jon@gmail.com", password: "12345", role: 1, active: true, name: "Jon", address: "1234 Test Rd", city: "Kansas City", state: "MO", zip: '64086')
+merchant_3 = User.create!(email: "sarahm334@gmail.com", password: "12345", role: 1, active: true, name: "Sarah Mandy", address: "5436 Longstooth drive", city: "Portland", state: "OR", zip: '72722')
+merchant_4 = User.create!(email: "phillipe33@gmail.com", password: "12345", role: 1, active: true, name: "Phillipe Hernandez", address: "9292 Very Humid Drive", city: "Houston", state: "TX", zip: '22353')
+merchant_5 = User.create!(email: "lareza9@gmail.com", password: "12345", role: 1, active: true, name: "Lareza Samuel", address: "Month Rd", city: "Kalamazoo", state: "MI", zip: '22222')
+merchant_6 = User.create!(email: "emilygill@gmail.com", password: "12345", role: 1, active: true, name: "Emily Gill", address: "2352 Moon Light Lane", city: "Chicago", state: "IL", zip: '23636')
+merchant_7 = User.create!(email: "papajame@gmail.com", password: "12345", role: 1, active: true, name: "Papa James", address: "1 Lark Hill ln", city: "Cleveland", state: "OH", zip: '38301')
 admin_1 = User.create!(email: "admin_1@gmail.com", password: "12345", role: 2, active: true, name: "Jake", address: "666 End Lane", city: "Kansas City", state: "MO", zip: '63082')
 
 gouda = Item.create!(name: "Gouda", price: 12.99, image: 'https://images-na.ssl-images-amazon.com/images/I/41Y49vVUZnL.jpg', inventory: 265, description: "Gouda is a mild, yellow cheese, originating from the Netherlands, made from cow's milk. It is one of the most popular cheeses worldwide. The name is used today as a general term for numerous similar cheeses produced in the traditional Dutch manner.", user: merchant_1)
