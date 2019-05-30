@@ -245,4 +245,101 @@ RSpec.describe User, type: :model do
       expect(@merchant.pending_orders).to eq(orders)
     end
   end
+
+  describe 'instance_methods_us36' do
+
+    before :each do
+      @merchant = create(:user, name: 'merchant', role: 1)
+      @item_1 = create(:item, user: @merchant)
+      @item_2 = create(:item, user: @merchant)
+      @item_3 = create(:item, user: @merchant)
+      @item_4 = create(:item, user: @merchant)
+      @user_1 = create(:user, state: 'CO', city: 'one', name: 'user_1')
+      @user_2 = create(:user, state: 'CO', city: 'two', name: 'user_2')
+      @user_3 = create(:user, state: 'IL', city: 'one', name: 'user_3')
+      @user_4 = create(:user, state: 'IL', city: 'one', name: 'user_4')
+      @user_5 = create(:user, state: 'CA', city: 'one', name: 'user_5')
+      @order_1 = create(:order, user: @user_1, status: 2)
+      @order_2 = create(:order, user: @user_2, status: 2)
+      @order_3 = create(:order, user: @user_3, status: 2)
+      @order_4 = create(:order, user: @user_4, status: 2)
+      @order_5 = create(:order, user: @user_5, status: 2)
+      @order_6 = create(:order, user: @user_3, status: 1)
+      @order_7 = create(:order, user: @user_3, status: 0)
+      OrderItem.create!(item: @item_1, order: @order_1, quantity: 12, price: 1.99, fulfilled: false)
+      OrderItem.create!(item: @item_2, order: @order_2, quantity: 12, price: 1.99, fulfilled: false)
+      OrderItem.create!(item: @item_3, order: @order_3, quantity: 12, price: 1.99, fulfilled: false)
+      OrderItem.create!(item: @item_3, order: @order_4, quantity: 12, price: 1.99, fulfilled: false)
+      OrderItem.create!(item: @item_2, order: @order_5, quantity: 500, price: 1.99, fulfilled: false)
+      OrderItem.create!(item: @item_2, order: @order_6, quantity: 500, price: 1.99, fulfilled: false)
+      OrderItem.create!(item: @item_2, order: @order_4, quantity: 500, price: 1.99, fulfilled: false)
+      OrderItem.create!(item: @item_2, order: @order_3, quantity: 500, price: 1.99, fulfilled: false)
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant)
+    end
+
+    it 'top_items_sold(n)' do
+      expect(@merchant.top_items_sold(1).first.id).to eq(@item_2.id)
+      expect(@merchant.top_items_sold(2).first.id).to eq(@item_2.id)
+      expect(@merchant.top_items_sold(2).last.id).to eq(@item_3.id)
+    end
+
+    # - total quantity of items I've sold, and as a percentage against my sold units plus remaining
+    # inventory (eg, if I have sold 1,000 things and still have 9,000 things in inventory, the message
+    # would say something like "Sold 1,000 items, which is 10% of your total inventory")
+    it 'items_sold_percentage' do
+      expect(@merchant.items_sold_percentage).to eq(1548 / 1948)
+    end
+
+    it 'items_sold' do
+      expect(@merchant.items_sold).to eq(1548)
+    end
+
+    it 'total_items_count' do
+      expect(@merchant.total_items_count).to eq(1948)
+    end
+
+    it '#top_3_states' do
+      expect(@merchant.top_3_states.length).to eq(3)
+      expect(@merchant.top_3_states[0].total_ordered).to eq(1024)
+      expect(@merchant.top_3_states.first.state).to eq("IL")
+      expect(@merchant.top_3_states.second.state).to eq("CA")
+      expect(@merchant.top_3_states.third.state).to eq("CO")
+    end
+
+    it '#top_3_city_state' do
+      expect(@merchant.top_3_city_state.length).to eq(3)
+      expect(@merchant.top_3_city_state.first.total_ordered).to eq(1024)
+      expect(@merchant.top_3_city_state.first.state).to eq("IL")
+      expect(@merchant.top_3_city_state.first.city).to eq("one")
+      expect(@merchant.top_3_city_state.second.state).to eq("CA")
+      expect(@merchant.top_3_city_state.second.city).to eq("one")
+      expect(@merchant.top_3_city_state.third.state).to eq("CO")
+      expect(@merchant.top_3_city_state.third.city).to eq("one")
+    end
+    #- name of the user who bought the most
+    #total items from me (pick one if there's a tie),
+    # and the total quantity
+    it '#best_customer_items' do
+      expect(@merchant.best_customer_items.length).to eq(1)
+      expect(@merchant.best_customer_items[0].user_id).to eq(@user_3.id)
+      expect(@merchant.best_customer_items[0].total_bought).to eq(512)
+    end
+
+    it '#best_customer_orders' do
+      order = create(:order, user: @user_2, status: 2)
+      OrderItem.create!(item: @item_1, order: order, quantity: 12, price: 1.99, fulfilled: false)
+
+      expect(@merchant.best_customer_orders.length).to eq(1)
+      expect(@merchant.best_customer_orders[0].user).to eq(@user_2)
+      expect(@merchant.best_customer_orders[0].order_count).to eq(2)
+    end
+
+    # - top 3 users who have spent the most money on my items, and the total amount they've spent
+    it '#top_users' do
+      expect(@merchant.top_users[0].name).to eq(@user_3.name)
+      expect(@merchant.top_users[1].name).to eq(@user_4.name)
+      expect(@merchant.top_users[2].name).to eq(@user_5.name)
+    end
+  end
 end
