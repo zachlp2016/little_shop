@@ -288,7 +288,7 @@ RSpec.describe User, type: :model do
     # inventory (eg, if I have sold 1,000 things and still have 9,000 things in inventory, the message
     # would say something like "Sold 1,000 items, which is 10% of your total inventory")
     it 'items_sold_percentage' do
-      expect(@merchant.items_sold_percentage).to eq(1548 / 1948)
+      expect(@merchant.items_sold_percentage).to eq(1548 / 1948.to_f)
     end
 
     it 'items_sold' do
