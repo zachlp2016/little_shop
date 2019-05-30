@@ -58,15 +58,12 @@
           <li class="list-group-item text-center">Location: <%= merchant.city %>, <%= merchant.state %></li>
           <li class="list-group-item text-center">Joined: <%= merchant.created_at.strftime("%B %d, %Y") %></li>
           <% if current_admin? && merchant.active? %>
-            <li class="list-group-item text-center"><%= link_to "Disable", "/merchant/disable/#{merchant.id}", :method=> :patch %></li>
+            <li class="list-group-item text-center"><%= link_to "Disable", "/admin/merchant/disable/#{merchant.id}", :method=> :patch %></li>
           <% elsif current_admin? && !merchant.active? %>
-            <li class="list-group-item text-center"><%= link_to "Enable", "/merchant/enable/#{merchant.id}", :method=> :patch %></li>
+            <li class="list-group-item text-center"><%= link_to "Enable", "/admin/merchant/enable/#{merchant.id}", :method=> :patch %></li>
           <% end %>
         </ul>
       </div>
     </section>
   <% end %>
 </section>
-
-
-

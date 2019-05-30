@@ -14,37 +14,35 @@ Rails.application.routes.draw do
 
   get '/login', to: 'sessions#new', as: :login
   post '/login', to: 'sessions#create'
-  get '/logout', to: 'sessions#logout' #add logout to pass navigation - User Sotry 3, User Navigation
+  get '/logout', to: 'sessions#logout'
 
-  get '/profile', to: 'users#show'
-  get '/profile/edit', to: 'users#edit'
-  patch '/profile/edit', to: 'users#update'
-  scope :profile do
-    # resources :users, only: [:show, :edit, :update], as: :profile
+  get '/profile', to: 'default/users#show'
+  get '/profile/edit', to: 'default/users#edit'
+  patch '/profile/edit', to: 'default/users#update'
+  scope module: :default, path: :profile do
     resources :orders, only: [:create, :show, :index, :destroy], as: :profile_orders
-    # get '/profile/orders', to: 'orders#index'
-    # get '/profile/orders/:id', to: 'orders#show'
   end
 
-  get '/dashboard', to: 'merchants#show'
-  get '/merchants', to: 'merchants#index' # a link to see all merchants ("/merchants") -- User Story 2, Visitor Navigation
-  patch 'merchant/enable/:id', to: 'merchants#enable'
-  patch 'merchant/disable/:id', to: 'merchants#disable'
+
+  get '/merchants', to: 'merchants#index'
 
   patch 'merchants/items/enable/:id', to: 'merchants/items#enable'
   patch 'merchants/items/disable/:id', to: 'merchants/items#disable'
 
+  get '/dashboard', to: 'merchants/orders#index'
   scope module: 'merchants', path: 'dashboard', as: :dashboard do
-    resources :items, only: [:index, :new, :create, :edit, :update, :show, :destroy]
+    resources :items, only: [:index, :new, :create, :edit, :update, :destroy]
     resources :order_items, only: [:update]
-    resources :orders, only: [:index, :show, :edit]
+    resources :orders, only: [:show]
   end
 
   namespace :admin do
     resources :users, only: [:index, :show]
     get '/dashboard', to: 'users#dashboard'
-    get '/merchants/:id', to: 'merchants#show'
+    get '/merchants/:id', to: 'merchants#show', as: :merchant
     patch '/merchant/edit', to: 'merchants#edit'
+    patch '/merchant/enable/:id', to: 'merchants#enable'
+    patch '/merchant/disable/:id', to: 'merchants#disable'
     resources :orders, only: [:update]
   end
 end

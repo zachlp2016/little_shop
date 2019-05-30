@@ -149,5 +149,25 @@ RSpec.describe 'as a visitor' do
       expect(page).to have_content("#{@item_2.name} has been added to your cart")
       expect(page).to have_content("(2)")
     end
+
+    it 'doesnt allow admins to add to cart' do
+      admin = create(:user, role: 2)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+
+      visit items_path
+
+      expect(page).to_not have_content('Add to Cart')
+    end
+
+    it 'doesnt allow merchants to add to cart' do
+      merchant = create(:user, role: 1)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant)
+
+
+      visit items_path
+
+      expect(page).to_not have_content('Add to Cart')
+
+    end
   end
 end

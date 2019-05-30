@@ -201,9 +201,9 @@ RSpec.describe 'within main navigation' do
       end
 
       it 'it has a link to Users' do
-  
+
         visit root_path
-  
+
         within '.navbar' do
           expect(page).to have_link('Users')
         end
@@ -244,12 +244,208 @@ RSpec.describe 'within main navigation' do
   end
 end
 
-# As an admin user
-# I see the same links as a visitor
-# Plus the following links
-# - a link to my admin dashboard ("/admin/dashboard")
-# - a link to log out ("/logout")
-#
-# Minus the following links/info:
-# - I do not see a link to log in or register
-# - a link to my shopping cart ("/cart") or count of cart items
+RSpec.describe "Restricted Navigation" do
+  context "As a Visitor" do
+    describe 'I see 404s' do
+      before :each do
+        @user = User.create!(email: "test@test.com", password_digest: "t3s7", role: 0, active: true, name: "Testy McTesterson", address: "123 Test St", city: "Testville", state: "Test", zip: "01234")
+        @order = create(:order, user: @user, status: 1)
+
+        @merchant = create(:user, role: 1)
+        @item = create(:item, user: @merchant)
+
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(nil)
+      end
+
+      it 'When I go to /profile' do
+        visit profile_path
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+
+        visit profile_edit_path
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+
+        visit profile_order_path(@order)
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+
+        visit profile_orders_path
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+      end
+
+      it 'When I go to /dashboard' do
+        visit dashboard_path
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+
+        visit dashboard_items_path
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+
+        visit new_dashboard_item_path
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+
+        visit edit_dashboard_item_path(@item)
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+
+        visit dashboard_order_path(@order)
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+      end
+
+      it 'When I go to /admin' do
+        visit admin_users_path
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+
+        visit admin_user_path(@user)
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+
+        visit admin_dashboard_path
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+
+        visit admin_merchant_path(@item)
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+      end
+    end
+  end
+
+  context "As a Default User" do
+    describe 'I see 404s' do
+      before :each do
+        @user = User.create!(email: "test@test.com", password_digest: "t3s7", role: 0, active: true, name: "Testy McTesterson", address: "123 Test St", city: "Testville", state: "Test", zip: "01234")
+        @order = create(:order, user: @user, status: 1)
+
+        @merchant = create(:user, role: 1)
+        @item = create(:item, user: @merchant)
+
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+      end
+
+      it 'When I go to /dashboard' do
+        visit dashboard_path
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+
+        visit dashboard_items_path
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+
+        visit new_dashboard_item_path
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+
+        visit edit_dashboard_item_path(@item)
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+
+        visit dashboard_order_path(@order)
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+      end
+
+      it 'When I go to /admin' do
+        visit admin_users_path
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+
+        visit admin_user_path(@user)
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+
+        visit admin_dashboard_path
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+
+        visit admin_merchant_path(@item)
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+      end
+    end
+  end
+
+  context "As a Merchant" do
+    describe 'I see 404s' do
+      before :each do
+        @user = User.create!(email: "test@test.com", password_digest: "t3s7", role: 0, active: true, name: "Testy McTesterson", address: "123 Test St", city: "Testville", state: "Test", zip: "01234")
+        @order = create(:order, user: @user, status: 1)
+
+        @merchant = create(:user, role: 1)
+        @item = create(:item, user: @merchant)
+
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant)
+      end
+
+      it 'When I go to /profile' do
+        visit profile_path
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+
+        visit profile_edit_path
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+
+        visit profile_order_path(@order)
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+
+        visit profile_orders_path
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+      end
+
+      it 'When I go to /admin' do
+        visit admin_users_path
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+
+        visit admin_user_path(@user)
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+
+        visit admin_dashboard_path
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+
+        visit admin_merchant_path(@item)
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+      end
+
+      it 'When I go to /carts' do
+        visit carts_path
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+      end
+    end
+  end
+
+  context "As an Admin" do
+
+    describe 'I see 404s' do
+      before :each do
+        @user = User.create!(email: "test@test.com", password_digest: "t3s7", role: 0, active: true, name: "Testy McTesterson", address: "123 Test St", city: "Testville", state: "Test", zip: "01234")
+        @order = create(:order, user: @user, status: 1)
+
+        @merchant = create(:user, role: 1)
+        @item = create(:item, user: @merchant)
+
+        @admin = create(:user, role: 2)
+
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
+      end
+
+      it 'When I go to /profile' do
+        visit profile_path
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+
+        visit profile_edit_path
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+
+        visit profile_order_path(@order)
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+
+        visit profile_orders_path
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+      end
+
+      it 'When I go to /dashboard' do
+        visit dashboard_path
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+
+        visit dashboard_items_path
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+
+        visit new_dashboard_item_path
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+
+        visit edit_dashboard_item_path(@item)
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+
+        visit dashboard_order_path(@order)
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+      end
+
+      it 'When I go to /carts' do
+        visit carts_path
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+      end
+    end
+  end
+end

@@ -1,4 +1,4 @@
-class OrdersController < ApplicationController
+class Default::OrdersController < Default::BaseController
   def index
     @user = current_user
     @orders = @user.orders
