@@ -37,10 +37,10 @@ class User < ApplicationRecord
         .joins(:orders)
         .joins("JOIN users ON users.id = orders.user_id")
         .where("orders.status=2")
-        .select("count(order_items.id), users.state, users.city")
+        .select("sum(order_items.quantity) AS total_ordered, users.state, users.city")
         .group("users.state")
         .group("users.city")
-        .order("count desc")
+        .order("total_ordered desc")
         .limit(3)
   end
 

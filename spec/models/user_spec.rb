@@ -301,6 +301,7 @@ RSpec.describe User, type: :model do
 
     it '#top_3_states' do
       expect(@merchant.top_3_states.length).to eq(3)
+      expect(@merchant.top_3_states[0].total_ordered).to eq(1024)
       expect(@merchant.top_3_states.first.state).to eq("IL")
       expect(@merchant.top_3_states.second.state).to eq("CA")
       expect(@merchant.top_3_states.third.state).to eq("CO")
@@ -308,6 +309,7 @@ RSpec.describe User, type: :model do
 
     it '#top_3_city_state' do
       expect(@merchant.top_3_city_state.length).to eq(3)
+      expect(@merchant.top_3_city_state.first.total_ordered).to eq(1024)
       expect(@merchant.top_3_city_state.first.state).to eq("IL")
       expect(@merchant.top_3_city_state.first.city).to eq("one")
       expect(@merchant.top_3_city_state.second.state).to eq("CA")
