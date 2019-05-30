@@ -38,7 +38,7 @@
         <ul class="list-group list-group-flush">
           <li class="list-group-item">Seller: <%= item.user.name %></li>
           <li class="list-group-item">Inventory: <%= item.inventory %></li>
-          <li class="list-group-item">Price: $<%= item.price %><br></li>
+          <li class="list-group-item">Price: $<%= number_to_currency(item.price) %><br></li>
         </ul>
         <% if !current_merchant? && !current_admin? %>
         <button class="btn btn-primary"><%= link_to "Add To Cart", carts_path(item_id: item.id), method: :post, style:"color:white;" %></button>
