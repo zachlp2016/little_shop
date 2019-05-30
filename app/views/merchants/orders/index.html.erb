@@ -10,6 +10,89 @@
 <p>State: <%= @user.state %></p>
 <p>Zip Code: <%= @user.zip %></p>
 
+<% if !@user.items.empty? && !@user.top_items_sold(5).empty?  %>
+
+<div class="card merchant-stats" >
+  <div class="card-header">
+    My Statistics
+  </div>
+  <div class="card-body">
+    <span class="top-five-items-sold">
+      <h5 class="card-title">Top Five Items Sold</h5>
+      <p class="card-text">
+        <ol>
+          <% @user.top_items_sold(5).each do |item| %>
+            <li><strong><%= item.name %>:</strong> <%= item.total_ordered %> Items Sold</li>
+          <% end %>
+        </ol>
+      </p>
+    </span>
+
+    <span class="total-qty-sold">
+      <h5 class="card-title">Total Quantity of Items Sold</h5>
+      <p class="card-text">
+        Items Sold: <%= @user.items_sold %> <br/>
+        Item Count: <%= @user.total_items_count %> <br/>
+        Sold Percentage: <%= number_to_percentage(@user.items_sold_percentage) %>
+      </p>
+    </span>
+    <br/>
+    <span class="top-three-states">
+      <h5 class="card-title">Top Sales by State</h5>
+      <p class="card-text">
+        <ol>
+          <% @user.top_3_states.each do |item| %>
+            <li><strong><%= item.state %>:</strong> <%= item.total_ordered %> Items Sold </li>
+          <% end %>
+        </ol>
+      </p>
+    </span>
+
+    <span class="top-three-city-states">
+      <h5 class="card-title">Top Sales by City/State</h5>
+      <p class="card-text">
+        <ol>
+          <% @user.top_3_city_state.each do |item| %>
+            <li><strong><%= item.city %>, <%= item.state %>:</strong> <%= item.total_ordered %> Items Sold </li>
+          <% end %>
+        </ol>
+      </p>
+    </span>
+    <br/>
+    <span class="best-customer-by-orders">
+      <h5 class="card-title">Top Customer by Orders Shipped</h5>
+      <p class="card-text">
+          <% @user.best_customer_orders.each do |order| %>
+            <strong><%= order.user.name %>:</strong> <%= order.order_count %>, Orders Shipped </li>
+          <% end %>
+      </p>
+    </span>
+    <br/>
+    <span class="best-customer-by-items">
+      <h5 class="card-title">Top Customer by Items Shipped</h5>
+      <p class="card-text">
+          <% @user.best_customer_items.each do |order| %>
+            <strong><%= order.name %>:</strong> <%= order.total_bought %>, Items Shipped </li>
+          <% end %>
+      </p>
+    </span>
+    <br/>
+    <span class="top-three-customers-sales">
+      <h5 class="card-title">Top Three Customers by Value</h5>
+      <p class="card-text">
+        <ol>
+          <% @user.top_users.each do |item| %>
+            <li><strong><%= item.name %>:</strong> <%= number_to_currency(item.total_spent) %> Sold </li>
+          <% end %>
+        </ol>
+      </p>
+    </span>
+
+  </div>
+</div>
+
+<% end %>
+
 <% if current_admin?  %>
   <%= link_to "Downgrade to User", admin_merchant_edit_path({id: @user.id, request: :downgrade_to_user}), :method => :patch, class:"btn btn-primary" %>
 <% end %>

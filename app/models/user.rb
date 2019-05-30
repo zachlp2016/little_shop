@@ -10,6 +10,75 @@ class User < ApplicationRecord
 
   enum role: ["default", "merchant", "admin"]
 
+  def best_customer_items
+    order = OrderItem.joins("JOIN orders ON orders.id=order_items.order_id")
+             .joins(('JOIN users ON users.id=orders.user_id'))
+             .joins('JOIN items ON items.id=order_items.item_id')
+             .where("orders.status=2 AND items.user_id=#{self.id}")
+             .select('sum(order_items.quantity) AS total_bought, users.id as user_id, users.*')
+             .group('users.id')
+             .order('total_bought desc')
+             .limit(1)
+  end
+
+  def best_customer_orders
+    Order.where("orders.status = 2")
+      .joins(items: :order_items)
+      .joins(:user)
+      .where("items.user_id = ?", self.id)
+      .select("orders.user_id, COUNT(DISTINCT(order_items.order_id)) AS order_count")
+      .group("orders.user_id")
+      .order("order_count DESC")
+      .limit(1)
+  end
+
+  def top_3_city_state
+    self.items
+        .joins(:orders)
+        .joins("JOIN users ON users.id = orders.user_id")
+        .where("orders.status=2")
+        .select("sum(order_items.quantity) AS total_ordered, users.state, users.city")
+        .group("users.state")
+        .group("users.city")
+        .order("total_ordered desc")
+        .limit(3)
+  end
+
+ def top_3_states
+    User.select("users.state, sum(order_items.quantity) AS total_ordered")
+    .joins(orders: :items)
+    .where("orders.status = 2 AND items.user_id = #{self.id} ")
+    .group("users.state")
+    .order("total_ordered DESC")
+    .limit(3)
+  end
+
+  def top_items_sold(limit)
+    Item.joins(:user, :orders)
+        .where("orders.status = 2 AND items.user_id = #{self.id}")
+        .select("items.*, sum(order_items.quantity) AS total_ordered")
+        .group("items.id")
+        .order('total_ordered DESC')
+        .limit(limit)
+  end
+
+  def items_sold
+    User.joins(items: :orders)
+      .where("orders.status = 2 AND items.user_id = #{self.id}")
+      .select("users.*, sum(order_items.quantity) AS total_ordered, sum(items.inventory) AS total_inventory")
+      .group("users.id")
+      .first
+      .total_ordered
+  end
+
+  def total_items_count
+    items.sum(:inventory) + self.items_sold
+  end
+
+  def items_sold_percentage
+    items_sold / total_items_count.to_f
+  end
+
   def self.email_string
     pluck(:email)
   end
@@ -23,7 +92,7 @@ class User < ApplicationRecord
           where("items.user_id = #{self.id} AND orders.status = 1").
           distinct(:orders)
   end
-  
+
   def self.top_3_merchants_by_sales
     self.joins(items: :order_items)
         .joins('JOIN orders ON order_items.order_id=orders.id')
@@ -73,5 +142,15 @@ class User < ApplicationRecord
         .group(:city)
         .order(count: :desc)
         .limit(3)
+  end
+
+  def top_users
+OrderItem.joins('JOIN orders ON orders.id=order_items.order_id')
+         .joins('JOIN items ON items.id=order_items.item_id')
+         .joins('JOIN users ON users.id=orders.user_id')
+         .where("orders.status=2 AND items.user_id=#{self.id}")
+         .select('sum(order_items.quantity * order_items.price) AS total_spent, users.name, users.id')
+         .group('users.id')
+         .order('total_spent desc')
   end
 end
