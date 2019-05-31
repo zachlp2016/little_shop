@@ -5,10 +5,22 @@
 <p>Email: <%= @user.email %></p>
 <p>Role: <%= @user.role %></p>
 <p>Active: <%= @user.active %></p>
-<p>Address: <%= @user.address %></p>
-<p>City: <%= @user.city %></p>
-<p>State: <%= @user.state %></p>
-<p>Zip Code: <%= @user.zip %></p>
+
+<p>Addresses</p>
+<br>
+<section class="home-address">
+  <br>
+  <p>Home Address</p>
+  <br>
+  <p>Street: <%= @user.address %></p>
+  <p>City: <%= @user.city %></p>
+  <p>State: <%= @user.state %></p>
+  <p>Zip Code: <%= @user.zip %></p>
+</section>
+<br>
+<br>
+
+
 
 <%= link_to "Edit Profile", profile_edit_path %>
 
