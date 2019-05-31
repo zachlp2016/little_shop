@@ -27,7 +27,7 @@ RSpec.describe 'New user form' do
         expect(current_path).to eq("/profile")
 
         expect(page).to have_content("#{new_user.name}")
-        expect(page).to have_content("Address: #{new_user.address}")
+        expect(page).to have_content("Street: #{new_user.address}")
         expect(page).to have_content("City: #{new_user.city}")
         expect(page).to have_content("Zip Code: #{new_user.zip}")
         expect(page).to have_content("Email: #{new_user.email}")
@@ -94,6 +94,33 @@ RSpec.describe 'New user form' do
       expect(page).to have_content("Name can't be blank")
       expect(page).to have_content("State can't be blank")
       expect(page).to have_content("Password can't be blank")
+    end
+
+    it 'Will add the first address as a home address' do
+      visit register_path
+
+      fill_in 'Name', with: 'Mike'
+      fill_in 'Address', with: '1111 South One St.'
+      fill_in 'City', with: 'Denver'
+      fill_in 'State', with: 'Colorado'
+      fill_in 'Zip', with: '80000'
+      fill_in 'Email', with: 'user_1@gmail.com'
+      fill_in 'Password', with: '123456'
+      fill_in 'Confirm password', with: '123456'
+
+      click_button 'Create User'
+
+      last_user = User.last
+
+      expect(current_path).to eq(profile_path)
+      expect(page).to have_content('Addresses')
+      within '.home-address' do
+        expect(page).to have_content("Home Address")
+        expect(page).to have_content("Street: #{last_user.address}")
+        expect(page).to have_content("City: #{last_user.city}")
+        expect(page).to have_content("State: #{last_user.state}")
+        expect(page).to have_content("Zip Code: #{last_user.zip}")
+      end
     end
   end
 end
