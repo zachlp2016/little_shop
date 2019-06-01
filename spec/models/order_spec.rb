@@ -10,6 +10,9 @@ RSpec.describe Order, type: :model do
 
   describe 'validations' do
     it { should validate_presence_of :status }
+    it { should validate_presence_of :full_address }
+    it { should validate_presence_of :city }
+    it { should validate_presence_of :state }
   end
 
   describe 'instance methods' do
