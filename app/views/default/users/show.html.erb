@@ -6,7 +6,7 @@
 <p>Role: <%= @user.role %></p>
 <p>Active: <%= @user.active %></p>
 
-<p>Addresses</p>
+<h2>Addresses</h2>
 
 <br>
 <div class="add-address">
@@ -15,13 +15,27 @@
 <br>
 <section class="home-address">
   <br>
-  <p>Home Address</p>
+  <h3>Home Address</h3>
   <br>
   <p>Street: <%= @user.address %></p>
   <p>City: <%= @user.city %></p>
   <p>State: <%= @user.state %></p>
   <p>Zip Code: <%= @user.zip %></p>
 </section>
+<br>
+<br>
+  <h3>Other Addresses</h3>
+  <% @user.addresses.each do |address| %>
+    <section id="other-address-<%= address.id %>">
+      <p>Nickname: <%= address.nickname %></p>
+      <p>Street: <%= address.street %></p>
+      <p>City: <%= address.city %></p>
+      <p>State: <%= address.state %></p>
+      <p>Zip: <%= address.zip %></p>
+      <br>
+      <br>
+    </section>
+  <% end %>
 <br>
 <br>
 

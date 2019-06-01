@@ -10,7 +10,9 @@ RSpec.describe 'User new address page', type: :feature do
       end
 
       it 'Im taken to a new address form' do
-        visit new_address_path
+        visit profile_path
+
+        click_link('Add address')
 
         expect(page).to have_content('Create a New Address')
 
@@ -26,16 +28,13 @@ RSpec.describe 'User new address page', type: :feature do
 
         expect(page).to have_content('You have added a new address')
 
-        within ".other-address-#{last_address.id}" do
+        within "#other-address-#{last_address.id}" do
           expect(page).to have_content("Nickname: #{last_address.nickname}")
-          expect(page).to have_content("Nickname: #{last_address.street}")
-          expect(page).to have_content("Nickname: #{last_address.city}")
-          expect(page).to have_content("Nickname: #{last_address.state}")
-          expect(page).to have_content("Nickname: #{last_address.zip}")
+          expect(page).to have_content("Street: #{last_address.street}")
+          expect(page).to have_content("City: #{last_address.city}")
+          expect(page).to have_content("State: #{last_address.state}")
+          expect(page).to have_content("Zip: #{last_address.zip}")
         end
-
-        expect(page).to have_content()
-        expect(last_address.nickname).to eq('New Address')
       end
     end
   end
