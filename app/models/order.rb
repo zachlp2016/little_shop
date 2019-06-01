@@ -30,7 +30,7 @@ class Order < ApplicationRecord
       update(status: :packaged)
     end
   end
-  
+
   def self.biggest_3
     self.joins(:items)
         .select('count(items.id), orders.*')

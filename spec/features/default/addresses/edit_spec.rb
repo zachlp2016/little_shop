@@ -95,7 +95,7 @@ RSpec.describe 'Edit address page', type: :feature do
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
       end
 
-      it 'Im not allowed to update an address if an order has been shipped' do
+      xit 'Im not allowed to update an address if an order has been shipped' do
         visit profile_path
 
         within("#other-address-#{@other_address.id}") do
