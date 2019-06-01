@@ -34,25 +34,47 @@ RSpec.describe 'User show page', type: :feature do
         expect(current_path).to eq("/profile/edit")
       end
 
-      describe 'And I have orders placed in the system' do
-        it 'I can click on My Orders and navigate to profile/orders' do
-          order_1 = @user.orders.create!(status: 0)
+      it 'Sees a link to add new address' do
+        visit profile_path
 
-          visit profile_path
-
-          expect(page).to have_link("My Orders")
-
-          click_on "My Orders"
-
-          expect(current_path).to eq(profile_orders_path)
+        within '.add-address' do
+          click_link('Add address')
         end
+
+        expect(current_path).to eq(new_address_path)
       end
-      describe 'And I do not have orders placed in the system' do
-        it 'I do not see My Orders link' do
-          visit profile_path
+    end
+    describe 'And I have orders placed in the system' do
 
-          expect(page).to have_no_link("My Orders")
-        end
+      before :each do
+        @user = User.create!(email: "test@test.com", password_digest: "t3s7", role: 0, active: true, name: "Testy McTesterson", address: "123 Test St", city: "Testville", state: "Test", zip: "01234")
+
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+      end
+
+      it 'I can click on My Orders and navigate to profile/orders' do
+        order_1 = @user.orders.create!(status: 0)
+
+        visit profile_path
+
+        expect(page).to have_link("My Orders")
+
+        click_on "My Orders"
+
+        expect(current_path).to eq(profile_orders_path)
+      end
+    end
+    describe 'And I do not have orders placed in the system' do
+      before :each do
+        @user = User.create!(email: "test@test.com", password_digest: "t3s7", role: 0, active: true, name: "Testy McTesterson", address: "123 Test St", city: "Testville", state: "Test", zip: "01234")
+
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+      end
+
+      it 'I do not see My Orders link' do
+        visit profile_path
+
+        expect(page).to have_no_link("My Orders")
       end
     end
   end

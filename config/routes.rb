@@ -19,8 +19,12 @@ Rails.application.routes.draw do
   get '/profile', to: 'default/users#show'
   get '/profile/edit', to: 'default/users#edit'
   patch '/profile/edit', to: 'default/users#update'
+
+
+
   scope module: :default, path: :profile do
     resources :orders, only: [:create, :show, :index, :destroy], as: :profile_orders
+    resources :addresses, only: [:new, :create]
   end
 
 
