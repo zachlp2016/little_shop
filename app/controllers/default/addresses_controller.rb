@@ -8,7 +8,7 @@ class Default::AddressesController < Default::BaseController
   def create
     @user = current_user
     @address = @user.addresses.new(address_params)
-    if @address.save
+    if @address.save!
       flash[:notice] = "You have added a new address"
       redirect_to profile_path
     else

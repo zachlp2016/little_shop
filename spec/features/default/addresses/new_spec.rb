@@ -9,7 +9,7 @@ RSpec.describe 'User new address page', type: :feature do
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
       end
 
-      xit 'Im taken to a new address form' do
+      it 'Im taken to a new address form' do
         visit profile_path
 
         click_link('Add address')
@@ -24,6 +24,8 @@ RSpec.describe 'User new address page', type: :feature do
         fill_in 'Zip', with: '80226'
 
         click_button('Create Address')
+
+        last_address = Address.last
 
         expect(page).to have_content('You have added a new address')
 

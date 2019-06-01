@@ -30,6 +30,7 @@
 <br>
   <h3>Other Addresses</h3>
   <% @user.addresses.each do |address| %>
+  <% if !address.id.nil? %>
     <section id="other-address-<%= address.id %>">
       <p>Nickname: <%= address.nickname %></p>
       <p>Street: <%= address.street %></p>
@@ -42,6 +43,7 @@
       <%= link_to 'Delete Address', delete_non_home_address_path(address.id), method: :delete   %>
       <br>
     </section>
+    <% end %>
   <% end %>
 <br>
 <br>
