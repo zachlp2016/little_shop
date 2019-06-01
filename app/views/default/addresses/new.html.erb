@@ -1,0 +1,22 @@
+<h1>Create a New Address</h1>
+
+<%= form_for [@user, @address], :url => '/profile/addresses' do |f| %>
+
+<%= f.label :nickname %>
+<%= f.text_field :nickname %>
+
+<%= f.label :street %>
+<%= f.text_field :street %>
+
+<%= f.label :city %>
+<%= f.text_field :city %>
+
+<%= f.label :state %>
+<%= f.text_field :state %>
+
+<%= f.label :zip %>
+<%= f.text_field :zip %>
+
+<%= f.submit %>
+
+<% end %>
