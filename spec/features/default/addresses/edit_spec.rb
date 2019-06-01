@@ -91,7 +91,6 @@ RSpec.describe 'Edit address page', type: :feature do
         order_item_1 = create(:order_item, order: @order_1, item: @item_1)
         order_item_2 = create(:order_item, order: @order_1, item: @item_2)
         order_item_3 = create(:order_item, order: @order_1, item: @item_3)
-        binding.pry
 
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
       end
