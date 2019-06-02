@@ -3,7 +3,7 @@
   <%= msg %>
 <% end %>
 
-<%= form_for [@user, @address], url: update_non_home_address_path(@address.id) do |f| %>
+<%= form_for [@user, @address], url: address_path do |f| %>
 
   <%= f.label :nickname %>
   <%= f.text_field :nickname %>

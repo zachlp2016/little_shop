@@ -16,12 +16,12 @@
   <h3>Your Addresses</h3>
   <% @user.addresses.each do |address| %>
   <% if !address.id.nil? %>
-    <section id="other-address-<%= address.id %>">
+    <section id="address-<%= address.id %>">
       <p>Nickname: <%= address.nickname %></p>
       <p>Street: <%= address.street %></p>
       <p>City: <%= address.city %></p>
       <p>State: <%= address.state %></p>
-      <p>Zip: <%= address.zip %></p>
+      <p>Zip Code: <%= address.zip %></p>
       <br>
       <%= link_to 'Update address', edit_address_path(address.id)  %>
       <br>

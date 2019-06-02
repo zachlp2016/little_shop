@@ -25,9 +25,6 @@ Rails.application.routes.draw do
   scope module: :default, path: :profile do
     resources :orders, only: [:create, :show, :index, :destroy], as: :profile_orders
     resources :addresses, only: [:new, :create, :edit, :update, :destroy]
-    get 'addresses/:id/edit_home', to: 'addresses#edit'
-    patch 'addresses/:id/edit_home', to: 'addresses#update'
-    delete 'addresses/:id', to: 'addresses#delete'
   end
 
 
