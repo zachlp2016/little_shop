@@ -47,6 +47,12 @@ class Default::AddressesController < Default::BaseController
     end
   end
 
+  def destroy
+    Address.destroy(params[:id])
+    flash[:notice] = "The address has been deleted."
+    redirect_to profile_path
+  end
+
 
   private
 
