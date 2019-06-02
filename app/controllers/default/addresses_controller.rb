@@ -7,7 +7,7 @@ class Default::AddressesController < Default::BaseController
 
   def create
     @user = current_user
-    @address = @user.addresses.create!(address_params)
+    @address = @user.addresses.new(address_params)
     if @address.save
       flash[:notice] = "You have added a new address"
       redirect_to profile_path
@@ -31,14 +31,31 @@ class Default::AddressesController < Default::BaseController
     end
   end
 
+  def edit_non_home
+    @user = current_user
+    @address = current_user.addresses.find(params[:id])
+  end
+
+  def update_non_home
+    @user = current_user
+    @user.addresses.update(address_params)
+    if @user.save!
+      redirect_to profile_path
+      flash[:notice] = "You have updated that address."
+    else
+      render :edit_non_home
+    end
+  end
+
 
   private
+
+  def address_params
+    params.require(:address).permit(:nickname, :street, :city, :state, :zip)
+  end
 
   def address_home_params
     params.require(:user).permit(:address_nickname, :address, :city, :state, :zip)
   end
 
-  def address_params
-    params.require(:address).permit(:nickname, :street, :city, :state, :zip)
-  end
 end

@@ -31,10 +31,10 @@ RSpec.describe 'Edit address page', type: :feature do
         @user.reload
 
         within ".home-address" do
-          expect(page).to have_content("Street: #{@user.address}")
-          expect(page).to have_content("City: #{@user.city}")
-          expect(page).to have_content("State: #{@user.state}")
-          expect(page).to have_content("Zip Code: #{@user.zip}")
+          expect(page).to have_content('Street: 2222 New Street')
+          expect(page).to have_content('City: Denver')
+          expect(page).to have_content('State: CO')
+          expect(page).to have_content('Zip Code: 80226')
         end
       end
 
@@ -74,7 +74,7 @@ RSpec.describe 'Edit address page', type: :feature do
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
       end
 
-      xit 'Im taken to an Update address form' do
+      it 'Im taken to an Update address form' do
         visit profile_path
 
         within("#other-address-#{@other_address.id}") do
@@ -96,10 +96,11 @@ RSpec.describe 'Edit address page', type: :feature do
         expect(page).to have_content('You have updated that address.')
 
         within "#other-address-#{@other_address.id}" do
-          expect(page).to have_content("Street: #{@other_address.street}")
-          expect(page).to have_content("City: #{@@other_address.city}")
-          expect(page).to have_content("State: #{@@other_address.state}")
-          expect(page).to have_content("Zip: #{@@other_address.zip}")
+          expect(page).to have_content('Nickname: Second Address')
+          expect(page).to have_content('Street: 2222 New Street')
+          expect(page).to have_content('City: Denver')
+          expect(page).to have_content('State: CO')
+          expect(page).to have_content('Zip: 80226')
         end
       end
     end
