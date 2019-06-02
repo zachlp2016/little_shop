@@ -47,6 +47,19 @@ class Default::AddressesController < Default::BaseController
     end
   end
 
+  def erase_home
+    @user = current_user
+    @user.address = ""
+    @user.city = ""
+    @user.state = ""
+    @user.zip = ""
+    @user.save
+
+
+    redirect_to profile_path
+    flash[:notice] = "The home address has been deleted."
+  end
+
   def destroy
     Address.destroy(params[:id])
     flash[:notice] = "The address has been deleted."

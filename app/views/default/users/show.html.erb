@@ -23,6 +23,8 @@
   <p>Zip Code: <%= @user.zip %></p>
   <br>
   <%= link_to 'Update address', edit_home_address_path(@user.id)  %>
+
+  <%= link_to 'Delete address', erase_home_address_path(@user.id)  %>
 </section>
 <br>
 <br>
