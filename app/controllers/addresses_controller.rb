@@ -1,14 +1,14 @@
 class AddressesController < ApplicationController
 
   def new
-    @user = current_user
+    @user = User.find(params[:user_id])
     @address = @user.addresses.new
   end
 
   def create
-    @user = current_user
+    @user = User.find(params[:user_id])
     @address = @user.addresses.new(address_params)
-    if @address.save!
+    if @address.save
       flash[:notice] = "You have added a new address"
       redirect_to profile_path
     else
@@ -17,22 +17,35 @@ class AddressesController < ApplicationController
   end
 
   def edit
-    @user = current_user
-    @address = @user.addresses.find(params[:id])
+    @user = User.find(params[:user_id])
+    @address = Address.find(params[:id])
+    order_detection(@user, @address)
+  end
+
+  def order_detection(user, address)
+    user.orders.each do |order|
+      if order.status == "shipped" || order.status == "packaged"
+        redirect_to profile_path
+        flash["notice"] = "You cannot update or delete an address if its already being used in an order."
+      end
+    end
   end
 
   def update
     @user = User.find(params[:user_id])
-    @user.addresses.update(address_params)
-    if @user.save!
+    address = Address.update(params[:id], address_params)
+    if address.save
       redirect_to profile_path
-      flash[:notice] = "You have updated that address."
+      flash[:notice] = "You have updated your address."
     else
       render :edit
     end
   end
 
   def destroy
+    @user = User.find(params[:user_id])
+    @address = Address.find(params[:id])
+    order_detection(@user, @address)
     Address.destroy(params[:id])
     flash[:notice] = "The address has been deleted."
     redirect_to profile_path

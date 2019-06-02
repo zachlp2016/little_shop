@@ -3,7 +3,7 @@
   <%= msg %>
 <% end %>
 
-<%= form_for [@user, @address], url: address_path do |f| %>
+<%= form_for [@user, @address] do |f| %>
 
   <%= f.label :nickname %>
   <%= f.text_field :nickname %>
@@ -20,6 +20,6 @@
   <%= f.label :zip %>
   <%= f.text_field :zip %>
 
-  <%= submit_tag 'Update Address' %>
+  <%= f.submit 'Update Address' %>
 
 <% end %>

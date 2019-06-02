@@ -60,7 +60,7 @@ RSpec.describe 'User show page', type: :feature do
           click_link('Add address')
         end
 
-        expect(current_path).to eq(new_address_path)
+        expect(current_path).to eq(new_user_address_path(@user))
       end
     end
     describe 'And I have orders placed in the system' do

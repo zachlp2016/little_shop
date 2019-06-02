@@ -1,7 +1,6 @@
 
 
 <h2><%= @user.name %></h2>
-
 <p>Email: <%= @user.email %></p>
 <p>Role: <%= @user.role %></p>
 <p>Active: <%= @user.active %></p>
@@ -13,7 +12,6 @@
   <%= link_to 'Add address', new_user_address_path(@user.id) %>
 </div>
 <br>
-  <h3>Your Addresses</h3>
   <% @user.addresses.each do |address| %>
   <% if !address.id.nil? %>
     <section id="address-<%= address.id %>">
@@ -23,9 +21,9 @@
       <p>State: <%= address.state %></p>
       <p>Zip Code: <%= address.zip %></p>
       <br>
-      <%= link_to 'Update address', edit_user_address_path(@user.id)  %>
+      <%= link_to 'Update Address', edit_user_address_path(@user, address)  %>
       <br>
-      <%= link_to 'Delete Address', users_addresses_path(@user.id), method: :delete   %>
+      <%= link_to 'Delete Address', user_address_path(@user, address), method: :delete   %>
       <br>
     </section>
     <% end %>
