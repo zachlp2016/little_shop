@@ -6,6 +6,7 @@ RSpec.describe 'User show page', type: :feature do
       before :each do
         @user = User.create!(email: "test@test.com", password_digest: "t3s7", role: 0, active: true, name: "Testy McTesterson", address: "123 Test St", city: "Testville", state: "Test", zip: "01234")
 
+        @new_address = @user.addresses.last
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
       end
 
@@ -16,10 +17,14 @@ RSpec.describe 'User show page', type: :feature do
         expect(page).to have_content(@user.role)
         expect(page).to have_content(@user.active)
         expect(page).to have_content(@user.name)
-        expect(page).to have_content(@user.address)
-        expect(page).to have_content(@user.city)
-        expect(page).to have_content(@user.state)
-        expect(page).to have_content(@user.zip)
+
+        within "address-#{@new_address.id}" do
+          expect(page).to have_content(@new_address.nickname)
+          expect(page).to have_content(@new_address.address)
+          expect(page).to have_content(@new_address.city)
+          expect(page).to have_content(@new_address.state)
+          expect(page).to have_content(@new_address.zip)
+        end
 
         expect(page).to_not have_content(@user.password_digest)
       end
