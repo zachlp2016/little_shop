@@ -19,8 +19,20 @@ Rails.application.routes.draw do
   get '/profile', to: 'default/users#show'
   get '/profile/edit', to: 'default/users#edit'
   patch '/profile/edit', to: 'default/users#update'
+
+
+
   scope module: :default, path: :profile do
     resources :orders, only: [:create, :show, :index, :destroy], as: :profile_orders
+    resources :addresses, only: [:new, :create, :edit, :update, :destroy]
+    get 'addresses/:id/erase_home', to: 'addresses#erase_home', as: :erase_home_address
+    get 'addresses/:id/edit_home', to: 'addresses#edit_home', as: :edit_home_address
+    get 'addresses/:id/edit_non_home', to: 'addresses#edit_non_home', as: :edit_non_home_address
+    patch 'addresses/:id/edit_home', to: 'addresses#update_home', as: :update_home_address
+    patch 'addresses/:id/edit_non_home', to: 'addresses#update_non_home', as: :update_non_home_address
+    delete 'addresses/:id', to: 'addresses#delete_non_home_address', as: :delete_non_home_address
+    delete 'addresses/:id', to: 'addresses#delete_home_address', as: :delete_home_address
+
   end
 
 

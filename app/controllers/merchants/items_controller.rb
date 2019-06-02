@@ -8,8 +8,6 @@ class Merchants::ItemsController < Merchants::BaseController
     @item = @merchant.items.new
   end
 
-
-
   def create
     verify_image(params)
     @merchant = User.find(current_user.id)

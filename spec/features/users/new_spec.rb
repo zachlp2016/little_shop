@@ -92,7 +92,6 @@ RSpec.describe 'New user form' do
 
       expect(current_path).to eq(register_path)
       expect(page).to have_content("Name can't be blank")
-      expect(page).to have_content("State can't be blank")
       expect(page).to have_content("Password can't be blank")
     end
 
