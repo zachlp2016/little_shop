@@ -13,22 +13,7 @@
   <%= link_to 'Add address', new_address_path %>
 </div>
 <br>
-<section class="home-address">
-  <br>
-  <h3>Home Address</h3>
-  <br>
-  <p>Street: <%= @user.address %></p>
-  <p>City: <%= @user.city %></p>
-  <p>State: <%= @user.state %></p>
-  <p>Zip Code: <%= @user.zip %></p>
-  <br>
-  <%= link_to 'Update address', edit_home_address_path(@user.id)  %>
-
-  <%= link_to 'Delete address', erase_home_address_path(@user.id)  %>
-</section>
-<br>
-<br>
-  <h3>Other Addresses</h3>
+  <h3>Your Addresses</h3>
   <% @user.addresses.each do |address| %>
   <% if !address.id.nil? %>
     <section id="other-address-<%= address.id %>">
@@ -38,17 +23,15 @@
       <p>State: <%= address.state %></p>
       <p>Zip: <%= address.zip %></p>
       <br>
-      <%= link_to 'Update address', edit_non_home_address_path(address.id)  %>
+      <%= link_to 'Update address', edit_address_path(address.id)  %>
       <br>
-      <%= link_to 'Delete Address', delete_non_home_address_path(address.id), method: :delete   %>
+      <%= link_to 'Delete Address', addresses_path(address.id), method: :delete   %>
       <br>
     </section>
     <% end %>
   <% end %>
 <br>
 <br>
-
-
 
 <%= link_to "Edit Profile", profile_edit_path %>
 
