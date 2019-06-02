@@ -21,6 +21,8 @@
   <p>City: <%= @user.city %></p>
   <p>State: <%= @user.state %></p>
   <p>Zip Code: <%= @user.zip %></p>
+  <br>
+  <%= link_to 'Update address', edit_home_address_path(@user.id)  %>
 </section>
 <br>
 <br>
@@ -33,6 +35,7 @@
       <p>State: <%= address.state %></p>
       <p>Zip: <%= address.zip %></p>
       <br>
+      <%= link_to 'Update address', edit_address_path(@user.id)  %>
       <br>
     </section>
   <% end %>

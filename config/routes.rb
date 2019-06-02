@@ -24,7 +24,11 @@ Rails.application.routes.draw do
 
   scope module: :default, path: :profile do
     resources :orders, only: [:create, :show, :index, :destroy], as: :profile_orders
-    resources :addresses, only: [:new, :create]
+    resources :addresses, only: [:new, :create, :edit, :update]
+    get 'addresses/:id/edit_home', to: 'addresses#edit_home', as: :edit_home_address
+    get 'addresses/:id/edit_non_home', to: 'addresses#edit_non_home', as: :edit_non_home_address
+    patch 'addresses/:id/edit_home', to: 'addresses#update_home', as: :update_home_address
+    patch 'addresses/:id/edit_non_home', to: 'addresses#update_non_home', as: :update_non_home_address
   end
 
 
