@@ -6,6 +6,7 @@ RSpec.describe 'New user form' do
 
       before :each do
         @user_1 = User.create!(name: "default_user", role: 0, active: true, password_digest: "8320280282", address: "333", city: "Denver", state: "CO", zip: "80000", email: "default_user@gmail.com" )
+        @home_address = @user_1.addresses.last
       end
 
       it 'I can register as a new user' do
@@ -27,9 +28,6 @@ RSpec.describe 'New user form' do
         expect(current_path).to eq("/profile")
 
         expect(page).to have_content("#{new_user.name}")
-        expect(page).to have_content("Street: #{new_user.address}")
-        expect(page).to have_content("City: #{new_user.city}")
-        expect(page).to have_content("Zip Code: #{new_user.zip}")
         expect(page).to have_content("Email: #{new_user.email}")
         expect(page).to have_content("You are now registered and logged in.")
       end
@@ -113,12 +111,12 @@ RSpec.describe 'New user form' do
 
       expect(current_path).to eq(profile_path)
       expect(page).to have_content('Addresses')
-      within '.home-address' do
-        expect(page).to have_content("Home Address")
-        expect(page).to have_content("Street: #{last_user.address}")
-        expect(page).to have_content("City: #{last_user.city}")
-        expect(page).to have_content("State: #{last_user.state}")
-        expect(page).to have_content("Zip Code: #{last_user.zip}")
+      within "#address-#{@home_address.id}" do
+        expect(page).to have_content("Nickname: home")
+        expect(page).to have_content("Street: #{home_address.street}")
+        expect(page).to have_content("City: #{home_address.city}")
+        expect(page).to have_content("State: #{home_address.state}")
+        expect(page).to have_content("Zip Code: #{home_address.zip}")
       end
     end
   end
