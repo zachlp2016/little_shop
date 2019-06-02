@@ -1,4 +1,4 @@
-class Default::AddressesController < Default::BaseController
+class AddressesController < ApplicationController
 
   def new
     @user = current_user
@@ -18,17 +18,17 @@ class Default::AddressesController < Default::BaseController
 
   def edit
     @user = current_user
-    @address = current_user.addresses.find(params[:id])
+    @address = @user.addresses.find(params[:id])
   end
 
   def update
-    @user = current_user
+    @user = User.find(params[:user_id])
     @user.addresses.update(address_params)
     if @user.save!
       redirect_to profile_path
       flash[:notice] = "You have updated that address."
     else
-      render :edit_non_home
+      render :edit
     end
   end
 

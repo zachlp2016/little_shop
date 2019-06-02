@@ -10,7 +10,7 @@
 
 <br>
 <div class="add-address">
-  <%= link_to 'Add address', new_address_path %>
+  <%= link_to 'Add address', new_user_address_path(@user.id) %>
 </div>
 <br>
   <h3>Your Addresses</h3>
@@ -23,9 +23,9 @@
       <p>State: <%= address.state %></p>
       <p>Zip Code: <%= address.zip %></p>
       <br>
-      <%= link_to 'Update address', edit_address_path(address.id)  %>
+      <%= link_to 'Update address', edit_user_address_path(@user.id)  %>
       <br>
-      <%= link_to 'Delete Address', address_path(address.id), method: :delete   %>
+      <%= link_to 'Delete Address', users_addresses_path(@user.id), method: :delete   %>
       <br>
     </section>
     <% end %>

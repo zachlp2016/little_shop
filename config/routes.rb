@@ -24,7 +24,6 @@ Rails.application.routes.draw do
 
   scope module: :default, path: :profile do
     resources :orders, only: [:create, :show, :index, :destroy], as: :profile_orders
-    resources :addresses, only: [:new, :create, :edit, :update, :destroy]
   end
 
 
@@ -39,6 +38,11 @@ Rails.application.routes.draw do
     resources :order_items, only: [:update]
     resources :orders, only: [:show]
   end
+
+  resources :users do
+    resources :addresses, only: [:new, :create, :edit, :update, :destroy]
+  end
+
 
   namespace :admin do
     resources :users, only: [:index, :show]
