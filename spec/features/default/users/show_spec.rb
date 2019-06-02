@@ -4,9 +4,23 @@ RSpec.describe 'User show page', type: :feature do
   context 'As a regular user' do
     describe 'When I visit my own profile page' do
       before :each do
-        @user = User.create!(email: "test@test.com", password_digest: "t3s7", role: 0, active: true, name: "Testy McTesterson", address: "123 Test St", city: "Testville", state: "Test", zip: "01234")
+        visit register_path
 
-        @new_address = @user.addresses.last
+        fill_in 'Name', with: 'User'
+        fill_in 'Street', with: '1111 South One St.'
+        fill_in 'City', with: 'Denver'
+        fill_in 'State', with: 'CO'
+        fill_in 'Zip', with: '80000'
+        fill_in 'Email', with: 'user@gmail.com'
+        fill_in 'Password', with: 'password'
+        fill_in 'Confirm password', with: 'password'
+
+        click_button 'Create User'
+
+        @user = User.last
+        @new_address = User.last.addresses.last
+
+
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
       end
 
@@ -18,9 +32,9 @@ RSpec.describe 'User show page', type: :feature do
         expect(page).to have_content(@user.active)
         expect(page).to have_content(@user.name)
 
-        within "address-#{@new_address.id}" do
+        within "#address-#{@new_address.id}" do
           expect(page).to have_content(@new_address.nickname)
-          expect(page).to have_content(@new_address.address)
+          expect(page).to have_content(@new_address.street)
           expect(page).to have_content(@new_address.city)
           expect(page).to have_content(@new_address.state)
           expect(page).to have_content(@new_address.zip)
