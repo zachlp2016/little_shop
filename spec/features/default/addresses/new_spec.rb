@@ -29,12 +29,12 @@ RSpec.describe 'User new address page', type: :feature do
 
         expect(page).to have_content('You have added a new address')
 
-        within "#other-address-#{last_address.id}" do
+        within "#address-#{last_address.id}" do
           expect(page).to have_content("Nickname: #{last_address.nickname}")
           expect(page).to have_content("Street: #{last_address.street}")
           expect(page).to have_content("City: #{last_address.city}")
           expect(page).to have_content("State: #{last_address.state}")
-          expect(page).to have_content("Zip: #{last_address.zip}")
+          expect(page).to have_content("Zip Code: #{last_address.zip}")
         end
       end
     end
