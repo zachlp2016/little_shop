@@ -26,7 +26,7 @@ class Default::AddressesController < Default::BaseController
     @user.addresses.update(address_params)
     if @user.save!
       redirect_to profile_path
-      flash[:notice] = "You have updated your address."
+      flash[:notice] = "You have updated that address."
     else
       render :edit_non_home
     end
