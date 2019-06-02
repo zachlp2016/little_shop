@@ -401,8 +401,7 @@ describe 'As a registered user' do
       it 'has my addresses available' do
         click_link 'Checkout'
         order = Order.last
-        save_and_open_page
-        within('.home-address') do
+        within("#address-#{@address.id}") do
           expect(page).to have_content("Street: 123 Test St")
           expect(page).to have_content("City: Testville")
           expect(page).to have_content("State: Test")
