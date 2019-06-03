@@ -350,3 +350,81 @@ describe 'As a registered user' do
     end
   end
 end
+
+describe 'As a registered user' do
+  describe 'when viewing my cart with items in it' do
+    describe 'And I choose my home address' do
+      before :each do
+        @user = User.create!(email: "test@test.com", password: "password", role: 0, active: true, name: "Testy McTesterson", address: "123 Test St", city: "Testville", state: "Test", zip: "01234")
+        @merchant = create(:user, name: "Merchant", role: 1)
+        @item_1 = create(:item, user: @merchant)
+        @item_2 = create(:item, user: @merchant)
+        @item_3 = create(:item, user: @merchant)
+        @address = Address.create(street: "111 Address st.", city: "Testville", state: "CO", zip: "88822")
+
+        visit login_path
+
+        fill_in :email, with: @user.email
+        fill_in :password, with: 'password'
+        click_button 'Login'
+
+        visit items_path
+
+        within "#item-#{@item_1.id}" do
+          click_link "Add To Cart"
+        end
+
+        within "#item-#{@item_2.id}" do
+          click_link "Add To Cart"
+          click_link "Add To Cart"
+        end
+
+        within "#item-#{@item_3.id}" do
+          click_link "Add To Cart"
+          click_link "Add To Cart"
+          click_link "Add To Cart"
+        end
+
+        visit carts_path
+      end
+
+
+      it 'allows me to checkout' do
+        click_link 'Checkout'
+        order = Order.last
+        expect(order.status).to eq("pending")
+        expect(order.user).to eq(@user)
+        expect(current_path).to eq(profile_orders_path)
+        expect(page).to have_content("Your Order Was Created")
+      end
+
+      it 'has my addresses available' do
+        click_link 'Checkout'
+        order = Order.last
+        save_and_open_page
+        within('.home-address') do
+          expect(page).to have_content("Street: 123 Test St")
+          expect(page).to have_content("City: Testville")
+          expect(page).to have_content("State: Test")
+          expect(page).to have_content("Zip: 01234")
+          expect(page).to have_link("Choose This Address")
+        end
+      end
+
+      it 'shows my order on my orders page' do
+        click_link 'Checkout'
+        order = Order.last
+        within "#order-#{order.id}" do
+          expect(page).to have_link("Order ID: #{order.id}")
+        end
+      end
+
+      it 'clears my cart' do
+        click_link 'Checkout'
+        within '#navbarNav' do
+          expect(page).to have_content("(0)")
+        end
+      end
+    end
+  end
+end

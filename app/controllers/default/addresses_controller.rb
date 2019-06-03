@@ -16,27 +16,12 @@ class Default::AddressesController < Default::BaseController
     end
   end
 
-  def edit_home
-    @user = current_user
-  end
-
-  def update_home
-    @user = current_user
-    @user.update(address_home_params)
-    if @user.save
-      flash[:notice] = "You have updated your home address."
-      redirect_to profile_path
-    else
-      render :edit_home
-    end
-  end
-
-  def edit_non_home
+  def edit
     @user = current_user
     @address = current_user.addresses.find(params[:id])
   end
 
-  def update_non_home
+  def update
     @user = current_user
     @user.addresses.update(address_params)
     if @user.save!
@@ -45,19 +30,6 @@ class Default::AddressesController < Default::BaseController
     else
       render :edit_non_home
     end
-  end
-
-  def erase_home
-    @user = current_user
-    @user.address = ""
-    @user.city = ""
-    @user.state = ""
-    @user.zip = ""
-    @user.save
-
-
-    redirect_to profile_path
-    flash[:notice] = "The home address has been deleted."
   end
 
   def destroy
