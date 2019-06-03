@@ -4,15 +4,11 @@ RSpec.describe 'New user form' do
   context 'As a visitor' do
     describe 'When I visit the register new register link' do
 
-      before :each do
-        @user_1 = User.create!(name: "default_user", role: 0, active: true, password_digest: "8320280282", address: "333", city: "Denver", state: "CO", zip: "80000", email: "default_user@gmail.com" )
-      end
-
       it 'I can register as a new user' do
         visit register_path
 
         fill_in 'Name', with: 'User'
-        fill_in 'Address', with: '1111 South One St.'
+        fill_in 'Street', with: '1111 South One St.'
         fill_in 'City', with: 'Denver'
         fill_in 'State', with: 'CO'
         fill_in 'Zip', with: '80000'
@@ -27,9 +23,6 @@ RSpec.describe 'New user form' do
         expect(current_path).to eq("/profile")
 
         expect(page).to have_content("#{new_user.name}")
-        expect(page).to have_content("Street: #{new_user.address}")
-        expect(page).to have_content("City: #{new_user.city}")
-        expect(page).to have_content("Zip Code: #{new_user.zip}")
         expect(page).to have_content("Email: #{new_user.email}")
         expect(page).to have_content("You are now registered and logged in.")
       end
@@ -38,7 +31,7 @@ RSpec.describe 'New user form' do
         visit register_path
 
         fill_in 'Name', with: 'User'
-        fill_in 'Address', with: '1111 South One St.'
+        fill_in 'Street', with: '1111 South One St.'
         fill_in 'City', with: 'Denver'
         fill_in 'State', with: 'CO'
         fill_in 'Zip', with: '80000'
@@ -60,7 +53,7 @@ RSpec.describe 'New user form' do
         visit register_path
 
         fill_in 'Name', with: 'User_2'
-        fill_in 'Address', with: '1111 South One St.'
+        fill_in 'Street', with: '1111 South One St.'
         fill_in 'City', with: 'Denver'
         fill_in 'State', with: 'CO'
         fill_in 'Zip', with: '80000'
@@ -80,7 +73,7 @@ RSpec.describe 'New user form' do
       visit register_path
 
       fill_in 'Name', with: ''
-      fill_in 'Address', with: '1111 South One St.'
+      fill_in 'Street', with: '1111 South One St.'
       fill_in 'City', with: 'Denver'
       fill_in 'State', with: ''
       fill_in 'Zip', with: '80000'
@@ -99,7 +92,7 @@ RSpec.describe 'New user form' do
       visit register_path
 
       fill_in 'Name', with: 'Mike'
-      fill_in 'Address', with: '1111 South One St.'
+      fill_in 'Street', with: '1111 South One St.'
       fill_in 'City', with: 'Denver'
       fill_in 'State', with: 'Colorado'
       fill_in 'Zip', with: '80000'
@@ -109,16 +102,17 @@ RSpec.describe 'New user form' do
 
       click_button 'Create User'
 
-      last_user = User.last
+      new_user = User.last
+      new_address = User.last.addresses.last
 
       expect(current_path).to eq(profile_path)
       expect(page).to have_content('Addresses')
-      within '.home-address' do
-        expect(page).to have_content("Home Address")
-        expect(page).to have_content("Street: #{last_user.address}")
-        expect(page).to have_content("City: #{last_user.city}")
-        expect(page).to have_content("State: #{last_user.state}")
-        expect(page).to have_content("Zip Code: #{last_user.zip}")
+      within "#address-#{new_address.id}" do
+        expect(page).to have_content("Nickname: home")
+        expect(page).to have_content("Street: #{new_address.street}")
+        expect(page).to have_content("City: #{new_address.city}")
+        expect(page).to have_content("State: #{new_address.state}")
+        expect(page).to have_content("Zip Code: #{new_address.zip}")
       end
     end
   end

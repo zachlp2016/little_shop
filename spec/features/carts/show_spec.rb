@@ -398,19 +398,6 @@ describe 'As a registered user' do
         expect(page).to have_content("Your Order Was Created")
       end
 
-      it 'has my addresses available' do
-        click_link 'Checkout'
-        order = Order.last
-        save_and_open_page
-        within('.home-address') do
-          expect(page).to have_content("Street: 123 Test St")
-          expect(page).to have_content("City: Testville")
-          expect(page).to have_content("State: Test")
-          expect(page).to have_content("Zip: 01234")
-          expect(page).to have_link("Choose This Address")
-        end
-      end
-
       it 'shows my order on my orders page' do
         click_link 'Checkout'
         order = Order.last

@@ -7,17 +7,21 @@
 <p><%= f.label :name %></p>
 <%= f.text_field :name %>
 
-<p><%= f.label :address %></p>
-<%= f.text_field :address %>
+<%= f.fields_for :address do |address| %>
 
-<p><%= f.label :city %></p>
-<%= f.text_field :city %>
+  <p><%= address.label :street %></p>
+  <%= address.text_field :street %>
 
-<p><%= f.label :state %></p>
-<%= f.text_field :state %>
+  <p><%= address.label :city %></p>
+  <%= address.text_field :city %>
 
-<p><%= f.label :zip %></p>
-<%= f.text_field :zip %>
+  <p><%= address.label :state %></p>
+  <%= address.text_field :state %>
+
+  <p><%= address.label :zip %></p>
+  <%= address.text_field :zip %>
+
+<% end %>
 
 <p><%= f.label :email %></p>
 <%= f.text_field :email %>

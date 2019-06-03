@@ -1,7 +1,5 @@
 
-
 <h2><%= @user.name %></h2>
-
 <p>Email: <%= @user.email %></p>
 <p>Role: <%= @user.role %></p>
 <p>Active: <%= @user.active %></p>
@@ -10,22 +8,21 @@
 
 <br>
 <div class="add-address">
-  <%= link_to 'Add address', new_address_path %>
+  <%= link_to 'Add address', new_user_address_path(@user.id) %>
 </div>
 <br>
-  <h3>Your Addresses</h3>
   <% @user.addresses.each do |address| %>
   <% if !address.id.nil? %>
-    <section id="other-address-<%= address.id %>">
+    <section id="address-<%= address.id %>">
       <p>Nickname: <%= address.nickname %></p>
       <p>Street: <%= address.street %></p>
       <p>City: <%= address.city %></p>
       <p>State: <%= address.state %></p>
-      <p>Zip: <%= address.zip %></p>
+      <p>Zip Code: <%= address.zip %></p>
       <br>
-      <%= link_to 'Update address', edit_address_path(address.id)  %>
+      <%= link_to 'Update Address', edit_user_address_path(@user, address)  %>
       <br>
-      <%= link_to 'Delete Address', addresses_path(address.id), method: :delete   %>
+      <%= link_to 'Delete Address', user_address_path(@user, address), method: :delete   %>
       <br>
     </section>
     <% end %>
